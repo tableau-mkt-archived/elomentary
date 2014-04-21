@@ -1,0 +1,26 @@
+{
+  "name": "tableau-mkt/elomentary",
+  "description": "The simple PHP Eloqua REST API client; object oriented, tested, and documented for PHP 5.3+.",
+  "keywords": ["eloqua", "rest", "api"],
+  "homepage": "https://github.com/tableau-mkt/elomentary",
+  "type": "library",
+  "license": "GPL-2.0+",
+  "authors": [{
+    "name": "Eric Peterson",
+    "email": "epeterson@tableausoftware.com"
+  }, {
+    "name": "Gary Gao",
+    "email": "ggao@tableausoftware.com"
+  }],
+  "require": {
+    "php": ">=5.3.3",
+    "ext-curl": "*",
+    "guzzle/guzzle": ">=3.7"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "3.7.*"
+  },
+  "autoload": {
+    "psr-0": {"Eloqua": "lib/"}
+  }
+}
