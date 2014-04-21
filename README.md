@@ -1,4 +1,4 @@
-# Elomentary
+# Elomentary [![Build Status](https://travis-ci.org/tableau-mkt/elomentary.svg)](https://travis-ci.org/tableau-mkt/elomentary)
 
 The simple, objected oriented wrapper for the Eloqua REST API.
 
