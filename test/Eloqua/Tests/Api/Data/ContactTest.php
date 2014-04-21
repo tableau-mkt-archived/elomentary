@@ -1,0 +1,83 @@
+<?php
+
+/**
+ * @file
+ * Contains \Eloqua\Tests\Api\Data\ContactTest.
+ */
+
+namespace Eloqua\Tests\Api\Data;
+
+use Eloqua\Tests\Api\TestCase;
+
+class ContactTest extends TestCase {
+
+  /**
+   * @test
+   */
+  public function shouldSearchContacts() {
+    $email_address = 'foobar@example.com';
+    $expected_response = array('response');
+
+    $api = $this->getApiMock();
+    $api->expects($this->once())
+      ->method('get')
+      ->with('data/contacts', array('search' => $email_address))
+      ->will($this->returnValue($expected_response));
+
+    $this->assertEquals($expected_response, $api->search($email_address));
+  }
+
+  /**
+   * @test
+   */
+  public function shouldSearchContactsWithOptions() {
+    $email_address = 'foobar@example.com';
+    $options = array('count' => 5);
+    $expected_response = array('response');
+
+    $api = $this->getApiMock();
+    $api->expects($this->once())
+      ->method('get')
+      ->with('data/contacts', array_merge(array('search' => $email_address), $options))
+      ->will($this->returnValue($expected_response));
+
+    $this->assertEquals($expected_response, $api->search($email_address, $options));
+  }
+
+  /**
+   * @test
+   */
+  public function shouldShowContact() {
+    $contact_id = 1337;
+    $expected_response = array('response');
+
+    $api = $this->getApiMock();
+    $api->expects($this->once())
+      ->method('get')
+      ->with('data/contact/' . $contact_id)
+      ->will($this->returnValue($expected_response));
+
+    $this->assertEquals($expected_response, $api->show($contact_id));
+  }
+
+  /**
+   * @test
+   */
+  public function shouldGetSubscriptions() {
+    $contact_id = 1337;
+    $expected_response = array('response');
+
+    $api = $this->getApiMock();
+    $api->expects($this->once())
+      ->method('get')
+      ->with('data/contact/' . $contact_id . '/email/groups/subscription')
+      ->will($this->returnValue($expected_response));
+
+    $this->assertEquals($expected_response, $api->subscriptions($contact_id));
+  }
+
+  protected function getApiClass() {
+    return 'Eloqua\Api\Data\Contact';
+  }
+
+}
