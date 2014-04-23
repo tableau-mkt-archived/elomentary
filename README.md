@@ -86,6 +86,7 @@ autoloader. You can add a requirement like so:
 require_once 'vendor/autoload.php';
 
 $client = new \Eloqua\Client();
+$client->authenticate('MySite', 'My.User', 'BatteryHorseStaple');
 $contacts = $client->api('contacts')->search('*@example.com');
 ```
 
