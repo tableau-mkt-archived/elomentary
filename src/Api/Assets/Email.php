@@ -35,4 +35,17 @@ class Email extends AbstractApi implements SearchableInterface {
     return new Group($this->client);
   }
 
+  /**
+   * Return extended information about an email by its ID.
+   *
+   * @param int $id
+   *   The ID associated with the desired email.
+   *
+   * @return array
+   *   The desired email record represented as an associative array.
+   */
+  public function show($id) {
+    return $this->get('assets/email/' . rawurlencode($id));
+  }
+
 }

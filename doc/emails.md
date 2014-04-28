@@ -16,6 +16,12 @@ $groups = $client->api('email')->groups();
 For more details, see documentation on
 [e-mail groups](emails/groups.md).
 
+Get a single email by a given ID.
+
+```php
+$client->api('email')->show($email_id);
+```
+
 ### Links
 
 * [API details on Topliners](http://topliners.eloqua.com/docs/DOC-3083)

@@ -52,6 +52,22 @@ class EmailTest extends TestCase {
     $this->assertInstanceOf('Eloqua\Api\Assets\Email\Group', $api->groups());
   }
 
+  /**
+   * @test
+   */
+  public function shouldShowEmail() {
+    $id = 1337;
+    $expected_response = array('response');
+
+    $api = $this->getApiMock();
+    $api->expects($this->once())
+      ->method('get')
+      ->with('assets/email/' . $id)
+      ->will($this->returnValue($expected_response));
+
+    $this->assertEquals($expected_response, $api->show($id));
+  }
+
   protected function getApiClass() {
     return 'Eloqua\Api\Assets\Email';
   }
