@@ -12,12 +12,12 @@
 >
   <testsuites>
     <testsuite name="Eloqua API Test Suite">
-      <directory>./test/Eloqua/</directory>
+      <directory>./test/</directory>
     </testsuite>
   </testsuites>
   <filter>
     <whitelist>
-      <directory suffix=".php">./lib/Eloqua/</directory>
+      <directory suffix=".php">./lib/</directory>
     </whitelist>
   </filter>
 </phpunit>

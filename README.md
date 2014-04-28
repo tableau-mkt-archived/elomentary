@@ -4,7 +4,7 @@ The simple, objected oriented wrapper for the Eloqua REST API.
 
 ## Features
 
-* Follows PSR-0 conventions for friendly autoloading
+* Follows PSR-4 conventions for friendly autoloading
 * Extensively tested and documented
 
 ## Requirements

@@ -12,6 +12,6 @@ if ((!$loader = includeIfExists(__DIR__.'/../vendor/autoload.php')) && (!$loader
     'php composer.phar install'.PHP_EOL);
 }
 
-$loader->add('Eloqua\Tests', __DIR__);
+$loader->addPsr4('Eloqua\\Tests\\', __DIR__ . '/src');
 
 return $loader;
