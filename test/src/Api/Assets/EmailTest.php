@@ -68,6 +68,23 @@ class EmailTest extends TestCase {
     $this->assertEquals($expected_response, $api->show($id));
   }
 
+  /**
+   * @test
+   */
+  public function shouldCreateEmail() {
+    $name = 'Elomentary Test Email';
+    $options = array('folderId' => 7);
+    $expected_response = array('response');
+
+    $api = $this->getApiMock();
+    $api->expects($this->once())
+      ->method('post')
+      ->with('assets/email', array_merge(array('name' => $name), $options))
+      ->will($this->returnValue($expected_response));
+
+    $this->assertEquals($expected_response, $api->create($name, $options));
+  }
+
   protected function getApiClass() {
     return 'Eloqua\Api\Assets\Email';
   }

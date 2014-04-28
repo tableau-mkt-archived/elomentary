@@ -48,4 +48,22 @@ class Email extends AbstractApi implements SearchableInterface {
     return $this->get('assets/email/' . rawurlencode($id));
   }
 
+  /**
+   * Create an email.
+   *
+   * @param string $name
+   *   The desired name of the email.
+   *
+   * @param array $options
+   *   An optional array of additional query parameters to be passed.
+   *
+   * @return array
+   *   The created email record represented as an associative array.
+   */
+  public function create($name, array $options = array()) {
+    return $this->post('assets/email', array_merge(array(
+      'name' => $name,
+    ), $options));
+  }
+
 }
