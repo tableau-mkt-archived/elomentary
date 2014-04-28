@@ -8,23 +8,15 @@
 namespace Eloqua\Api\Data;
 
 use Eloqua\Api\AbstractApi;
+use Eloqua\Api\SearchableInterface;
 
 /**
  * Eloqua Contact.
  */
-class Contact extends AbstractApi {
+class Contact extends AbstractApi implements SearchableInterface {
 
   /**
-   * Search contact records by a given e-mail.
-   *
-   * @param string $search
-   *   The string by which email records should be searched.
-   *
-   * @param array $options
-   *   An optional array of additional query parameters to be passed.
-   *
-   * @return array
-   *   An array of contacts.
+   * {@inheritdoc}
    */
   public function search($search, array $options = array()) {
     return $this->get('data/contacts', array_merge(array(

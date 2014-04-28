@@ -20,5 +20,4 @@ interface ApiInterface {
 
   public function setCount($count);
 
-  public function search($search, array $options);
 }
