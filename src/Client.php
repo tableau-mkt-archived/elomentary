@@ -64,6 +64,11 @@ class Client
         $api = new Api\Data\Contact($this);
         break;
 
+      case 'email':
+      case 'emails':
+        $api = new Api\Assets\Email($this);
+        break;
+
       default:
         throw new InvalidArgumentException(sprintf('Undefined API instance: "%s"', $name));
     }
