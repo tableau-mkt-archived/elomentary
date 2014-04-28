@@ -1,5 +1,9 @@
 <?php
 
+// Set the default timezone. While this doesn't cause any tests to fail, PHP
+// complains if 'date.timezone' is not set in php.ini.
+date_default_timezone_set('UTC');
+
 function includeIfExists($file) {
   if (file_exists($file)) {
     return include $file;
