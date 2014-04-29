@@ -22,6 +22,23 @@ Get a single email by a given ID.
 $client->api('email')->show($email_id);
 ```
 
+Create an email with a given name and array of options.
+
+```php
+$client->api('email')->create('Elomentary Test', array(
+  'folderId' => 123,
+  'emailGroupId' => 123,
+  'subject' => 'Elomentary Test Subject',
+));
+```
+
+Remove a single email by a given ID.
+
+```php
+$client->api('email')->remove($email_id);
+```
+
+
 ### Links
 
 * [API details on Topliners](http://topliners.eloqua.com/docs/DOC-3083)
