@@ -73,7 +73,11 @@ class EmailTest extends TestCase {
    */
   public function shouldCreateEmail() {
     $name = 'Elomentary Test Email';
-    $options = array('folderId' => 42);
+    $options = array(
+      'folderId' => 42,
+      'emailGroupId' => 420,
+      'subject' => 'Test Subject',
+    );
     $expected_response = array('response');
 
     $api = $this->getApiMock();
@@ -83,6 +87,22 @@ class EmailTest extends TestCase {
       ->will($this->returnValue($expected_response));
 
     $this->assertEquals($expected_response, $api->create($name, $options));
+  }
+
+  /**
+   * @test
+   * @expectedException InvalidArgumentException
+   */
+  public function shouldThrowExceptionWhenCreatingEmailWithMissingParams()
+  {
+    $name = 'Elomentary, My Dear Watson';
+    $options = array('folderId' => 42);
+
+    $api = $this->getApiMock();
+    $api->expects($this->any())
+      ->method('post');
+
+    $api->create($name, $options);
   }
 
   protected function getApiClass() {
