@@ -41,7 +41,12 @@ class ErrorListener {
       if (is_array($content)) {
         $error = $content[0];
         if (400 == $response->getStatusCode()) {
-          throw new ErrorException(sprintf('%s - %s (%s)', $error['type'], $error['property'], $error['requirement']['type']), 400);
+          if (isset($error['property']) && isset($error['requirement'])) {
+            throw new ErrorException(sprintf('%s - %s (%s)', $error['type'], $error['property'], $error['requirement']['type']), 400);
+          }
+          else {
+            throw new ErrorException(sprintf('%s - %s', $error['type'], $error['message'] ? $error['message'] : json_encode($content)), 400);
+          }
         }
       }
       else {
