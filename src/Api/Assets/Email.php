@@ -10,6 +10,7 @@ namespace Eloqua\Api\Assets;
 use Eloqua\Api\AbstractApi;
 use Eloqua\Api\Assets\Email\Group;
 use Eloqua\Api\SearchableInterface;
+use Eloqua\Exception\InvalidArgumentException;
 
 /**
  * Eloqua Email.
@@ -61,9 +62,18 @@ class Email extends AbstractApi implements SearchableInterface {
    *   The created email record represented as an associative array.
    */
   public function create($name, array $options = array()) {
-    return $this->post('assets/email', array_merge(array(
-      'name' => $name,
-    ), $options));
+    $params = array_merge(array('name' => $name), $options);
+
+    // Validate the request before sending it.
+    $required = array('name', 'subject', 'folderId', 'emailGroupId');
+
+    foreach ($required as $key) {
+      if (!array_key_exists($key, $params) || empty($params[$key])) {
+        throw new InvalidArgumentException("You must specify a non-empty value for $key.");
+      }
+    }
+
+    return $this->post('assets/email', $params);
   }
 
 }
