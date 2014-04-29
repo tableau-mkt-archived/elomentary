@@ -105,6 +105,35 @@ class EmailTest extends TestCase {
     $api->create($name, $options);
   }
 
+  /**
+   * @test
+   */
+  public function shouldRemoveEmail()
+  {
+    $email_id = 1337;
+    $expected_response = array('response');
+
+    $api = $this->getApiMock();
+    $api->expects($this->once())
+      ->method('delete')
+      ->with('assets/email/' . $email_id)
+      ->will($this->returnValue($expected_response));
+    $this->assertEquals($expected_response, $api->remove($email_id));
+  }
+
+  /**
+   * @test
+   * @expectedException InvalidArgumentException
+   */
+  public function shouldThrowExceptionWithBadId()
+  {
+    $api = $this->getApiMock();
+    $api->expects($this->any())
+      ->method('delete');
+
+    $api->remove('x404');
+  }
+
   protected function getApiClass() {
     return 'Eloqua\Api\Assets\Email';
   }

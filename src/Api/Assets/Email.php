@@ -60,6 +60,8 @@ class Email extends AbstractApi implements SearchableInterface {
    *
    * @return array
    *   The created email record represented as an associative array.
+   *
+   * @throws InvalidArgumentException
    */
   public function create($name, array $options = array()) {
     $params = array_merge(array('name' => $name), $options);
@@ -76,4 +78,18 @@ class Email extends AbstractApi implements SearchableInterface {
     return $this->post('assets/email', $params);
   }
 
+  /**
+   * Remove an email by its ID.
+   *
+   * @param int $id
+   *   The ID associated with the desired email.
+   *
+   * @throws InvalidArgumentException
+   */
+  public function remove($id) {
+    if (empty($id) || !is_numeric($id)) {
+      throw new InvalidArgumentException('ID must be numeric');
+    }
+    return $this->delete('assets/email/' . rawurlencode($id));
+  }
 }
