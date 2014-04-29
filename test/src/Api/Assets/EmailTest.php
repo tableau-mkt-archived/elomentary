@@ -73,7 +73,7 @@ class EmailTest extends TestCase {
    */
   public function shouldCreateEmail() {
     $name = 'Elomentary Test Email';
-    $options = array('folderId' => 7);
+    $options = array('folderId' => 42);
     $expected_response = array('response');
 
     $api = $this->getApiMock();

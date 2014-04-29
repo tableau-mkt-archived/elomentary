@@ -15,6 +15,7 @@ use Guzzle\Http\Message\Response;
 use Eloqua\Exception\ErrorException;
 use Eloqua\Exception\RuntimeException;
 use Eloqua\HttpClient\Listener\AuthListener;
+use Eloqua\HttpClient\Listener\ErrorListener;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -43,6 +44,7 @@ class HttpClient implements HttpClientInterface {
     $client = $client ?: new GuzzleClient($this->options['base_url'] . '/' . $this->options['version'], $this->options);
     $this->client  = $client;
 
+    $this->addListener('request.error', array(new ErrorListener($this->options), 'onRequestError'));
     $this->clearHeaders();
   }
 
