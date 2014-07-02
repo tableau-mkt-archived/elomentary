@@ -7,6 +7,7 @@
 
 namespace Eloqua\Tests\Api\Data;
 
+use Eloqua\Exception\InvalidArgumentException;
 use Eloqua\Tests\Api\TestCase;
 
 class ContactTest extends TestCase {
@@ -90,6 +91,31 @@ class ContactTest extends TestCase {
       ->will($this->returnValue($expected_response));
 
     $this->assertEquals($expected_response, $api->remove($contact_id));
+  }
+
+  /**
+   * @test
+   */
+  public function shouldCreateContact() {
+    $contact_data = array('emailAddress' => 'foobar@example.com');
+
+    $api = $this->getApiMock();
+    $api->expects($this->once())
+      ->method('post')
+      ->with('data/contact', $contact_data)
+      ->will($this->returnValue($contact_data));
+
+    $this->assertEquals($contact_data, $api->create($contact_data));
+  }
+
+  /**
+   * @test
+   * @expectedException InvalidArgumentException
+   */
+  public function shouldThrowExceptionCreateNoAddress() {
+    $contact_data = array('firstName' => 'Foo');
+    $api = $this->getApiMock();
+    $api->create($contact_data);
   }
 
   /**
