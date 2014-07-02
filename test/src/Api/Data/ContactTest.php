@@ -63,6 +63,22 @@ class ContactTest extends TestCase {
   /**
    * @test
    */
+  public function shouldUpdateContact() {
+    $contact_id = 1337;
+    $contact_data = array('emailAddress' => 'foobar@example.com');
+
+    $api = $this->getApiMock();
+    $api->expects($this->once())
+      ->method('put')
+      ->with('data/contact/' . $contact_id, $contact_data)
+      ->will($this->returnValue($contact_data));
+
+    $this->assertEquals($contact_data, $api->update($contact_id, $contact_data));
+  }
+
+  /**
+   * @test
+   */
   public function shouldGetSubscriptions() {
     $contact_id = 1337;
     $expected_response = array('response');
