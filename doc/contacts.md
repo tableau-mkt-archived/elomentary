@@ -38,6 +38,17 @@ Delete a single contact of a given ID.
 $client->api('contact')->remove($contact_id);
 ```
 
+Create a contact.
+```php
+$contact_data = array(
+  // At a minimum, must include the "emailAddress" key.
+  'emailAddress' => 'foobar@example.com',
+  'firstName' => 'Foo',
+);
+$client->api('contact')->create($contact_data);
+```
+This will throw an InvalidArgumentException if an e-mail address isn't provided.
+
 Get a single contact's subscriptions.
 
 ```php

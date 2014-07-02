@@ -9,6 +9,7 @@ namespace Eloqua\Api\Data;
 
 use Eloqua\Api\AbstractApi;
 use Eloqua\Api\SearchableInterface;
+use Eloqua\Exception\InvalidArgumentException;
 
 /**
  * Eloqua Contact.
@@ -63,6 +64,25 @@ class Contact extends AbstractApi implements SearchableInterface {
    */
   public function remove($id) {
     return $this->delete('data/contact/' . rawurlencode($id));
+  }
+
+  /**
+   * @param array $data
+   *   An associative array representing a contact, keyed by property name. At a
+   *   minimum, this must include the emailAddress key. For further details,
+   *   @see http://secure.eloqua.com/api/docs/Static/Rest/2.0/doc.htm#Contact
+   *
+   * @return array
+   *   The contact, with populated accountId, etc.
+   *
+   * @throws InvalidArgumentException
+   */
+  public function create($data) {
+    if (!isset($data['emailAddress'])) {
+      throw new InvalidArgumentException('At a minimum, you must provide an emailAddress.');
+    }
+
+    return $this->post('data/contact', $data);
   }
 
   /**
