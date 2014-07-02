@@ -79,6 +79,22 @@ class ContactTest extends TestCase {
   /**
    * @test
    */
+  public function shouldRemoveContact() {
+    $contact_id = 1337;
+    $expected_response = null;
+
+    $api = $this->getApiMock();
+    $api->expects($this->once())
+      ->method('delete')
+      ->with('data/contact/' . $contact_id)
+      ->will($this->returnValue($expected_response));
+
+    $this->assertEquals($expected_response, $api->remove($contact_id));
+  }
+
+  /**
+   * @test
+   */
   public function shouldGetSubscriptions() {
     $contact_id = 1337;
     $expected_response = array('response');
