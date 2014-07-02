@@ -26,6 +26,13 @@ Get a single contact by a given ID.
 $client->api('contact')->show($contact_id);
 ```
 
+Update/replace a single contact of a given ID.
+```php
+$client->api('contact')->update($contact_id, $contact_data);
+```
+Note that `$contact_data` must include [all Minimal Contact keys]; partial data
+will not suffice.
+
 Get a single contact's subscriptions.
 
 ```php
@@ -35,3 +42,5 @@ $client->api('contact')->subscriptions($contact_id);
 ### Links
 
 * [API details on Topliners](http://topliners.eloqua.com/docs/DOC-3070)
+
+[all Minimal Contact keys]: http://secure.eloqua.com/api/docs/Static/Rest/2.0/doc.htm#Contact

@@ -38,6 +38,22 @@ class Contact extends AbstractApi implements SearchableInterface {
   }
 
   /**
+   * Update a contact.
+   *
+   * @param int $id
+   *   The ID associated with the given contact.
+   *
+   * @param array $data
+   *   Full contact details to be updated.
+   *
+   * @return array
+   *   The updated contact data.
+   */
+  public function update($id, $data) {
+    return $this->put('data/contact/' . rawurlencode($id), $data);
+  }
+
+  /**
    * Return subscriptions for a contact by its ID.
    *
    * @param int $id
