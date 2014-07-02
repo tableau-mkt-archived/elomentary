@@ -33,6 +33,11 @@ $client->api('contact')->update($contact_id, $contact_data);
 Note that `$contact_data` must include [all Minimal Contact keys]; partial data
 will not suffice.
 
+Delete a single contact of a given ID.
+```php
+$client->api('contact')->remove($contact_id);
+```
+
 Get a single contact's subscriptions.
 
 ```php
