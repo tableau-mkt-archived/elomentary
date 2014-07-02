@@ -23,7 +23,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class HttpClient implements HttpClientInterface {
   protected $options = array(
     'base_url' => 'https://secure.eloqua.com/API/REST',
-    'version' => '1.0',
+    'version' => '2.0',
     'user_agent' => 'Elomentary (http://github.com/tableau-mkt/elomentary)',
     'timeout' => 10,
     'count' => 100,
