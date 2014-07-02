@@ -54,6 +54,18 @@ class Contact extends AbstractApi implements SearchableInterface {
   }
 
   /**
+   * Delete a contact.
+   *
+   * @param string $id
+   *   The ID associated with the given contact.
+   *
+   * @return null
+   */
+  public function remove($id) {
+    return $this->delete('data/contact/' . rawurlencode($id));
+  }
+
+  /**
    * Return subscriptions for a contact by its ID.
    *
    * @param int $id
