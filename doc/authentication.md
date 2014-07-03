@@ -5,7 +5,6 @@ All Eloqua services use HTTP basic authentication; before you run any requests
 against the API, you will need to authenticate.
 
 ### Authenticate
-
 ```php
 $client->authenticate($site, $login, $password);
 ```

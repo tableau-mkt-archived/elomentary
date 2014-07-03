@@ -3,8 +3,7 @@
 
 ### Usage examples
 
-Search for emails with a given search term (with wildcard support).
-
+#### Search for emails with a given search term
 ```php
 $client = new Eloqua\Client();
 $client->api('emails')->search('Never Gonna Give*');

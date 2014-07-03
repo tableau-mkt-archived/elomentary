@@ -3,8 +3,7 @@
 
 ### Usage examples
 
-Get all contacts for a given search.
-
+#### Get all contacts for a given search
 ```php
 $client = new Eloqua\Client();
 
@@ -15,7 +14,7 @@ $query = array('*@example.com');
 $result = $paginator->fetchAll($contacts, 'search', $query);
 ```
 
-Get the first page
+#### Get the first page
 ```php
 $client = new Eloqua\Client();
 
@@ -26,27 +25,28 @@ $query = array('*@example.com');
 $result = $paginator->fetch($contacts, 'search', $query);
 ```
 
-Check for a next page:
+#### Check for a next page
 ```php
 $paginator->hasNext();
 ```
 
-Get next page:
+#### Get next page
 ```php
 $paginator->fetchNext();
 ```
 
-Check for previous page:
+#### Check for previous page
 ```php
 $paginator->hasPrevious();
 ```
 
-Get previous page:
+#### Get previous page
 ```php
 $paginator->fetchPrevious();
 ```
 
-If you want to retrieve the pagination links (available after the call to fetch):
+#### Retrieve the pagination links
 ```php
 $paginator->getPagination();
 ```
+Note: only available after the call to fetch.

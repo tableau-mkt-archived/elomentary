@@ -3,15 +3,13 @@
 
 ### Usage examples
 
-Search for contacts ending with a given domain.
-
+#### Search for contacts ending with a given domain
 ```php
 $client = new Eloqua\Client();
 $client->api('contacts')->search('*@example.com');
 ```
 
-Limit your search to pages of 10 results at "minimal" depth.
-
+#### Limit your search to pages of 10 results at "minimal" depth
 ```php
 $client = new Eloqua\Client();
 $client->api('contacts')->search('*@example.com', array(
@@ -20,25 +18,24 @@ $client->api('contacts')->search('*@example.com', array(
 ));
 ```
 
-Get a single contact by a given ID.
-
+#### Get a single contact by a given ID
 ```php
 $client->api('contact')->show($contact_id);
 ```
 
-Update/replace a single contact of a given ID.
+#### Update/replace a single contact of a given ID
 ```php
 $client->api('contact')->update($contact_id, $contact_data);
 ```
 Note that `$contact_data` must include [all Minimal Contact keys]; partial data
 will not suffice.
 
-Delete a single contact of a given ID.
+#### Delete a single contact of a given ID
 ```php
 $client->api('contact')->remove($contact_id);
 ```
 
-Create a contact.
+#### Create a contact
 ```php
 $contact_data = array(
   // At a minimum, must include the "emailAddress" key.
@@ -49,8 +46,7 @@ $client->api('contact')->create($contact_data);
 ```
 This will throw an InvalidArgumentException if an e-mail address isn't provided.
 
-Search for and update e-mail group subscriptions for a specific contact.
-
+#### View / manage e-mail group subscriptions for a specific contact
 ```php
 $subscriptions = $client->api('contact')->subscriptions($contact_id);
 ```

@@ -3,16 +3,13 @@
 
 ### Configure the http client
 
-Change the HTTP client user-agent string:
-
+#### Change the HTTP client user-agent string
 ```php
 $client->getHttpClient()->setOption('user_agent', 'My new User Agent');
 ```
-
 Check `Eloqua/HttpClient/HttpClient.php` for a list of all available options.
 
-### Inject a new http client instance
-
+#### Inject a new http client instance
 By default, a curl-based implementation of a http client is used. If you want to
 use your own http client implementation, inject it to the `Eloqua\Client`
 instance:
@@ -38,8 +35,7 @@ $client = new Eloqua\Client();
 $client->setHttpClient(new MyHttpClient());
 ```
 
-### Run test suite
-
+#### Run test suite
 The code is unit tested. To run tests on your machine, from a CLI, run...
 
 ```bash
