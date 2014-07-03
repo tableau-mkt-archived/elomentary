@@ -11,6 +11,7 @@ use Eloqua\Api\AbstractApi;
 use Eloqua\Api\Data\Contact\ContactList;
 use Eloqua\Api\Data\Contact\Filter;
 use Eloqua\Api\Data\Contact\Subscription;
+use Eloqua\Api\Data\Contact\View;
 use Eloqua\Api\SearchableInterface;
 use Eloqua\Exception\InvalidArgumentException;
 
@@ -126,6 +127,17 @@ class Contact extends AbstractApi implements SearchableInterface {
    */
   public function filters($id) {
     return new Filter($this->client, $id);
+  }
+
+  /**
+   * Returns a Contact View client given a Contact View ID. Useful for searching
+   * contacts associated with a contact view.
+   *
+   * @param int $id
+   * @return \Guzzle\Http\EntityBodyInterface|mixed|string
+   */
+  public function views($id) {
+    return new View($this->client, $id);
   }
 
 }
