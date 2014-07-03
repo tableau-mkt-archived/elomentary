@@ -47,17 +47,61 @@ class GroupTest extends TestCase {
   /**
    * @test
    */
-  public function shouldShowGroup() {
+  public function shouldShowGroupJustId() {
     $group_id = 7331;
     $expected_response = array('response');
 
     $api = $this->getApiMock();
     $api->expects($this->once())
       ->method('get')
-      ->with('assets/email/group/' . $group_id)
+      ->with('assets/email/group/' . $group_id, array(
+        'depth' => 'complete',
+        'extensions' => null,
+      ))
       ->will($this->returnValue($expected_response));
 
     $this->assertEquals($expected_response, $api->show($group_id));
+  }
+
+  /**
+   * @test
+   */
+  public function shouldShowGroupWithDepth() {
+    $group_id = 7331;
+    $group_depth = 'minimal';
+    $expected_response = array('response');
+
+    $api = $this->getApiMock();
+    $api->expects($this->once())
+      ->method('get')
+      ->with('assets/email/group/' . $group_id, array(
+        'depth' => $group_depth,
+        'extensions' => null,
+      ))
+      ->will($this->returnValue($expected_response));
+
+    $this->assertEquals($expected_response, $api->show($group_id, $group_depth));
+  }
+
+  /**
+   * @test
+   */
+  public function shouldShowGroupWithExtensions() {
+    $group_id = 7331;
+    $group_depth = 'complete';
+    $group_extensions = 'extension123';
+    $expected_response = array('response');
+
+    $api = $this->getApiMock();
+    $api->expects($this->once())
+      ->method('get')
+      ->with('assets/email/group/' . $group_id, array(
+        'depth' => $group_depth,
+        'extensions' => $group_extensions,
+      ))
+      ->will($this->returnValue($expected_response));
+
+    $this->assertEquals($expected_response, $api->show($group_id, $group_depth, $group_extensions));
   }
 
   /**
