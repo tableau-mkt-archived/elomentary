@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Eloqua\Tests\Api\Assets\Email/GroupTest.
+ * Contains \Eloqua\Tests\Api\Assets\Email\GroupTest.
  */
 
 namespace Eloqua\Tests\Api\Assets\Email;
