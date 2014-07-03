@@ -65,6 +65,12 @@ $filter = $client->api('contact')->filters($filter_id);
 ```
 For more details, see documentation on [contact filters](contacts/filters.md)
 
+#### Search and load contact view data
+```php
+$view = $client->api('contact')->views($view_id);
+```
+For more details, see documentation on [contact views](contacts/views.md)
+
 ### Links
 
 * [API details on Topliners](http://topliners.eloqua.com/docs/DOC-3070)
