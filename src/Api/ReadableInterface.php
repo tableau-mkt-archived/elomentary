@@ -26,7 +26,7 @@ interface ReadableInterface {
    *   @todo Document this parameter.
    *
    * @return array
-   *   An array of records.
+   *   An associative array representing the desired record.
    */
   public function show($id, $depth, $extensions);
 

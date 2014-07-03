@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Eloqua\Api\SearchableInterface.php
+ * Contains \Eloqua\Api\SearchableInterface
  */
 
 namespace Eloqua\Api;
