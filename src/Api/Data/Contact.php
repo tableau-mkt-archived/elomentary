@@ -8,18 +8,21 @@
 namespace Eloqua\Api\Data;
 
 use Eloqua\Api\AbstractApi;
+use Eloqua\Api\CreatableInterface;
 use Eloqua\Api\Data\Contact\ContactList;
 use Eloqua\Api\Data\Contact\Filter;
 use Eloqua\Api\Data\Contact\Subscription;
 use Eloqua\Api\Data\Contact\View;
+use Eloqua\Api\DestroyableInterface;
 use Eloqua\Api\ReadableInterface;
 use Eloqua\Api\SearchableInterface;
+use Eloqua\Api\UpdateableInterface;
 use Eloqua\Exception\InvalidArgumentException;
 
 /**
  * Eloqua Contact.
  */
-class Contact extends AbstractApi implements ReadableInterface, SearchableInterface {
+class Contact extends AbstractApi implements CreatableInterface, ReadableInterface, UpdateableInterface, DestroyableInterface, SearchableInterface {
 
   /**
    * {@inheritdoc}
@@ -41,50 +44,31 @@ class Contact extends AbstractApi implements ReadableInterface, SearchableInterf
   }
 
   /**
-   * Update a contact.
-   *
-   * @param int $id
-   *   The ID associated with the given contact.
-   *
-   * @param array $data
-   *   Full contact details to be updated.
-   *
-   * @return array
-   *   The updated contact data.
+   * {@inheritdoc}
    */
-  public function update($id, $data) {
-    return $this->put('data/contact/' . rawurlencode($id), $data);
+  public function update($id, $contact_data) {
+    return $this->put('data/contact/' . rawurlencode($id), $contact_data);
   }
 
   /**
-   * Delete a contact.
-   *
-   * @param string $id
-   *   The ID associated with the given contact.
-   *
-   * @return null
+   * {@inheritdoc}
    */
   public function remove($id) {
     return $this->delete('data/contact/' . rawurlencode($id));
   }
 
   /**
-   * @param array $data
-   *   An associative array representing a contact, keyed by property name. At a
-   *   minimum, this must include the emailAddress key. For further details,
-   *   @see http://secure.eloqua.com/api/docs/Static/Rest/2.0/doc.htm#Contact
-   *
-   * @return array
-   *   The contact, with populated accountId, etc.
+   * {@inheritdoc}
    *
    * @throws InvalidArgumentException
+   * @see http://secure.eloqua.com/api/docs/Static/Rest/2.0/doc.htm#Contact
    */
-  public function create($data) {
-    if (!isset($data['emailAddress'])) {
+  public function create($contact_data) {
+    if (!isset($contact_data['emailAddress'])) {
       throw new InvalidArgumentException('At a minimum, you must provide an emailAddress.');
     }
 
-    return $this->post('data/contact', $data);
+    return $this->post('data/contact', $contact_data);
   }
 
   /**
