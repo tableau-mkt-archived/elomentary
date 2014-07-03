@@ -12,11 +12,11 @@ interface DestroyableInterface {
   /**
    * Delete a record of this type.
    *
-   * @param array $data
+   * @param array $id
    *   The ID of the individual record to be destroyed.
    *
    * @return null
 =   */
-  public function remove($data);
+  public function remove($id);
 
 }
