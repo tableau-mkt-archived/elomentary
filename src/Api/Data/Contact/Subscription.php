@@ -9,12 +9,13 @@ namespace Eloqua\Api\Data\Contact;
 
 use Eloqua\Api\AbstractApi;
 use Eloqua\Api\SearchableInterface;
+use Eloqua\Api\UpdateableInterface;
 use Eloqua\Client;
 
 /**
  * Eloqua Subscription.
  */
-class Subscription extends AbstractApi implements SearchableInterface {
+class Subscription extends AbstractApi implements UpdateableInterface, SearchableInterface {
 
   /**
    * The contact ID
@@ -60,19 +61,10 @@ class Subscription extends AbstractApi implements SearchableInterface {
   }
 
   /**
-   * Update a subscription.
-   *
-   * @param int $id
-   *   The ID associated with the given e-mail group.
-   *
-   * @param array $data
-   *   Full subscription details to be updated.
-   *
-   * @return array
-   *   The updated subscription data.
+   * {@inheritdoc}
    */
-  public function update($id, $data) {
-    return $this->put('data/contact/' . rawurlencode($this->contactId) . '/email/group/' . rawurlencode($id) . '/subscription', $data);
+  public function update($id, $subscription_data) {
+    return $this->put('data/contact/' . rawurlencode($this->contactId) . '/email/group/' . rawurlencode($id) . '/subscription', $subscription_data);
   }
 
 }
