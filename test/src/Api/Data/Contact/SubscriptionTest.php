@@ -50,7 +50,7 @@ class SubscriptionTest extends TestCase {
   /**
    * @test
    */
-  public function shouldShowSubscription() {
+  public function shouldShowSubscriptionJustId() {
     $contact_id = 1337;
     $group_id = 7331;
     $expected_response = array('response');
@@ -58,10 +58,56 @@ class SubscriptionTest extends TestCase {
     $api = $this->getApiMock(array($contact_id));
     $api->expects($this->once())
       ->method('get')
-      ->with('data/contact/' . $contact_id . '/email/group/' . $group_id . '/subscription')
+      ->with('data/contact/' . $contact_id . '/email/group/' . $group_id . '/subscription', array(
+        'depth' => 'complete',
+        'extensions' => null,
+      ))
       ->will($this->returnValue($expected_response));
 
     $this->assertEquals($expected_response, $api->show($group_id));
+  }
+
+  /**
+   * @test
+   */
+  public function shouldShowSubscriptionWithDepth() {
+    $contact_id = 1337;
+    $group_id = 7331;
+    $group_depth = 'minimal';
+    $expected_response = array('response');
+
+    $api = $this->getApiMock(array($contact_id));
+    $api->expects($this->once())
+      ->method('get')
+      ->with('data/contact/' . $contact_id . '/email/group/' . $group_id . '/subscription', array(
+        'depth' => $group_depth,
+        'extensions' => null,
+      ))
+      ->will($this->returnValue($expected_response));
+
+    $this->assertEquals($expected_response, $api->show($group_id, $group_depth));
+  }
+
+  /**
+   * @test
+   */
+  public function shouldShowSubscriptionWithExtensions() {
+    $contact_id = 1337;
+    $group_id = 7331;
+    $group_depth = 'minimal';
+    $group_extensions = 'extension123';
+    $expected_response = array('response');
+
+    $api = $this->getApiMock(array($contact_id));
+    $api->expects($this->once())
+      ->method('get')
+      ->with('data/contact/' . $contact_id . '/email/group/' . $group_id . '/subscription', array(
+        'depth' => $group_depth,
+        'extensions' => $group_extensions,
+      ))
+      ->will($this->returnValue($expected_response));
+
+    $this->assertEquals($expected_response, $api->show($group_id, $group_depth, $group_extensions));
   }
 
   /**

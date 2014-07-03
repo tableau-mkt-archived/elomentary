@@ -8,6 +8,7 @@
 namespace Eloqua\Api\Data\Contact;
 
 use Eloqua\Api\AbstractApi;
+use Eloqua\Api\ReadableInterface;
 use Eloqua\Api\SearchableInterface;
 use Eloqua\Api\UpdateableInterface;
 use Eloqua\Client;
@@ -15,7 +16,7 @@ use Eloqua\Client;
 /**
  * Eloqua Subscription.
  */
-class Subscription extends AbstractApi implements UpdateableInterface, SearchableInterface {
+class Subscription extends AbstractApi implements ReadableInterface, UpdateableInterface, SearchableInterface {
 
   /**
    * The contact ID
@@ -48,16 +49,13 @@ class Subscription extends AbstractApi implements UpdateableInterface, Searchabl
   }
 
   /**
-   * Return extended information about a subscription by its e-mail group ID.
-   *
-   * @param int $id
-   *   The ID associated with the desired e-mail group.
-   *
-   * @return array
-   *   The desired subscription record represented as an associative array.
+   * {@inheritdoc}
    */
-  public function show($id) {
-    return $this->get('data/contact/' . rawurlencode($this->contactId) . '/email/group/' . rawurlencode($id) . '/subscription');
+  public function show($id, $depth = 'complete', $extensions = null) {
+    return $this->get('data/contact/' . rawurlencode($this->contactId) . '/email/group/' . rawurlencode($id) . '/subscription', array(
+      'depth' => $depth,
+      'extensions' => $extensions,
+    ));
   }
 
   /**
