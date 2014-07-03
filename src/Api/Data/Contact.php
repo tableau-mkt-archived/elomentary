@@ -9,6 +9,7 @@ namespace Eloqua\Api\Data;
 
 use Eloqua\Api\AbstractApi;
 use Eloqua\Api\Data\Contact\ContactList;
+use Eloqua\Api\Data\Contact\Filter;
 use Eloqua\Api\Data\Contact\Subscription;
 use Eloqua\Api\SearchableInterface;
 use Eloqua\Exception\InvalidArgumentException;
@@ -112,6 +113,19 @@ class Contact extends AbstractApi implements SearchableInterface {
    */
   public function lists($id) {
     return new ContactList($this->client, $id);
+  }
+
+  /**
+   * Returns a Contact Filter client given a Contact Filter ID. Useful for
+   * searching contacts associated with a contact filter.
+   *
+   * @param int $id
+   *   The ID associated with the given contact filter.
+   *
+   * @return \Eloqua\Api\Data\Contact\Filter
+   */
+  public function filters($id) {
+    return new Filter($this->client, $id);
   }
 
 }
