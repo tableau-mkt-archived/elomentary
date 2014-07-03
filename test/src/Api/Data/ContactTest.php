@@ -123,15 +123,8 @@ class ContactTest extends TestCase {
    */
   public function shouldGetSubscriptions() {
     $contact_id = 1337;
-    $expected_response = array('response');
-
     $api = $this->getApiMock();
-    $api->expects($this->once())
-      ->method('get')
-      ->with('data/contact/' . $contact_id . '/email/groups/subscription')
-      ->will($this->returnValue($expected_response));
-
-    $this->assertEquals($expected_response, $api->subscriptions($contact_id));
+    $this->assertInstanceOf('Eloqua\Api\Data\Contact\Subscription', $api->subscriptions($contact_id));
   }
 
   protected function getApiClass() {
