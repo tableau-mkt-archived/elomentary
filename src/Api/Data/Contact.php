@@ -15,12 +15,13 @@ use Eloqua\Api\Data\Contact\Subscription;
 use Eloqua\Api\Data\Contact\View;
 use Eloqua\Api\ReadableInterface;
 use Eloqua\Api\SearchableInterface;
+use Eloqua\Api\UpdateableInterface;
 use Eloqua\Exception\InvalidArgumentException;
 
 /**
  * Eloqua Contact.
  */
-class Contact extends AbstractApi implements CreatableInterface, ReadableInterface, SearchableInterface {
+class Contact extends AbstractApi implements CreatableInterface, ReadableInterface, UpdateableInterface, SearchableInterface {
 
   /**
    * {@inheritdoc}
@@ -42,19 +43,10 @@ class Contact extends AbstractApi implements CreatableInterface, ReadableInterfa
   }
 
   /**
-   * Update a contact.
-   *
-   * @param int $id
-   *   The ID associated with the given contact.
-   *
-   * @param array $data
-   *   Full contact details to be updated.
-   *
-   * @return array
-   *   The updated contact data.
+   * {@inheritdoc}
    */
-  public function update($id, $data) {
-    return $this->put('data/contact/' . rawurlencode($id), $data);
+  public function update($id, $contact_data) {
+    return $this->put('data/contact/' . rawurlencode($id), $contact_data);
   }
 
   /**
