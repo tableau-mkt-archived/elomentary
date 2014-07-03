@@ -11,7 +11,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase {
 
   abstract protected function getApiClass();
 
-  protected function getApiMock() {
+  protected function getApiMock($constructor_args = array()) {
     $httpClient = $this->getMock('Guzzle\Http\Client', array('send'));
     $httpClient
       ->expects($this->any())
@@ -24,7 +24,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase {
 
     return $this->getMockBuilder($this->getApiClass())
       ->setMethods(array('get', 'post', 'postRaw', 'patch', 'delete', 'put'))
-      ->setConstructorArgs(array($client))
+      ->setConstructorArgs(array_merge(array($client), $constructor_args))
       ->getMock();
   }
 

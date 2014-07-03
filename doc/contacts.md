@@ -49,11 +49,13 @@ $client->api('contact')->create($contact_data);
 ```
 This will throw an InvalidArgumentException if an e-mail address isn't provided.
 
-Get a single contact's subscriptions.
+Search for and update e-mail group subscriptions for a specific contact.
 
 ```php
-$client->api('contact')->subscriptions($contact_id);
+$subscriptions = $client->api('contact')->subscriptions($contact_id);
 ```
+Fore more details, see documentation on
+[e-mail group subscriptions by contact](contacts/subscriptions.md).
 
 ### Links
 

@@ -8,6 +8,7 @@
 namespace Eloqua\Api\Data;
 
 use Eloqua\Api\AbstractApi;
+use Eloqua\Api\Data\Contact\Subscription;
 use Eloqua\Api\SearchableInterface;
 use Eloqua\Exception\InvalidArgumentException;
 
@@ -86,16 +87,16 @@ class Contact extends AbstractApi implements SearchableInterface {
   }
 
   /**
-   * Return subscriptions for a contact by its ID.
+   * Returns a Subscription client for a contact by its ID.
    *
    * @param int $id
    *   The ID associated with the given contact.
    *
-   * @return array
-   *   An array of contact subscriptions.
+   * @return \Eloqua\Api\Data\Contact\Subscription
+   *   A subscription object for the given contact.
    */
   public function subscriptions($id) {
-    return $this->get('data/contact/' . rawurlencode($id) . '/email/groups/subscription');
+    return new Subscription($this->client, $id);
   }
 
 }
