@@ -13,6 +13,7 @@ use Eloqua\Api\Data\Contact\ContactList;
 use Eloqua\Api\Data\Contact\Filter;
 use Eloqua\Api\Data\Contact\Subscription;
 use Eloqua\Api\Data\Contact\View;
+use Eloqua\Api\DestroyableInterface;
 use Eloqua\Api\ReadableInterface;
 use Eloqua\Api\SearchableInterface;
 use Eloqua\Api\UpdateableInterface;
@@ -21,7 +22,7 @@ use Eloqua\Exception\InvalidArgumentException;
 /**
  * Eloqua Contact.
  */
-class Contact extends AbstractApi implements CreatableInterface, ReadableInterface, UpdateableInterface, SearchableInterface {
+class Contact extends AbstractApi implements CreatableInterface, ReadableInterface, UpdateableInterface, DestroyableInterface, SearchableInterface {
 
   /**
    * {@inheritdoc}
@@ -50,12 +51,7 @@ class Contact extends AbstractApi implements CreatableInterface, ReadableInterfa
   }
 
   /**
-   * Delete a contact.
-   *
-   * @param string $id
-   *   The ID associated with the given contact.
-   *
-   * @return null
+   * {@inheritdoc}
    */
   public function remove($id) {
     return $this->delete('data/contact/' . rawurlencode($id));
