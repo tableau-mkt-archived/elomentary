@@ -9,6 +9,7 @@ namespace Eloqua\Api\Assets\Email;
 
 use Eloqua\Api\AbstractApi;
 use Eloqua\Api\CreatableInterface;
+use Eloqua\Api\DestroyableInterface;
 use Eloqua\Api\ReadableInterface;
 use Eloqua\Api\SearchableInterface;
 use Eloqua\Api\UpdateableInterface;
@@ -16,7 +17,7 @@ use Eloqua\Api\UpdateableInterface;
 /**
  * Eloqua e-mail group.
  */
-class Group extends AbstractApi implements CreatableInterface, ReadableInterface, UpdateableInterface, SearchableInterface {
+class Group extends AbstractApi implements CreatableInterface, ReadableInterface, UpdateableInterface, DestroyableInterface, SearchableInterface {
 
   /**
    * {@inheritdoc}
@@ -45,12 +46,7 @@ class Group extends AbstractApi implements CreatableInterface, ReadableInterface
   }
 
   /**
-   * Delete an e-mail group.
-   *
-   * @param string $id
-   *   The ID associated with the given e-mail group.
-   *
-   * @return null
+   *{@inheritdoc}
    */
   public function remove($id) {
     return $this->delete('assets/email/group/' . rawurlencode($id));
