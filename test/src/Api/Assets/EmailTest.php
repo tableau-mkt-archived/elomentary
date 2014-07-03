@@ -44,6 +44,14 @@ class EmailTest extends TestCase {
     $this->assertEquals($expected_response, $api->search($term, $options));
   }
 
+  /**
+   * @test
+   */
+  public function shouldGetGroups() {
+    $api = $this->getApiMock();
+    $this->assertInstanceOf('Eloqua\Api\Assets\Email\Group', $api->groups());
+  }
+
   protected function getApiClass() {
     return 'Eloqua\Api\Assets\Email';
   }
