@@ -6,7 +6,7 @@
 #### List all e-mail groups
 ```php
 $client = new Eloqua\Client();
-$client->api('email')->groups->search('*');
+$client->api('email')->groups()->search('*');
 ```
 
 #### Search e-mail groups by name
