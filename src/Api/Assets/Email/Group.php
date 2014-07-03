@@ -11,11 +11,12 @@ use Eloqua\Api\AbstractApi;
 use Eloqua\Api\CreatableInterface;
 use Eloqua\Api\ReadableInterface;
 use Eloqua\Api\SearchableInterface;
+use Eloqua\Api\UpdateableInterface;
 
 /**
  * Eloqua e-mail group.
  */
-class Group extends AbstractApi implements CreatableInterface, ReadableInterface, SearchableInterface {
+class Group extends AbstractApi implements CreatableInterface, ReadableInterface, UpdateableInterface, SearchableInterface {
 
   /**
    * {@inheritdoc}
@@ -37,19 +38,10 @@ class Group extends AbstractApi implements CreatableInterface, ReadableInterface
   }
 
   /**
-   * Update or replace an e-mail group.
-   *
-   * @param int $id
-   *   The ID associated with the given e-mail group.
-   *
-   * @param array $data
-   *   Full e-mail group details to be updated.
-   *
-   * @return array
-   *   Updated e-mail group data.
+   * {@inheritdoc}
    */
-  public function update($id, $data) {
-    return $this->put('assets/email/group/' . rawurlencode($id), $data);
+  public function update($id, $group_data) {
+    return $this->put('assets/email/group/' . rawurlencode($id), $group_data);
   }
 
   /**
