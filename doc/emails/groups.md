@@ -29,6 +29,11 @@ $client->api('email')->groups()->search('Never gonna*', array(
 $client->api('email')->groups()->show($group_id);
 ```
 
+#### Return partial data on an e-mail group
+```php
+$client->api('email')->groups()->show($group_id, 'partial');
+```
+
 #### Update an e-mail group
 ```php
 $client->api('email')->groups()->update($group_id, $data);

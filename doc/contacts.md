@@ -23,6 +23,11 @@ $client->api('contacts')->search('*@example.com', array(
 $client->api('contact')->show($contact_id);
 ```
 
+#### Get a single, partial contact by a given ID
+```php
+$client->api('contact')->show($contact_id, 'partial');
+```
+
 #### Update/replace a single contact of a given ID
 ```php
 $client->api('contact')->update($contact_id, $contact_data);
