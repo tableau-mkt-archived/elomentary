@@ -8,13 +8,14 @@
 namespace Eloqua\Api\Assets\Email;
 
 use Eloqua\Api\AbstractApi;
+use Eloqua\Api\CreatableInterface;
 use Eloqua\Api\ReadableInterface;
 use Eloqua\Api\SearchableInterface;
 
 /**
  * Eloqua e-mail group.
  */
-class Group extends AbstractApi implements ReadableInterface, SearchableInterface {
+class Group extends AbstractApi implements CreatableInterface, ReadableInterface, SearchableInterface {
 
   /**
    * {@inheritdoc}
@@ -64,17 +65,12 @@ class Group extends AbstractApi implements ReadableInterface, SearchableInterfac
   }
 
   /**
-   * Create an e-mail group.
+   * {@inheritdoc}
    *
-   * @param array $data
-   *   Associative array representing an e-mail group, keyed by property names.
-   *   @see http://secure.eloqua.com/api/docs/Static/Rest/2.0/doc.htm#EmailGroup
-   *
-   * @return array
-   *   The e-mail group.
+   * @see http://secure.eloqua.com/api/docs/Static/Rest/2.0/doc.htm#EmailGroup
    */
-  public function create($data) {
-    return $this->post('assets/email/group', $data);
+  public function create($group_data) {
+    return $this->post('assets/email/group', $group_data);
   }
 
   /**
