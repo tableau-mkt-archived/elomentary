@@ -3,6 +3,7 @@ Navigation
 
 ### Data
 * [Contacts](contacts.md)
+  * [Contact E-mail Subscriptions](contacts/subscriptions.md)
 
 ### Assets
 
