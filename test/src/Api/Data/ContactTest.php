@@ -135,7 +135,16 @@ class ContactTest extends TestCase {
     $api = $this->getApiMock();
     $this->assertInstanceOf('Eloqua\Api\Data\Contact\ContactList', $api->lists($contact_list_id));
   }
-  
+
+  /**
+   * @test
+   */
+  public function shouldGetFilters() {
+    $contact_filter_id = 1337;
+    $api = $this->getApiMock();
+    $this->assertInstanceOf('Eloqua\Api\Data\Contact\Filter', $api->filters($contact_filter_id));
+  }
+
   protected function getApiClass() {
     return 'Eloqua\Api\Data\Contact';
   }

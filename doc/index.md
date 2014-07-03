@@ -5,6 +5,7 @@ Navigation
 * [Contacts](contacts.md)
   * [Contact E-mail Subscriptions](contacts/subscriptions.md)
   * [Contacts by Contact List](contacts/list.md)
+  * [Contacts by Contact Filter](contacts/filters.md)
 
 ### Assets
 * [E-mails](emails.md)

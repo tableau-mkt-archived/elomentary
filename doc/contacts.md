@@ -59,6 +59,12 @@ $list = $client->api('contact')->lists($list_id);
 ```
 For more details, see documentation on [contact lists](contacts/list.md).
 
+#### Search / export contacts that match a given contact filter
+```php
+$filter = $client->api('contact')->filters($filter_id);
+```
+For more details, see documentation on [contact filters](contacts/filters.md)
+
 ### Links
 
 * [API details on Topliners](http://topliners.eloqua.com/docs/DOC-3070)
