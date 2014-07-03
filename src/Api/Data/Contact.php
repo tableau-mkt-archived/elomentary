@@ -12,13 +12,14 @@ use Eloqua\Api\Data\Contact\ContactList;
 use Eloqua\Api\Data\Contact\Filter;
 use Eloqua\Api\Data\Contact\Subscription;
 use Eloqua\Api\Data\Contact\View;
+use Eloqua\Api\ReadableInterface;
 use Eloqua\Api\SearchableInterface;
 use Eloqua\Exception\InvalidArgumentException;
 
 /**
  * Eloqua Contact.
  */
-class Contact extends AbstractApi implements SearchableInterface {
+class Contact extends AbstractApi implements ReadableInterface, SearchableInterface {
 
   /**
    * {@inheritdoc}
@@ -30,16 +31,13 @@ class Contact extends AbstractApi implements SearchableInterface {
   }
 
   /**
-   * Return extended information about a contact by its ID.
-   *
-   * @param int $id
-   *   The ID associated with the desired contact.
-   *
-   * @return array
-   *   The desired contact record represented as an associative array.
+   * {@inheritdoc}
    */
-  public function show($id) {
-    return $this->get('data/contact/' . rawurlencode($id));
+  public function show($id, $depth = 'complete', $extensions = null) {
+    return $this->get('data/contact/' . rawurlencode($id), array(
+      'depth' => $depth,
+      'extensions' => $extensions,
+    ));
   }
 
   /**
