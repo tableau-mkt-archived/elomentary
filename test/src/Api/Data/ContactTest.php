@@ -127,6 +127,15 @@ class ContactTest extends TestCase {
     $this->assertInstanceOf('Eloqua\Api\Data\Contact\Subscription', $api->subscriptions($contact_id));
   }
 
+  /**
+   * @test
+   */
+  public function shouldGetLists() {
+    $contact_list_id = 1337;
+    $api = $this->getApiMock();
+    $this->assertInstanceOf('Eloqua\Api\Data\Contact\ContactList', $api->lists($contact_list_id));
+  }
+  
   protected function getApiClass() {
     return 'Eloqua\Api\Data\Contact';
   }

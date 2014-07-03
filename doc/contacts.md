@@ -53,6 +53,12 @@ $subscriptions = $client->api('contact')->subscriptions($contact_id);
 Fore more details, see documentation on
 [e-mail group subscriptions by contact](contacts/subscriptions.md).
 
+#### Search / export contacts in a given contact list
+```php
+$list = $client->api('contact')->lists($list_id);
+```
+For more details, see documentation on [contact lists](contacts/list.md).
+
 ### Links
 
 * [API details on Topliners](http://topliners.eloqua.com/docs/DOC-3070)
