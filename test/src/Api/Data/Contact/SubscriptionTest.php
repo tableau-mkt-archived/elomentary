@@ -58,7 +58,7 @@ class SubscriptionTest extends TestCase {
     $api = $this->getApiMock(array($contact_id));
     $api->expects($this->once())
       ->method('get')
-      ->with('/data/contact/' . $contact_id . '/email/group/' . $group_id . '/subscription')
+      ->with('data/contact/' . $contact_id . '/email/group/' . $group_id . '/subscription')
       ->will($this->returnValue($expected_response));
 
     $this->assertEquals($expected_response, $api->show($group_id));
@@ -75,7 +75,7 @@ class SubscriptionTest extends TestCase {
     $api = $this->getApiMock(array($contact_id));
     $api->expects($this->once())
       ->method('put')
-      ->with('/data/contact/' . $contact_id . '/email/group/' . $group_id . '/subscription', $group_data)
+      ->with('data/contact/' . $contact_id . '/email/group/' . $group_id . '/subscription', $group_data)
       ->will($this->returnValue($group_data));
 
     $this->assertEquals($group_data, $api->update($group_id, $group_data));

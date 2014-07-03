@@ -56,7 +56,7 @@ class Subscription extends AbstractApi implements SearchableInterface {
    *   The desired subscription record represented as an associative array.
    */
   public function show($id) {
-    return $this->get('/data/contact/' . rawurlencode($this->contactId) . '/email/group/' . rawurlencode($id) . '/subscription');
+    return $this->get('data/contact/' . rawurlencode($this->contactId) . '/email/group/' . rawurlencode($id) . '/subscription');
   }
 
   /**
@@ -72,7 +72,7 @@ class Subscription extends AbstractApi implements SearchableInterface {
    *   The updated subscription data.
    */
   public function update($id, $data) {
-    return $this->put('/data/contact/' . rawurlencode($this->contactId) . '/email/group/' . rawurlencode($id) . '/subscription', $data);
+    return $this->put('data/contact/' . rawurlencode($this->contactId) . '/email/group/' . rawurlencode($id) . '/subscription', $data);
   }
 
 }
