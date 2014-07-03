@@ -29,7 +29,7 @@ $client->api('contacts')->subscriptions($contact_id)->search('*Example Name*', a
 $client->api('contact')->subscriptions($contact_id)->show($group_id);
 ```
 
-#### Update an e-amil group subscription for a given contact / group
+#### Update an e-mail group subscription for a given contact / group
 ```php
 $client->api('contact')->subscriptions($contact_id)->update($group_id, $data);
 ```
