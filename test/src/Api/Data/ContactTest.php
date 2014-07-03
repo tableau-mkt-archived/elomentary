@@ -145,6 +145,15 @@ class ContactTest extends TestCase {
     $this->assertInstanceOf('Eloqua\Api\Data\Contact\Filter', $api->filters($contact_filter_id));
   }
 
+  /**
+   * @test
+   */
+  public function shouldGetViews() {
+    $contact_view_id = 1337;
+    $api = $this->getApiMock();
+    $this->assertInstanceOf('Eloqua\Api\Data\Contact\View', $api->views($contact_view_id));
+  }
+
   protected function getApiClass() {
     return 'Eloqua\Api\Data\Contact';
   }
