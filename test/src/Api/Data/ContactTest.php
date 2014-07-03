@@ -48,17 +48,55 @@ class ContactTest extends TestCase {
   /**
    * @test
    */
-  public function shouldShowContact() {
+  public function shouldShowContactJustId() {
     $contact_id = 1337;
     $expected_response = array('response');
 
     $api = $this->getApiMock();
     $api->expects($this->once())
       ->method('get')
-      ->with('data/contact/' . $contact_id)
+      ->with('data/contact/' . $contact_id, array(
+        'depth' => 'complete',
+        'extensions' => null,
+      ))
       ->will($this->returnValue($expected_response));
 
     $this->assertEquals($expected_response, $api->show($contact_id));
+  }
+
+  public function shouldShowContactWithDepth() {
+    $contact_id = 1337;
+    $contact_depth = 'minimal';
+    $expected_response = array('response');
+
+    $api = $this->getApiMock();
+    $api->expects($this->once())
+      ->method('get')
+      ->with('data/contact/' . $contact_id, array(
+        'depth' => $contact_depth,
+        'extensions' => null,
+      ))
+      ->will($this->returnValue($expected_response));
+
+    $this->assertEquals($expected_response, $api->show($contact_id, $contact_depth));
+  }
+
+  public function shouldShowContactWithExtensions() {
+    $contact_id = 1337;
+    $contact_depth = 'complete';
+    $contact_extensions = 'extension123';
+    $expected_response = array('response');
+
+    $api = $this->getApiMock();
+    $api->expects($this->once())
+      ->method('get')
+      ->with('data/contact/' . $contact_id, array(
+        'depth' => $contact_depth,
+        'extensions' => $contact_extensions,
+      ))
+      ->will($this->returnValue($expected_response));
+
+    $this->assertEquals($expected_response, $api->show($contact_id, $contact_depth, $contact_extensions));
   }
 
   /**

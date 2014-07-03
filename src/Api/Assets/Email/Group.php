@@ -8,12 +8,13 @@
 namespace Eloqua\Api\Assets\Email;
 
 use Eloqua\Api\AbstractApi;
+use Eloqua\Api\ReadableInterface;
 use Eloqua\Api\SearchableInterface;
 
 /**
  * Eloqua e-mail group.
  */
-class Group extends AbstractApi implements SearchableInterface {
+class Group extends AbstractApi implements ReadableInterface, SearchableInterface {
 
   /**
    * {@inheritdoc}
@@ -25,16 +26,13 @@ class Group extends AbstractApi implements SearchableInterface {
   }
 
   /**
-   * Return extended information about an e-mail group by its ID.
-   *
-   * @param int $id
-   *   The ID associated with the desired e-mail group.
-   *
-   * @return array
-   *   The desired e-mail group record represented as an associative array.
+   * {@inheritdoc}
    */
-  public function show($id) {
-    return $this->get('assets/email/group/' . rawurlencode($id));
+  public function show($id, $depth = 'complete', $extensions = null) {
+    return $this->get('assets/email/group/' . rawurlencode($id), array(
+      'depth' => $depth,
+      'extensions' => $extensions,
+    ));
   }
 
   /**
