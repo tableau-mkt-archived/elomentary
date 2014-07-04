@@ -1,4 +1,4 @@
-# Elomentary [![Build Status](https://travis-ci.org/tableau-mkt/elomentary.svg?branch=master)](https://travis-ci.org/tableau-mkt/elomentary) [![Code Climate](https://codeclimate.com/github/tableau-mkt/elomentary.png)](https://codeclimate.com/github/tableau-mkt/elomentary)
+# Elomentary [![Build Status](https://travis-ci.org/tableau-mkt/elomentary.svg?branch=0.1)](https://travis-ci.org/tableau-mkt/elomentary) [![Code Climate](https://codeclimate.com/github/tableau-mkt/elomentary.png)](https://codeclimate.com/github/tableau-mkt/elomentary)
 
 The simple, objected oriented wrapper for the Eloqua REST API.
 
@@ -71,7 +71,7 @@ autoloader. You can add a requirement like so:
 ```yaml
 {
   "require": {
-    "tableau-mkt/elomentary": "*"
+    "tableau-mkt/elomentary": "~0.1"
   },
   "minimum-stability": "dev"
 }
