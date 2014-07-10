@@ -1,5 +1,5 @@
 ## Contact fields
-[Back to E-mails](../contacts.md) | [Back to the navigation](../index.md)
+[Back to Contacts](../contacts.md) | [Back to the navigation](../index.md)
 
 ### Usage examples
 
@@ -11,13 +11,11 @@ $client->api('contact')->fields()->search('*');
 
 #### Search contact fields by name
 ```php
-$client = new Eloqua\Client();
 $client->api('contact')->fields()->search('Never gonna*');
 ```
 
 #### Limit your search to pages of 10 results at "complete" depth
 ```php
-$client = new Eloqua\Client();
 $client->api('contact')->fields()->search('Never gonna*', array(
   'count' => 10,
   'depth' => 'complete'
