@@ -55,7 +55,7 @@ This will throw an InvalidArgumentException if an e-mail address isn't provided.
 ```php
 $subscriptions = $client->api('contact')->subscriptions($contact_id);
 ```
-Fore more details, see documentation on
+For more details, see documentation on
 [e-mail group subscriptions by contact](contacts/subscriptions.md).
 
 #### Search / export contacts in a given contact list
@@ -68,13 +68,19 @@ For more details, see documentation on [contact lists](contacts/list.md).
 ```php
 $filter = $client->api('contact')->filters($filter_id);
 ```
-For more details, see documentation on [contact filters](contacts/filters.md)
+For more details, see documentation on [contact filters](contacts/filters.md).
 
 #### Search and load contact view data
 ```php
 $view = $client->api('contact')->views($view_id);
 ```
-For more details, see documentation on [contact views](contacts/views.md)
+For more details, see documentation on [contact views](contacts/views.md).
+
+#### Search / manage contact fields
+```php
+$fields = $client->api('contact')->fields();
+```
+For more details, see documentation [contact fields](contacts/fields.md).
 
 ### Links
 

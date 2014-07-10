@@ -192,6 +192,14 @@ class ContactTest extends TestCase {
     $this->assertInstanceOf('Eloqua\Api\Data\Contact\View', $api->views($contact_view_id));
   }
 
+  /**
+   * @test
+   */
+  public function shouldGetFields() {
+    $api = $this->getApiMock();
+    $this->assertInstanceOf('Eloqua\Api\Assets\Contact\Field', $api->fields());
+  }
+
   protected function getApiClass() {
     return 'Eloqua\Api\Data\Contact';
   }
