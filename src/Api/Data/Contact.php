@@ -8,6 +8,7 @@
 namespace Eloqua\Api\Data;
 
 use Eloqua\Api\AbstractApi;
+use Eloqua\Api\Assets\Contact\Field;
 use Eloqua\Api\CreatableInterface;
 use Eloqua\Api\Data\Contact\ContactList;
 use Eloqua\Api\Data\Contact\Filter;
@@ -120,6 +121,16 @@ class Contact extends AbstractApi implements CreatableInterface, ReadableInterfa
    */
   public function views($id) {
     return new View($this->client, $id);
+  }
+
+  /**
+   * Returns a contact field client.
+   *
+   * @return \Eloqua\Api\Assets\Contact\Field
+   *   A contact field client.
+   */
+  public function fields() {
+    return new Field($this->client);
   }
 
 }
