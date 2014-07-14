@@ -16,7 +16,7 @@ interface DestroyableInterface {
    *   The ID of the individual record to be destroyed.
    *
    * @return null
-=   */
+   */
   public function remove($id);
 
 }
