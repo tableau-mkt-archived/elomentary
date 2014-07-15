@@ -42,12 +42,17 @@ class Deployment extends AbstractApi implements CreatableInterface, ReadableInte
    */
   public function create($data) {
     // Validate the request before sending it.
-    $required = array('name', 'email', 'contacts', 'type');
+    $required = array('name', 'email', 'type');
 
     foreach ($required as $key) {
-      if (!array_key_exists($key, $data) || empty($data[$key])) {
-        throw new InvalidArgumentException("You must specify a non-empty value for $key.");
-      }
+      $this->validateExists($data, $key);
+    }
+
+    if ($data['type'] == 'EmailTestDeployment') {
+      $this->validateExists($data, 'contactId');
+    }
+    elseif ($data['type'] == 'EmailInlineDeployment') {
+      $this->validateExists($data, 'contacts');
     }
 
     return $this->post('assets/email/deployment', $data);

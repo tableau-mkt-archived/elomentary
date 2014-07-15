@@ -81,9 +81,7 @@ class Email extends AbstractApi implements SearchableInterface {
     $required = array('name', 'subject', 'folderId', 'emailGroupId');
 
     foreach ($required as $key) {
-      if (!array_key_exists($key, $params) || empty($params[$key])) {
-        throw new InvalidArgumentException("You must specify a non-empty value for $key.");
-      }
+      $this->validateExists($params, $key);
     }
 
     return $this->post('assets/email', $params);
