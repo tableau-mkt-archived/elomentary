@@ -110,6 +110,7 @@ class DeploymentTest extends TestCase {
    */
   public function shouldCreateDeployment() {
     $options = array(
+      'type' => 'EmailInlineDeployment',
       'name' => 'Test Deployment',
       'contacts' => array(
         array(
@@ -139,9 +140,9 @@ class DeploymentTest extends TestCase {
    * @test
    * @expectedException InvalidArgumentException
    */
-  public function shouldThrowExceptionWhenCreatingDeploymentWithMissingParams()
-  {
+  public function shouldThrowExceptionWhenCreatingDeploymentWithMissingParams() {
     $options = array(
+      'type' => 'EmailInlineDeployment',
       'name' => 'Test Deployment',
       // options excluded here for test
       'email' => array(

@@ -101,8 +101,7 @@ class EmailTest extends TestCase {
    * @test
    * @expectedException InvalidArgumentException
    */
-  public function shouldThrowExceptionWhenCreatingEmailWithMissingParams()
-  {
+  public function shouldThrowExceptionWhenCreatingEmailWithMissingParams() {
     $name = 'Elomentary, My Dear Watson';
     $options = array('folderId' => 42);
 
@@ -116,8 +115,7 @@ class EmailTest extends TestCase {
   /**
    * @test
    */
-  public function shouldRemoveEmail()
-  {
+  public function shouldRemoveEmail() {
     $email_id = 1337;
     $expected_response = array('response');
 
@@ -133,8 +131,7 @@ class EmailTest extends TestCase {
    * @test
    * @expectedException InvalidArgumentException
    */
-  public function shouldThrowExceptionWithBadId()
-  {
+  public function shouldThrowExceptionWithBadId() {
     $api = $this->getApiMock();
     $api->expects($this->any())
       ->method('delete');

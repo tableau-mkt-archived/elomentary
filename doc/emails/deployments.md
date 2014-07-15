@@ -1,4 +1,4 @@
-## E-mail groups
+## E-mail deployments
 [Back to E-mails](../emails.md) | [Back to the navigation](../index.md)
 
 ### Usage examples
