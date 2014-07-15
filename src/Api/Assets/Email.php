@@ -9,6 +9,7 @@ namespace Eloqua\Api\Assets;
 
 use Eloqua\Api\AbstractApi;
 use Eloqua\Api\Assets\Email\Group;
+use Eloqua\Api\Assets\Email\Deployment;
 use Eloqua\Api\SearchableInterface;
 use Eloqua\Exception\InvalidArgumentException;
 
@@ -34,6 +35,16 @@ class Email extends AbstractApi implements SearchableInterface {
    */
   public function groups() {
     return new Group($this->client);
+  }
+
+  /**
+   * Returns an e-mail deployment client.
+   *
+   * @return \Eloqua\Api\Assets\Email\Deployment
+   *   An e-mail deployment client.
+   */
+  public function deployments() {
+    return new Deployment($this->client);
   }
 
   /**

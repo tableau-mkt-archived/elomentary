@@ -16,14 +16,19 @@ $groups = $client->api('email')->groups();
 For more details, see documentation on
 [e-mail groups](emails/groups.md).
 
-Get a single email by a given ID.
+#### View / manage e-mail deployments
+```php
+$deployments = $client->api('email')->deployments();
+```
+For more details, see documentation on
+[e-mail deployments](emails/deployments.md).
 
+#### Get a single email by a given ID.
 ```php
 $client->api('email')->show($email_id);
 ```
 
-Create an email with a given name and array of options.
-
+#### Create an email with a given name and array of options.
 ```php
 $client->api('email')->create('Elomentary Test', array(
   'folderId' => 123,
@@ -32,13 +37,10 @@ $client->api('email')->create('Elomentary Test', array(
 ));
 ```
 
-Remove a single email by a given ID.
-
+#### Remove a single email by a given ID.
 ```php
 $client->api('email')->remove($email_id);
 ```
 
-
 ### Links
-
 * [API details on Topliners](http://topliners.eloqua.com/docs/DOC-3083)
