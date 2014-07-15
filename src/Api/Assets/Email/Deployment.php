@@ -42,7 +42,7 @@ class Deployment extends AbstractApi implements CreatableInterface, ReadableInte
    */
   public function create($data) {
     // Validate the request before sending it.
-    $required = array('name', 'email', 'contacts');
+    $required = array('name', 'email', 'contacts', 'type');
 
     foreach ($required as $key) {
       if (!array_key_exists($key, $data) || empty($data[$key])) {
