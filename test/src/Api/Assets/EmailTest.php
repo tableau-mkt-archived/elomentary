@@ -55,6 +55,14 @@ class EmailTest extends TestCase {
   /**
    * @test
    */
+  public function shouldGetDeployments() {
+    $api = $this->getApiMock();
+    $this->assertInstanceOf('Eloqua\Api\Assets\Email\Deployment', $api->deployments());
+  }
+
+  /**
+   * @test
+   */
   public function shouldShowEmail() {
     $id = 1337;
     $expected_response = array('response');
