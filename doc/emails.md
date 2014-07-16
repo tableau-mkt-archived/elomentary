@@ -23,12 +23,17 @@ $deployments = $client->api('email')->deployments();
 For more details, see documentation on
 [e-mail deployments](emails/deployments.md).
 
-#### Get a single email by a given ID.
+#### Return a single e-mail by a given ID
 ```php
 $client->api('email')->show($email_id);
 ```
 
-#### Create an email with a given name and array of options.
+#### Return partial data on an e-mail
+```php
+$client->api('email')->show($email_id, 'partial');
+```
+
+#### Create an e-mail with a given name and array of options
 ```php
 $client->api('email')->create('Elomentary Test', array(
   'folderId' => 123,
@@ -37,7 +42,16 @@ $client->api('email')->create('Elomentary Test', array(
 ));
 ```
 
-#### Remove a single email by a given ID.
+#### Update an e-mail with a given ID and array of e-mail data
+```php
+$client->api('email')->update(123, array(
+  'folderId' => 123,
+  'emailGroupId' => 123,
+  'subject' => 'Elomentary Test Subject',
+));
+```
+
+#### Remove a single e-mail by a given ID
 ```php
 $client->api('email')->remove($email_id);
 ```

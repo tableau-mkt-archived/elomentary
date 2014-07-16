@@ -63,7 +63,7 @@ class EmailTest extends TestCase {
   /**
    * @test
    */
-  public function shouldShowEmail() {
+  public function shouldShowEmailJustId() {
     $id = 1337;
     $expected_response = array('response');
 
@@ -76,6 +76,46 @@ class EmailTest extends TestCase {
     $this->assertEquals($expected_response, $api->show($id));
   }
 
+  /**
+   * @test
+   */
+  public function shouldShowEmailWithDepth() {
+    $email_id = 1337;
+    $email_depth = 'complete';
+    $expected_response = array('response');
+
+    $api = $this->getApiMock();
+    $api->expects($this->once())
+      ->method('get')
+      ->with('assets/email/' . $email_id, array(
+        'depth' => $email_depth,
+        'extensions' => null,
+      ))
+      ->will($this->returnValue($expected_response));
+
+    $this->assertEquals($expected_response, $api->show($email_id, $email_depth));
+  }
+
+  /**
+   * @test
+   */
+  public function shouldShowEmailWithExtensions() {
+    $email_id = 1337;
+    $email_depth = 'complete';
+    $email_extensions = 'extension123';
+    $expected_response = array('response');
+
+    $api = $this->getApiMock();
+    $api->expects($this->once())
+      ->method('get')
+      ->with('assets/email/' . $email_id, array(
+        'depth' => $email_depth,
+        'extensions' => $email_extensions,
+      ))
+      ->will($this->returnValue($expected_response));
+
+    $this->assertEquals($expected_response, $api->show($email_id, $email_depth, $email_extensions));
+  }
   /**
    * @test
    */
@@ -95,6 +135,27 @@ class EmailTest extends TestCase {
       ->will($this->returnValue($expected_response));
 
     $this->assertEquals($expected_response, $api->create($name, $options));
+  }
+
+  /**
+   * @test
+   */
+  public function shouldUpdateEmail() {
+    $email_id = 123;
+    $email_data = array(
+      'folderId' => 456,
+      'emailGroupId' => 789,
+      'subject' => 'Test Subject',
+    );
+    $expected_response = array('response');
+
+    $api = $this->getApiMock();
+    $api->expects($this->once())
+      ->method('put')
+      ->with('assets/email/' . $email_id, $email_data)
+      ->will($this->returnValue($expected_response));
+
+    $this->assertEquals($expected_response, $api->update($email_id, $email_data));
   }
 
   /**

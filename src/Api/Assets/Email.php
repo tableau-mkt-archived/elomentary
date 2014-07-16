@@ -14,12 +14,13 @@ use Eloqua\Api\CreatableInterface;
 use Eloqua\Api\DestroyableInterface;
 use Eloqua\Api\ReadableInterface;
 use Eloqua\Api\SearchableInterface;
+use Eloqua\Api\UpdateableInterface;
 use Eloqua\Exception\InvalidArgumentException;
 
 /**
  * Eloqua Email.
  */
-class Email extends AbstractApi implements SearchableInterface, CreatableInterface, ReadableInterface, DestroyableInterface {
+class Email extends AbstractApi implements SearchableInterface, CreatableInterface, ReadableInterface, DestroyableInterface, UpdateableInterface {
 
   /**
    * {@inheritdoc}
@@ -60,7 +61,17 @@ class Email extends AbstractApi implements SearchableInterface, CreatableInterfa
    *   The desired email record represented as an associative array.
    */
   public function show($id, $depth = 'complete', $extensions = null) {
-    return $this->get('assets/email/' . rawurlencode($id));
+    return $this->get('assets/email/' . rawurlencode($id), array(
+      'depth' => $depth,
+      'extensions' => $extensions,
+    ));
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function update($id, $email_data) {
+    return $this->put('assets/email/' . rawurlencode($id), $email_data);
   }
 
   /**

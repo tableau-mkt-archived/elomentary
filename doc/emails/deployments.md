@@ -29,6 +29,11 @@ $client->api('email')->deployments()->search('Never gonna*', array(
 $client->api('email')->deployments()->show($deployment_id);
 ```
 
+#### Return partial data on an e-mail deployment
+```php
+$client->api('email')->deployments()->show($deployment_id, 'partial');
+```
+
 #### Create an e-mail deployment
 ```php
 $client->api('email')->deployments()->create($data);
