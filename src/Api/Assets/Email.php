@@ -10,13 +10,16 @@ namespace Eloqua\Api\Assets;
 use Eloqua\Api\AbstractApi;
 use Eloqua\Api\Assets\Email\Group;
 use Eloqua\Api\Assets\Email\Deployment;
+use Eloqua\Api\CreatableInterface;
+use Eloqua\Api\DestroyableInterface;
+use Eloqua\Api\ReadableInterface;
 use Eloqua\Api\SearchableInterface;
 use Eloqua\Exception\InvalidArgumentException;
 
 /**
  * Eloqua Email.
  */
-class Email extends AbstractApi implements SearchableInterface {
+class Email extends AbstractApi implements SearchableInterface, CreatableInterface, ReadableInterface, DestroyableInterface {
 
   /**
    * {@inheritdoc}
@@ -56,7 +59,7 @@ class Email extends AbstractApi implements SearchableInterface {
    * @return array
    *   The desired email record represented as an associative array.
    */
-  public function show($id) {
+  public function show($id, $depth = 'complete', $extensions = null) {
     return $this->get('assets/email/' . rawurlencode($id));
   }
 
