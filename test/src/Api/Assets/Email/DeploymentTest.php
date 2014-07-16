@@ -11,6 +11,33 @@ use Eloqua\Tests\Api\TestCase;
 
 class DeploymentTest extends TestCase {
 
+  protected static $deployment_options = array();
+
+  public function setUp() {
+    self::$deployment_options['EmailInlineDeployment'] = array(
+      'type' => 'EmailInlineDeployment',
+      'name' => 'Inline Deployment',
+      'contacts' => array(
+        array(
+          'emailAddress' => 'test@example.com',
+          'id' => 123,
+        ),
+      ),
+      'email' => array(
+        'id' => 111,
+      ),
+    );
+
+    self::$deployment_options['EmailTestDeployment'] = array(
+      'type' => 'EmailTestDeployment',
+      'name' => 'Test Deployment',
+      'contactId' => 123456,
+      'email' => array(
+        'id' => 222,
+      ),
+    );
+  }
+
   /**
    * @test
    */
@@ -135,29 +162,52 @@ class DeploymentTest extends TestCase {
     $this->assertEquals($expected_response, $api->create($options));
   }
 
-
   /**
    * @test
    * @expectedException InvalidArgumentException
    */
-  public function shouldThrowExceptionWhenCreatingDeploymentWithMissingParams() {
-    $options = array(
-      'type' => 'EmailInlineDeployment',
-      'name' => 'Test Deployment',
-      // options excluded here for test
-      'email' => array(
-        'folderId' => 42,
-        'emailGroupId' => 420,
-        'subject' => 'Test Subject',
-      ),
-    );
+  public function shouldThrowExceptionWhenCreatingInlineDeploymentWithMissingParams() {
     $expected_response = array('response');
 
     $api = $this->getApiMock();
     $api->expects($this->any())
       ->method('post');
 
-    $api->create($options);
+    // Remove a required value
+    unset(self::$deployment_options['EmailInlineDeployment']['contacts']);
+
+    $api->create(self::$deployment_options['EmailInlineDeployment']);
+  }
+
+  /**
+   * @test
+   * @expectedException InvalidArgumentException
+   */
+  public function shouldThrowExceptionWhenCreatingTestDeploymentWithMissingParams() {
+    $expected_response = array('response');
+
+    $api = $this->getApiMock();
+    $api->expects($this->any())
+      ->method('post');
+
+    // Remove a required value
+    unset(self::$deployment_options['EmailTestDeployment']['contactId']);
+
+    $api->create(self::$deployment_options['EmailTestDeployment']);
+  }
+
+  /**
+   * @test
+   * @expectedException InvalidArgumentException
+   */
+  public function shouldThrowExceptionWhenCreatingDeploymentWithMissingParams() {
+    $expected_response = array('response');
+
+    $api = $this->getApiMock();
+    $api->expects($this->any())
+      ->method('post');
+
+    $api->create(array('some', 'random', 'array'));
   }
 
   protected function getApiClass() {
