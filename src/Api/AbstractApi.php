@@ -4,6 +4,7 @@ namespace Eloqua\Api;
 
 use Eloqua\Client;
 use Eloqua\HttpClient\Message\ResponseMediator;
+use Eloqua\Exception\InvalidArgumentException;
 
 /**
  * Abstract class for API classes.
@@ -194,6 +195,20 @@ abstract class AbstractApi implements ApiInterface {
    */
   protected function createJsonBody(array $parameters) {
     return (count($parameters) === 0) ? null : json_encode($parameters, empty($parameters) ? JSON_FORCE_OBJECT : 0);
+  }
+
+  /**
+   * Checks for required values in arrays.
+   *
+   * @param array $array
+   * @param string $key
+   *
+   * @throws InvalidArgumentException
+   */
+  protected function validateExists($array, $key) {
+    if (!array_key_exists($key, $array) || empty($array[$key])) {
+      throw new InvalidArgumentException("You must specify a non-empty value for $key.");
+    }
   }
 
 }
