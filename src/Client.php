@@ -88,11 +88,18 @@ class Client
    * @param string $password
    *   Password associated with the aforementioned Eloqua user.
    *
+   * @param string $baseUrl
+   *   Endpoint associated with the aforementioned Eloqua user.
+   *
    * @throws InvalidArgumentException if any arguments are not specified.
    */
-  public function authenticate($site, $login, $password) {
+  public function authenticate($site, $login, $password, $baseUrl = null) {
     if (empty($site) || empty($login) || empty($password)) {
       throw new InvalidArgumentException('You must specify authentication details.');
+    }
+
+    if (isset($baseUrl)) {
+        $this->setOption('base_url', $baseUrl);
     }
 
     $this->getHttpClient()->authenticate($site, $login, $password);
