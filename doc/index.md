@@ -11,6 +11,7 @@ Navigation
 ### Assets
 * [E-mails](emails.md)
   * [E-mail Groups](emails/groups.md)
+* [Custom Objects](custom-objects.md)
 
 ### System
 
