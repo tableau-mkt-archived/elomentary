@@ -32,19 +32,20 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
    * @test
    * @dataProvider getAuthenticationData
    */
-  public function shouldAuthenticateUsingAllGivenParameters($site, $login, $password) {
+  public function shouldAuthenticateUsingAllGivenParameters($site, $login, $password, $baseUrl = null) {
     $httpClient = $this->getHttpClientMock();
     $httpClient->expects($this->once())
       ->method('authenticate')
       ->with($site, $login, $password);
 
     $client = new Client($httpClient);
-    $client->authenticate($site, $login, $password);
+    $client->authenticate($site, $login, $password, $baseUrl);
   }
 
   public function getAuthenticationData() {
     return array(
-      array('My.Company', 'My.Login', 'Battery.Horse.Staple'),
+        array('My.Company', 'My.Login', 'Battery.Horse.Staple'),
+        array('My.Company', 'My.Login', 'Battery.Horse.Staple', 'https://secure.eloqua.com/API/REST'),
     );
   }
 
