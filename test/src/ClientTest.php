@@ -94,6 +94,17 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
     $this->assertInstanceOf($class, $client->api($apiName));
   }
 
+  public function getApiClassProvider() {
+    return array(
+      array('contact', 'Eloqua\Api\Data\Contact'),
+      array('contacts', 'Eloqua\Api\Data\Contact'),
+      array('email', 'Eloqua\Api\Assets\Email'),
+      array('emails', 'Eloqua\Api\Assets\Email'),
+      array('customObject', 'Eloqua\Api\Assets\CustomObject'),
+      array('customObjects', 'Eloqua\Api\Assets\CustomObject'),
+    );
+  }
+
   /**
    * @test
    * @expectedException InvalidArgumentException
@@ -101,13 +112,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
   public function shouldNotGetApiInstance() {
     $client = new Client();
     $client->api('not_a_thing');
-  }
-
-  public function getApiClassProvider() {
-    return array(
-      array('contact', 'Eloqua\Api\Data\Contact'),
-      array('contacts', 'Eloqua\Api\Data\Contact'),
-    );
   }
 
   public function getHttpClientMock(array $methods = array()) {

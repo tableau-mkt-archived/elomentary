@@ -79,11 +79,13 @@ abstract class AbstractApi implements ApiInterface {
    * @param string $path
    *   The request path.
    *
-   * @param array $parameters
+   * @param object|array $parameters
    *   POST parameters to be JSON encoded.
    *
    * @param array $requestHeaders
    *   The request headers.
+   *
+   * @returns \Eloqua\HttpClient\Message\ResponseMediator
    */
   protected function post($path, $parameters = array(), $requestHeaders = array()) {
     return $this->postRaw(

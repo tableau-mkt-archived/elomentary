@@ -22,7 +22,7 @@ class CustomObjectTest extends TestCase {
     $api = $this->getApiMock();
     $api->expects($this->once())
       ->method('get')
-      ->with('assets/customObject', array('search' => $custom_object_name))
+      ->with('assets/customObjects', array('search' => $custom_object_name))
       ->will($this->returnValue($expected_response));
 
     $this->assertEquals($expected_response, $api->search($custom_object_name));
@@ -39,7 +39,7 @@ class CustomObjectTest extends TestCase {
     $api = $this->getApiMock();
     $api->expects($this->once())
       ->method('get')
-      ->with('assets/customObject', array_merge(array('search' => $custom_object_name), $options))
+      ->with('assets/customObjects', array_merge(array('search' => $custom_object_name), $options))
       ->will($this->returnValue($expected_response));
 
     $this->assertEquals($expected_response, $api->search($custom_object_name, $options));

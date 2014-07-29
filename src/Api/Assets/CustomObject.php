@@ -24,10 +24,11 @@ class CustomObject extends AbstractApi implements CreatableInterface, ReadableIn
   /**
    * {@inheritdoc}
    *
-   * CustomObject search searches by a custom object's name parameter
+   * CustomObject search searches by a custom object's name parameter.  The
+   * method name is pluralized, unlike other customObject calls.
    */
   public function search($search, array $options = array()) {
-    return $this->get('assets/customObject', array_merge(array(
+    return $this->get('assets/customObjects', array_merge(array(
       'search' => $search,
     ), $options));
   }

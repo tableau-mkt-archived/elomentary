@@ -152,7 +152,7 @@ class AbstractApiTestInstance extends AbstractApi {
   /**
    * {@inheritDoc}
    */
-  public function post($path, array $parameters = array(), $requestHeaders = array()) {
+  public function post($path, $parameters = array(), $requestHeaders = array()) {
     return $this->client->getHttpClient()->post($path, $parameters, $requestHeaders);
   }
 
