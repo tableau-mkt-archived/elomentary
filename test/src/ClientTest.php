@@ -63,6 +63,70 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
 
   /**
    * @test
+   * @dataProvider getEndpointResponses
+   */
+  public function shouldReturnEndpoints($response, $expected) {
+    $guzzleResponse = $this->getMock('Guzzle\Http\Message\Response', array('json'), array(''));
+    $guzzleResponse
+      ->expects($this->once())
+      ->method('json')
+      ->will($this->returnValue($response));
+
+    $httpClient = $this->getHttpClientMock();
+    $httpClient->expects($this->once())
+      ->method('get')
+      ->will($this->returnValue($guzzleResponse));
+
+    $client = new Client($httpClient);
+    $urls = $client->getRestEndpoints('My.Company', 'My.Login', 'Battery.Horse.Staple', $httpClient);
+
+    $this->assertSame($urls, $expected);
+  }
+
+  public function getEndpointResponses() {
+    return array(
+      array (
+        array (
+          'urls' => array (
+            'apis' => array (
+              'rest' => array (
+                'standard' => 'https://secure.p03.eloqua.com/API/REST/{version}/',
+                'data'     => 'https://secure.p03.eloqua.com/API/Data/{version}/',
+                'bulk'     => 'https://secure.p03.eloqua.com/API/Bulk/{version}/',
+        )))),
+        array (
+          'standard' => 'https://secure.p03.eloqua.com/API/REST/',
+          'data'     => 'https://secure.p03.eloqua.com/API/Data/',
+          'bulk'     => 'https://secure.p03.eloqua.com/API/Bulk/',
+
+        )
+      ),
+
+    );
+  }
+
+  /**
+   * @test
+   * @expectedException Exception
+   */
+  public function shouldThrowExceptionIfEndpointsNotReturned() {
+    $guzzleResponse = $this->getMock('Guzzle\Http\Message\Response', array('json'), array(''));
+    $guzzleResponse
+      ->expects($this->once())
+      ->method('json')
+      ->will($this->returnValue(''));
+
+    $httpClient = $this->getHttpClientMock();
+    $httpClient->expects($this->once())
+      ->method('get')
+      ->will($this->returnValue($guzzleResponse));
+
+    $client = new Client($httpClient);
+    $urls = $client->getRestEndpoints('My.Company', 'My.Login', 'Battery.Horse.Staple', $httpClient);
+  }
+
+  /**
+   * @test
    */
   public function shouldClearHeaders() {
     $httpClient = $this->getHttpClientMock(array('clearHeaders'));

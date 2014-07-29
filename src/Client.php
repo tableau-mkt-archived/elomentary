@@ -111,6 +111,49 @@ class Client
   }
 
   /**
+   * Gets REST endpoints associated with authentication parameters
+   *
+   * @param string $site
+   *   Eloqua site name for the instance against which requests should be made.
+   *
+   * @param string $login
+   *   Eloqua user name with which requests should be made.
+   *
+   * @param string $password
+   *   Password associated with the aforementioned Eloqua user.
+   *
+   * @param HttpClientInterface $client
+   *   Provides HttpClientInterface dependency injection.
+   *
+   * @returns array
+   *   The list of urls associated with the aforementioned Eloqua user, with the
+   *   '/{version}/' part removed.
+   *
+   * @see http://topliners.eloqua.com/community/code_it/blog/2012/11/30/using-the-eloqua-api--determining-endpoint-urls-logineloquacom
+   */
+  public function getRestEndpoints($site, $login, $password, HttpClientInterface $client = null) {
+    $client = $client ?: new HttpClient(array (
+      'base_url' => 'https://login.eloqua.com/id',
+      'version'  => '',
+    ));
+
+    $authHeader = array (
+      'Authorization' => sprintf('Basic %s', base64_encode("$site\\$login:$password")),
+    );
+
+    $response = $client->get('https://login.eloqua.com/id', array(), $authHeader);
+
+    $loginObj = $response->json();
+    $urls     = $loginObj['urls']['apis']['rest'];
+
+    $stripVersion = function($url) {
+      return str_replace('/{version}/', '/', $url);
+    };
+
+    return array_map($stripVersion, $urls);
+  }
+
+  /**
    * Returns the HttpClient.
    *
    * @return HttpClient
