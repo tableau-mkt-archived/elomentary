@@ -85,7 +85,7 @@ abstract class AbstractApi implements ApiInterface {
    * @param array $requestHeaders
    *   The request headers.
    */
-  protected function post($path, array $parameters = array(), $requestHeaders = array()) {
+  protected function post($path, $parameters = array(), $requestHeaders = array()) {
     return $this->postRaw(
       $path,
       $this->createJsonBody($parameters),
@@ -188,12 +188,12 @@ abstract class AbstractApi implements ApiInterface {
   /**
    * Creates a JSON encoded version of an array of parameters.
    *
-   * @param array $parameters
+   * @param array|object $parameters
    *   The request parameters
    *
    * @return null|string
    */
-  protected function createJsonBody(array $parameters) {
+  protected function createJsonBody($parameters) {
     return (count($parameters) === 0) ? null : json_encode($parameters, empty($parameters) ? JSON_FORCE_OBJECT : 0);
   }
 
