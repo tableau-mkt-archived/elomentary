@@ -164,8 +164,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
       array('contacts', 'Eloqua\Api\Data\Contact'),
       array('email', 'Eloqua\Api\Assets\Email'),
       array('emails', 'Eloqua\Api\Assets\Email'),
-      array('customObject', 'Eloqua\Api\Assets\CustomObject'),
-      array('customObjects', 'Eloqua\Api\Assets\CustomObject'),
+      array('customObject', 'Eloqua\Api\Data\CustomObject'),
+      array('customObjects', 'Eloqua\Api\Data\CustomObject'),
     );
   }
 
