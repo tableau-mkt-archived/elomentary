@@ -1,11 +1,9 @@
 <?php
 namespace Eloqua\DataStructures;
 
-use Eloqua\DataStructures\FieldValue;
 use Eloqua\Exception\InvalidArgumentException;
 
-
-class CustomObjectData {
+class CustomObjectData implements EloquaObjectInterface  {
   public $id;
   public $contactId;
   public $fieldValues;
@@ -37,7 +35,9 @@ class CustomObjectData {
     foreach ($customObjectData as $key => $value) {
       switch ($key) {
         case 'fieldValues' :
-            $obj->fieldValues[] = FieldValue::load($value);
+          foreach ($value as $fieldValue) {
+              $obj->fieldValues[] = FieldValue::load($fieldValue);
+          }
           break;
 
         default:

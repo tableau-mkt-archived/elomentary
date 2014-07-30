@@ -4,7 +4,7 @@ namespace Eloqua\DataStructures;
 
 use Eloqua\Exception\InvalidArgumentException;
 
-class FieldValue {
+class FieldValue implements EloquaObjectInterface  {
   public $id;
   public $value;
 

@@ -66,8 +66,7 @@ class CustomObjectTest extends \PHPUnit_Framework_TestCase {
           'id' => 1,
           'contactId' => 2,
           'fieldValues' => array (
-            'id' => 3,
-            'value' => 4,
+            array ('id' => 3, 'value' => 4),
           )
         ),
         new CustomObjectData(2, array(new FieldValue(3, '4'))),

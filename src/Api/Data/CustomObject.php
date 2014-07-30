@@ -50,12 +50,11 @@ class CustomObject extends AbstractApi implements CreatableInterface, Searchable
 
   /**
    * {@inheritdoc}
+   *
+   * When searching through records in a custom object, you must specify which
+   * column you want to search through.  $search = 'id=10', for example
    */
-  public function search($search = '', array $options = array()) {
-    if (!empty($search)) {
-      throw new InvalidArgumentException('Sorry, non-empty search parameters are not currently supported');
-    }
-
+  public function search($search, array $options = array()) {
     $customObjectData = $this->get("data/customObject/$this->_id", array_merge(array(
       'search' => $search,
     ), $options));

@@ -40,11 +40,11 @@ class CustomObjectTest extends TestCase {
 
     $api->expects($this->once())
       ->method('get')
-      ->with('data/customObject/1', array('search' => ''))
+      ->with('data/customObject/1', array('search' => 'id=1'))
       ->will($this->returnValue($returnValue));
 
     $api->identify(1);
-    $result = $api->search();
+    $result = $api->search('id=1');
 
     $this->assertInstanceOf('Eloqua\DataStructures\CustomObjectData', $result[0]);
   }
@@ -59,15 +59,6 @@ class CustomObjectTest extends TestCase {
         )
       )
     );
-  }
-
-  /**
-   * @test
-   * @expectedException InvalidArgumentException
-   */
-  public function shouldThrowExceptionWithSearchValue() {
-    $api = $this->getApiMock();
-    $api->search('test');
   }
 
   /**
