@@ -37,9 +37,7 @@ class CustomObjectData {
     foreach ($customObjectData as $key => $value) {
       switch ($key) {
         case 'fieldValues' :
-          foreach ($value as $fieldValue) {
-            $obj->fieldValues[] = FieldValue::load($fieldValue);
-          }
+            $obj->fieldValues[] = FieldValue::load($value);
           break;
 
         default:
