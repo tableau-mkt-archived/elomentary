@@ -146,6 +146,24 @@ class CustomObjectTest extends TestCase {
 
   /**
    * @test
+   */
+  public function shouldUpdateExistingMeta() {
+    $api = $this->getApiMock();
+
+    $api->expects($this->once())
+      ->method('put')
+      ->with('assets/customObject/1', array())
+      ->will($this->returnValue('test'));
+
+    $api->expects($this->once())
+      ->method('parse')
+      ->with('test');
+
+    $api->update(1, array());
+  }
+
+  /**
+   * @test
    * @expectedException InvalidArgumentException
    * @dataProvider getInvalidCustomObjectCreateMeta
    */
