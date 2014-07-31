@@ -43,6 +43,11 @@ class CustomObjectTest extends TestCase {
       ->with('data/customObject/1', array('search' => 'id=1'))
       ->will($this->returnValue($returnValue));
 
+    $api->expects($this->once())
+      ->method('parse')
+      ->with($returnValue['elements'][0])
+      ->will($this->returnValue(new CustomObjectData('test')));
+
     $api->identify(1);
     $result = $api->search('id=1');
 

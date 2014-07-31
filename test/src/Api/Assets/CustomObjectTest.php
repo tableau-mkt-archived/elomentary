@@ -7,6 +7,8 @@
 
 namespace Eloqua\Tests\Api\Assets;
 
+use Eloqua\DataStructures\CustomObject;
+use Eloqua\DataStructures\CustomObjectField;
 use Eloqua\Exception\InvalidArgumentException;
 use Eloqua\Tests\Api\TestCase;
 
@@ -22,27 +24,37 @@ class CustomObjectTest extends TestCase {
     $api = $this->getApiMock();
     $api->expects($this->once())
       ->method('get')
-      ->with('assets/customObjects', array('search' => $custom_object_name))
+      ->with('assets/customObjects', array('search' => $custom_object_name, 'depth' => 'complete'))
+      ->will($this->returnValue(array('elements' => $expected_response)));
+
+    $api->expects($this->once())
+      ->method('parse')
+      ->with($expected_response[0])
       ->will($this->returnValue($expected_response));
 
-    $this->assertEquals($expected_response, $api->search($custom_object_name));
+    $this->assertEquals(array($expected_response), $api->search($custom_object_name));
   }
 
   /**
    * @test
    */
   public function shouldSearchCustomObjectsWithOptions() {
-    $custom_object_name = 'Test';
-    $options = array('count' => 5);
-    $expected_response = array('response');
+    $searchParam = 'Test';
+    $options = array ('page' => 1, 'depth' => 'complete');
+    $expected = 'response';
 
     $api = $this->getApiMock();
     $api->expects($this->once())
       ->method('get')
-      ->with('assets/customObjects', array_merge(array('search' => $custom_object_name), $options))
-      ->will($this->returnValue($expected_response));
+      ->with('assets/customObjects', array_merge(array('search' => $searchParam), $options))
+      ->will($this->returnValue(array('elements' => array($expected))));
 
-    $this->assertEquals($expected_response, $api->search($custom_object_name, $options));
+    $api->expects($this->once())
+      ->method('parse')
+      ->with($expected)
+      ->will($this->returnValue($expected));
+
+    $this->assertEquals(array($expected), $api->search($searchParam, $options));
   }
 
   /**
@@ -58,6 +70,11 @@ class CustomObjectTest extends TestCase {
       ->with('assets/customObject/' . $custom_object_id, array(
         'depth' => 'complete',
       ))
+      ->will($this->returnValue($expected_response));
+
+    $api->expects($this->once())
+      ->method('parse')
+      ->with($expected_response)
       ->will($this->returnValue($expected_response));
 
     $this->assertEquals($expected_response, $api->show($custom_object_id));
@@ -106,26 +123,23 @@ class CustomObjectTest extends TestCase {
       ->with('assets/customObject', $customObject_meta)
       ->will($this->returnValue($expected_response));
 
+    $api->expects($this->once())
+      ->method('parse')
+      ->with($expected_response)
+      ->will($this->returnValue($expected_response));
+
     $this->assertEquals($expected_response, $api->create($customObject_meta));
   }
 
   public function getValidCustomObjectCreateMeta() {
     return array(
       array(
-        array(
-          'name' => 'Test object with defined fields',
-          'fields' => array(
-            (object) array(
-              'name' => 'Field one',
-              'dataType' => 'text',
-            ),
-          ),
-        ),
+        new CustomObject('Test object with defined fields', null, null, array (
+            new CustomObjectField('Field one', 'text')
+        )),
       ),
       array(
-        array(
-          'name' => 'Test object without defined fields',
-        ),
+          new CustomObject('Test object with defined fields'),
       ),
     );
   }

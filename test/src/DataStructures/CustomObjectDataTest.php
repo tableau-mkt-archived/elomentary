@@ -12,7 +12,7 @@ use Eloqua\DataStructures\FieldValue;
 
 use Eloqua\Exception\InvalidArgumentException;
 
-class CustomObjectTest extends \PHPUnit_Framework_TestCase {
+class CustomObjectDataTest extends \PHPUnit_Framework_TestCase {
 
   /**
    * @test

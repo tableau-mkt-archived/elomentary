@@ -59,7 +59,7 @@ class CustomObject extends AbstractApi implements CreatableInterface, Searchable
       'search' => $search,
     ), $options));
 
-    return array_map(array('Eloqua\DataStructures\CustomObjectData', 'load'), $customObjectData['elements']);
+    return array_map(array($this, 'parse'), $customObjectData['elements']);
   }
 
   /**
@@ -72,6 +72,18 @@ class CustomObject extends AbstractApi implements CreatableInterface, Searchable
       throw new InvalidArgumentException('An input of type Eloqua\DataStructures\CustomObjectData is expected.');
     }
 
-    return $this->post("data/customObject/$this->_id", $customObject);
+    $obj = $this->post("data/customObject/$this->_id", $customObject);
+    return $this->parse($obj);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function parse($responseObject, $type = null) {
+    if (empty($type)) {
+      $type = '\Eloqua\DataStructures\CustomObjectData';
+    }
+
+    return parent::parse($responseObject, $type);
   }
 }

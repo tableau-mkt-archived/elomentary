@@ -148,13 +148,16 @@ abstract class AbstractApi implements ApiInterface {
    * @param string $path
    *   The request path.
    *
-   * @param array $parameters
+   * @param array|object $parameters
    *   The POST parameters to be JSON encoded.
    *
    * @param array $requestHeaders
    *   The request headers.
+   *
+   * @returns ResponseMediator
+   *   API response body, the object or array created by Eloqua
    */
-  protected function put($path, array $parameters = array(), $requestHeaders = array()) {
+  protected function put($path, $parameters = array(), $requestHeaders = array()) {
     $response = $this->client->getHttpClient()->put(
       $path,
       $this->createJsonBody($parameters),
@@ -213,4 +216,19 @@ abstract class AbstractApi implements ApiInterface {
     }
   }
 
+  /**
+   * Parses Eloqua responses into specific object types.
+   * See /src/api/DataStructures for possible types.
+   *
+   * @param array|object $obj
+   *   Response object from Eloqua API
+   *
+   * @param string $type
+   *   Name of object to cast $obj to, ex. \Eloqua\DataStructures\CustomObject
+   *
+   * @return mixed
+   */
+  public function parse($obj, $type) {
+    return $type::load($obj);
+  }
 }

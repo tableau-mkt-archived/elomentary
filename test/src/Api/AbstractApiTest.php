@@ -173,7 +173,7 @@ class AbstractApiTestInstance extends AbstractApi {
   /**
    * {@inheritDoc}
    */
-  public function put($path, array $parameters = array(), $requestHeaders = array()) {
+  public function put($path, $parameters = array(), $requestHeaders = array()) {
     return $this->client->getHttpClient()->put($path, $parameters, $requestHeaders);
   }
 
