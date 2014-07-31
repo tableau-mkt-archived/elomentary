@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Eloqua\Api\Assets\Email.
+ * Contains \Eloqua\Api\Assets\CustomObject.
  */
 
 namespace Eloqua\Api\Assets;
@@ -77,7 +77,7 @@ class CustomObject extends AbstractApi implements CreatableInterface, ReadableIn
     if (isset($customObject_meta->fields)) {
       foreach ($customObject_meta->fields as $field) {
         if (!isset($field->dataType, $field->name)) {
-          throw new InvalidArgumentException('If defining fields, each must contained a dataType and name definition.');
+          throw new InvalidArgumentException('If defining fields, each must contain a dataType and name definition.');
         }
       }
     }

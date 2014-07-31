@@ -80,6 +80,9 @@ class CustomObjectTest extends TestCase {
     $this->assertEquals($expected_response, $api->show($custom_object_id));
   }
 
+  /**
+   * @test
+   */
   public function shouldShowCustomObjectsWithDepth() {
     $custom_object_id = 1337;
     $depth = 'minimal';
@@ -91,6 +94,11 @@ class CustomObjectTest extends TestCase {
       ->with('assets/customObject/' . $custom_object_id, array(
         'depth' => $depth,
       ))
+      ->will($this->returnValue($expected_response));
+
+    $api->expects($this->once())
+      ->method('parse')
+      ->with($expected_response)
       ->will($this->returnValue($expected_response));
 
     $this->assertEquals($expected_response, $api->show($custom_object_id, $depth));
