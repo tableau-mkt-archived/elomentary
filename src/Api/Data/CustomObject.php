@@ -42,10 +42,11 @@ class CustomObject extends AbstractApi implements CreatableInterface, Searchable
    * which one to interface with
    *
    * @param number $id
-   * @returns number
+   * @returns $this
    */
   public function identify($id) {
-    return $this->_id = rawurlencode($id);
+    $this->_id = rawurlencode($id);
+    return $this;
   }
 
   /**
