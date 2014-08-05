@@ -7,12 +7,10 @@
 
 namespace Eloqua\Api\Data;
 
-use Eloqua\DataStructures\CustomObjectData;
-
 use Eloqua\Api\AbstractApi;
 use Eloqua\Api\CreatableInterface;
+use Eloqua\Api\ReadableInterface;
 use Eloqua\Api\SearchableInterface;
-use Eloqua\Exception\InvalidArgumentException;
 
 /**
  * Eloqua Custom Objects.
@@ -22,20 +20,12 @@ use Eloqua\Exception\InvalidArgumentException;
  *
  * This API is limited to using Eloqua REST v1.0
  */
-class CustomObject extends AbstractApi implements CreatableInterface, SearchableInterface {
+class CustomObject extends AbstractApi implements CreatableInterface, ReadableInterface, SearchableInterface {
 
   /**
    * @var number Identifier representing the customObject to interact with
    */
   private $_id;
-
-  /**
-   * Gets metadata class for Custom Objects.  Used for the object's definition.
-   * @return \Eloqua\Api\Assets\CustomObject
-   */
-  public function meta() {
-    return new \Eloqua\Api\Assets\CustomObject($this->client);
-  }
 
   /**
    * Eloqua accounts can have multiple defined custom objects, this identifies
@@ -59,6 +49,19 @@ class CustomObject extends AbstractApi implements CreatableInterface, Searchable
     return $this->get("data/customObject/$this->_id", array_merge(array(
       'search' => $search,
     ), $options));
+  }
+
+  /**
+   * {@inheritdoc}
+   *
+   * This method is provided for consistency and syntactic sugar - there is no
+   * "show" API available for GET:data/customObject/{objId}/{recordId}
+   *
+   */
+  public function show($id, $depth = 'complete', $extensions = NULL) {
+    return $this->search("id=$id", array(
+      'depth' => $depth,
+    ));
   }
 
   /**

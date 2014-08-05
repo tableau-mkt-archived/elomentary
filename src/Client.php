@@ -71,7 +71,7 @@ class Client
 
       case 'customObject':
       case 'customObjects':
-        $api = new Api\Data\CustomObject($this);
+        $api = new Api\Assets\CustomObject($this);
         break;
 
       default:

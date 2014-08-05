@@ -15,6 +15,14 @@ class CustomObjectTest extends TestCase {
   /**
    * @test
    */
+  public function shouldGetDataObject() {
+    $api = $this->getApiMock();
+    $this->assertInstanceOf('\Eloqua\Api\Data\CustomObject', $api->data(1));
+  }
+
+  /**
+   * @test
+   */
   public function shouldSearchCustomObjects() {
     $searchParam = 'Test';
     $expected_response = 'response';

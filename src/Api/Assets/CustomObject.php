@@ -23,6 +23,21 @@ use Eloqua\Exception\InvalidArgumentException;
 class CustomObject extends AbstractApi implements CreatableInterface, ReadableInterface, UpdateableInterface, DestroyableInterface, SearchableInterface {
 
   /**
+   * Gets custom object data api
+   *
+   * @param number $customObjectId
+   *   The custom object ID from which you're trying to interface with
+   *
+   * @return \Eloqua\Api\Data\CustomObject
+   */
+  public function data($customObjectId) {
+    $data = new \Eloqua\Api\Data\CustomObject($this->client);
+    $data->identify($customObjectId);
+
+    return $data;
+  }
+
+  /**
    * {@inheritdoc}
    *
    * CustomObject search searches by a custom object's name parameter.  The

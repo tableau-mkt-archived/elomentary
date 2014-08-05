@@ -6,19 +6,9 @@
  */
 
 namespace Eloqua\Tests\Api\Data;
-
-use Eloqua\Exception\InvalidArgumentException;
 use Eloqua\Tests\Api\TestCase;
 
 class CustomObjectTest extends TestCase {
-
-  /**
-   * @test
-   */
-  public function shouldGetMetaObject() {
-    $api = $this->getApiMock();
-    $this->assertInstanceOf('\Eloqua\Api\Assets\CustomObject', $api->meta());
-  }
 
   /**
    * @test
