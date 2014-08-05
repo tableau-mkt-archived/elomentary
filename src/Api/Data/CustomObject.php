@@ -56,11 +56,9 @@ class CustomObject extends AbstractApi implements CreatableInterface, Searchable
    * column you want to search through.  $search = 'id=10', for example
    */
   public function search($search, array $options = array()) {
-    $customObjectData = $this->get("data/customObject/$this->_id", array_merge(array(
+    return $this->get("data/customObject/$this->_id", array_merge(array(
       'search' => $search,
     ), $options));
-
-    return array_map(array($this, 'parse'), $customObjectData['elements']);
   }
 
   /**
@@ -68,23 +66,7 @@ class CustomObject extends AbstractApi implements CreatableInterface, Searchable
    *
    * @see http://topliners.eloqua.com/docs/DOC-3097
    */
-  public function create($customObject) {
-    if (!$customObject instanceof CustomObjectData) {
-      throw new InvalidArgumentException('An input of type Eloqua\DataStructures\CustomObjectData is expected.');
-    }
-
-    $obj = $this->post("data/customObject/$this->_id", $customObject);
-    return $this->parse($obj);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function parse($responseObject, $type = null) {
-    if (empty($type)) {
-      $type = '\Eloqua\DataStructures\CustomObjectData';
-    }
-
-    return parent::parse($responseObject, $type);
+  public function create($customObjectRecord) {
+    return $this->post("data/customObject/$this->_id", $customObjectRecord);
   }
 }

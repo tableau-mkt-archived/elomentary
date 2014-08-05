@@ -29,23 +29,19 @@ class CustomObject extends AbstractApi implements CreatableInterface, ReadableIn
    * method name is pluralized, unlike other customObject calls.
    */
   public function search($search, array $options = array()) {
-    $obj = $this->get('assets/customObjects', array_merge(array(
+    return $this->get('assets/customObjects', array_merge(array(
       'search' => $search,
       'depth' => 'complete',
     ), $options));
-
-    return array_map(array ($this, 'parse'), $obj['elements']);
   }
 
   /**
    * {@inheritdoc}
    */
   public function show($id, $depth = 'complete', $extensions = NULL) {
-    $obj = $this->get('assets/customObject/' . rawurlencode($id), array(
+    return $this->get('assets/customObject/' . rawurlencode($id), array(
       'depth' => $depth,
     ));
-
-    return $this->parse($obj);
   }
 
   /**
@@ -59,8 +55,7 @@ class CustomObject extends AbstractApi implements CreatableInterface, ReadableIn
    *
    */
   public function update($id, $customObject_meta) {
-    $obj = $this->put('assets/customObject/' . rawurldecode($id), $customObject_meta);
-    return $this->parse($obj);
+    return $this->put('assets/customObject/' . rawurldecode($id), $customObject_meta);
   }
 
   /**
@@ -70,20 +65,19 @@ class CustomObject extends AbstractApi implements CreatableInterface, ReadableIn
    * @see http://topliners.eloqua.com/docs/DOC-3097
    */
   public function create($customObject_meta) {
-    if (!isset($customObject_meta->name)) {
+    if (!isset($customObject_meta['name'])) {
       throw new InvalidArgumentException('At a minimum, you must provide an object name.');
     }
 
-    if (isset($customObject_meta->fields)) {
-      foreach ($customObject_meta->fields as $field) {
-        if (!isset($field->dataType, $field->name)) {
+    if (isset($customObject_meta['fields'])) {
+      foreach ($customObject_meta['fields'] as $field) {
+        if (!isset($field['dataType'], $field['name'])) {
           throw new InvalidArgumentException('If defining fields, each must contain a dataType and name definition.');
         }
       }
     }
 
-    $obj = $this->post('assets/customObject', $customObject_meta);
-    return $this->parse($obj);
+    return $this->post('assets/customObject', $customObject_meta);
   }
 
   /**
@@ -91,16 +85,5 @@ class CustomObject extends AbstractApi implements CreatableInterface, ReadableIn
    */
   public function remove($id) {
     return $this->delete('assets/customObject/' . rawurlencode($id));
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function parse($responseObject, $type = null) {
-    if (empty($type)) {
-      $type = '\Eloqua\DataStructures\CustomObject';
-    }
-
-    return parent::parse($responseObject, $type);
   }
 }

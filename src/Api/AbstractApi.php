@@ -215,20 +215,4 @@ abstract class AbstractApi implements ApiInterface {
       throw new InvalidArgumentException("You must specify a non-empty value for $key.");
     }
   }
-
-  /**
-   * Parses Eloqua responses into specific object types.
-   * See /src/api/DataStructures for possible types.
-   *
-   * @param array|object $obj
-   *   Response object from Eloqua API
-   *
-   * @param string $type
-   *   Name of object to cast $obj to, ex. \Eloqua\DataStructures\CustomObject
-   *
-   * @return mixed
-   */
-  public function parse($obj, $type) {
-    return $type::load($obj);
-  }
 }
