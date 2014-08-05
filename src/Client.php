@@ -82,6 +82,31 @@ class Client
   }
 
   /**
+   * The primary interface for interacting with different Eloqua objects using
+   * the bulk API
+   *
+   * @param string $name
+   *   The name of the bulk API instance to return.
+   *
+   * @return ApiInterface
+   *
+   * @throws InvalidArgumentException
+   */
+  public function bulkApi($name) {
+    switch ($name) {
+      case 'customObject':
+      case 'customObjects':
+        $api = new BulkApi\Data\CustomObject($this);
+        break;
+
+      default:
+        throw new InvalidArgumentException(sprintf('Undefined bulk API instance: "%s"', $name));
+    }
+
+    return $api;
+  }
+
+  /**
    * Authenticate a user for all subsequent requests.
    *
    * @param string $site

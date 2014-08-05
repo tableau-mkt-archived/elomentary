@@ -3,7 +3,9 @@
 namespace Eloqua\DataStructures;
 
 
-class CustomObjectField implements EloquaObjectInterface {
+use Eloqua\Exception\InvalidArgumentException;
+
+class CustomObjectField implements EloquaObjectInterface, BulkObjectInterface {
 
   public $name;
   public $dataType;
@@ -31,5 +33,20 @@ class CustomObjectField implements EloquaObjectInterface {
     }
 
     return $obj;
+  }
+
+  public function getImportDefinition($parentId = null, $importObject = null) {
+    if (!isset($parentId)) {
+      throw new InvalidArgumentException('CustomObjectField EML needs a $parentId to be created');
+    }
+
+    if (empty($importObject)) {
+      $importObject = $this;
+    }
+
+    $importEntity = new \stdClass();
+    $importEntity->{$importObject->internalName} = "{{CustomObject[$parentId].Field[$importObject->id]}}";
+
+    return $importEntity;
   }
 } 
