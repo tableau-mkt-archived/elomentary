@@ -74,6 +74,11 @@ class Client
         $api = new Api\Assets\OptionList($this);
         break;
 
+      case 'visitor':
+      case 'visitors':
+        $api = new Api\Data\Visitor($this);
+        break;
+
       default:
         throw new InvalidArgumentException(sprintf('Undefined API instance: "%s"', $name));
     }
