@@ -1,7 +1,7 @@
 ## Option Lists
+[Back to the navigation](index.md)
 OptionLists provide an API into the drop-down lists associated with Eloqua
 contacts
-[Back to the navigation](index.md)
 
 ### Usage examples
 

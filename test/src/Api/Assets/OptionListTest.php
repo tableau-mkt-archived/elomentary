@@ -30,7 +30,7 @@ class OptionListTest extends TestCase {
   /**
    * @test
    */
-  public function shouldSearchEmailsWithOptions() {
+  public function shouldSearchOptionListsWithOptions() {
     $term = 'Never Gonna Give*';
     $options = array('count' => 5);
     $expected_response = array('response');
