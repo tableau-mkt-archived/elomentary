@@ -74,6 +74,11 @@ class Client
         $api = new Api\Assets\CustomObject($this);
         break;
 
+      case 'optionList':
+      case 'optionLists':
+        $api = new Api\Assets\OptionList($this);
+        break;
+
       default:
         throw new InvalidArgumentException(sprintf('Undefined API instance: "%s"', $name));
     }
