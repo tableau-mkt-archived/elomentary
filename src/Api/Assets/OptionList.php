@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Eloqua\Api\Assets\OptionLists.
+ * Contains \Eloqua\Api\Assets\OptionList.
  */
 
 namespace Eloqua\Api\Assets;

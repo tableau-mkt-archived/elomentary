@@ -29,7 +29,7 @@ $client->api('optionList')->create(array(
 
 #### Update an OptionList with a given ID and new OptionList array
 ```php
-$client->api('optionList')->create(1337, array(
+$client->api('optionList')->update(1337, array(
   'id' => 1337,
   'name' => 'Elomentary Test v2',
   'elements' => array (
