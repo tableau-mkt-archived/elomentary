@@ -28,9 +28,17 @@ class CustomObject extends AbstractApi implements CreatableInterface, ReadableIn
    * @param number $customObjectId
    *   The custom object ID from which you're trying to interface with
    *
+   * @throws \Exception
+   *   Accessing custom object data is currently only possible with the 1.0 API.
+   *   See http://topliners.eloqua.com/thread/13397 for more information.
+   *
    * @return \Eloqua\Api\Data\CustomObject
    */
   public function data($customObjectId) {
+    if ($this->client->getOption('version') != '1.0') {
+      throw new \Exception("Accessing customObject data is currently only supported with the Rest API v1.0");
+    }
+
     $data = new \Eloqua\Api\Data\CustomObject($this->client);
     $data->identify($customObjectId);
 

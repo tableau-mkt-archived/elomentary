@@ -14,10 +14,21 @@ class CustomObjectTest extends TestCase {
 
   /**
    * @test
+   * @expectedException \Exception
+   */
+  public function shouldThrowExceptionWithDefaultVersion() {
+    $api = $this->getApiMock();
+    $api->data(1);
+  }
+
+  /**
+   * @test
    */
   public function shouldGetDataObject() {
-    $api = $this->getApiMock();
-    $this->assertInstanceOf('\Eloqua\Api\Data\CustomObject', $api->data(1));
+    $api = new \Eloqua\Client();
+    $api->setOption('version', '1.0');
+
+    $this->assertInstanceOf('\Eloqua\Api\Data\CustomObject', $api->api('customObject')->data(1));
   }
 
   /**
