@@ -7,10 +7,12 @@ Navigation
   * [Contacts by Contact List](contacts/list.md)
   * [Contacts by Contact Filter](contacts/filters.md)
   * [Contact View Data](contacts/views.md)
+* [Visitors](visitors.md)
 
 ### Assets
 * [E-mails](emails.md)
   * [E-mail Groups](emails/groups.md)
+* [Option Lists](optionList.md)
 * [Custom Objects](custom-objects.md)
 
 ### System

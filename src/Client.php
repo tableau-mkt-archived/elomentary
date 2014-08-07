@@ -74,33 +74,18 @@ class Client
         $api = new Api\Data\CustomObject($this);
         break;
 
-      default:
-        throw new InvalidArgumentException(sprintf('Undefined API instance: "%s"', $name));
-    }
+      case 'optionList':
+      case 'optionLists':
+        $api = new Api\Assets\OptionList($this);
+        break;
 
-    return $api;
-  }
-
-  /**
-   * The primary interface for interacting with different Eloqua objects using
-   * the bulk API
-   *
-   * @param string $name
-   *   The name of the bulk API instance to return.
-   *
-   * @return ApiInterface
-   *
-   * @throws InvalidArgumentException
-   */
-  public function bulkApi($name) {
-    switch ($name) {
-      case 'customObject':
-      case 'customObjects':
-        $api = new BulkApi\Data\CustomObject($this);
+      case 'visitor':
+      case 'visitors':
+        $api = new Api\Data\Visitor($this);
         break;
 
       default:
-        throw new InvalidArgumentException(sprintf('Undefined bulk API instance: "%s"', $name));
+        throw new InvalidArgumentException(sprintf('Undefined API instance: "%s"', $name));
     }
 
     return $api;
