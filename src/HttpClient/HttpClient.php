@@ -53,6 +53,8 @@ class HttpClient implements HttpClientInterface {
    */
   public function setOption($name, $value) {
     $this->options[$name] = $value;
+
+    $this->client->setBaseUrl($this->options['base_url'] . '/' . $this->options['version']);
   }
 
   /**
