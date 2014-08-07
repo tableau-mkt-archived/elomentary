@@ -71,7 +71,7 @@ class Client
 
       case 'customObject':
       case 'customObjects':
-        $api = new Api\Data\CustomObject($this);
+        $api = new Api\Assets\CustomObject($this);
         break;
 
       case 'optionList':
@@ -106,15 +106,22 @@ class Client
    * @param string $baseUrl
    *   Endpoint associated with the aforementioned Eloqua user.
    *
+   * @param string $version
+   *   API version to use.
+   *
    * @throws InvalidArgumentException if any arguments are not specified.
    */
-  public function authenticate($site, $login, $password, $baseUrl = null) {
+  public function authenticate($site, $login, $password, $baseUrl = null, $version = null) {
     if (empty($site) || empty($login) || empty($password)) {
       throw new InvalidArgumentException('You must specify authentication details.');
     }
 
     if (isset($baseUrl)) {
-        $this->setOption('base_url', $baseUrl);
+      $this->setOption('base_url', $baseUrl);
+    }
+
+    if (isset($version)) {
+      $this->setOption('version', $version);
     }
 
     $this->getHttpClient()->authenticate($site, $login, $password);
@@ -232,6 +239,7 @@ class Client
     }
 
     $this->options[$name] = $value;
+    $this->getHttpClient()->setOption($name, $value);
   }
 
 }

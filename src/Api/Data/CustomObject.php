@@ -7,12 +7,10 @@
 
 namespace Eloqua\Api\Data;
 
-use Eloqua\DataStructures\CustomObjectData;
-
 use Eloqua\Api\AbstractApi;
 use Eloqua\Api\CreatableInterface;
+use Eloqua\Api\ReadableInterface;
 use Eloqua\Api\SearchableInterface;
-use Eloqua\Exception\InvalidArgumentException;
 
 /**
  * Eloqua Custom Objects.
@@ -22,7 +20,7 @@ use Eloqua\Exception\InvalidArgumentException;
  *
  * This API is limited to using Eloqua REST v1.0
  */
-class CustomObject extends AbstractApi implements CreatableInterface, SearchableInterface {
+class CustomObject extends AbstractApi implements CreatableInterface, ReadableInterface, SearchableInterface {
 
   /**
    * @var number Identifier representing the customObject to interact with
@@ -30,22 +28,15 @@ class CustomObject extends AbstractApi implements CreatableInterface, Searchable
   private $_id;
 
   /**
-   * Gets metadata class for Custom Objects.  Used for the object's definition.
-   * @return \Eloqua\Api\Assets\CustomObject
-   */
-  public function meta() {
-    return new \Eloqua\Api\Assets\CustomObject($this->client);
-  }
-
-  /**
    * Eloqua accounts can have multiple defined custom objects, this identifies
    * which one to interface with
    *
    * @param number $id
-   * @returns number
+   * @returns $this
    */
   public function identify($id) {
-    return $this->_id = rawurlencode($id);
+    $this->_id = rawurlencode($id);
+    return $this;
   }
 
   /**
@@ -55,11 +46,22 @@ class CustomObject extends AbstractApi implements CreatableInterface, Searchable
    * column you want to search through.  $search = 'id=10', for example
    */
   public function search($search, array $options = array()) {
-    $customObjectData = $this->get("data/customObject/$this->_id", array_merge(array(
+    return $this->get("data/customObject/$this->_id", array_merge(array(
       'search' => $search,
     ), $options));
+  }
 
-    return array_map(array($this, 'parse'), $customObjectData['elements']);
+  /**
+   * {@inheritdoc}
+   *
+   * This method is provided for consistency and syntactic sugar - there is no
+   * "show" API available for GET:data/customObject/{objId}/{recordId}
+   *
+   */
+  public function show($id, $depth = 'complete', $extensions = NULL) {
+    return $this->search("id=$id", array(
+      'depth' => $depth,
+    ));
   }
 
   /**
@@ -67,23 +69,7 @@ class CustomObject extends AbstractApi implements CreatableInterface, Searchable
    *
    * @see http://topliners.eloqua.com/docs/DOC-3097
    */
-  public function create($customObject) {
-    if (!$customObject instanceof CustomObjectData) {
-      throw new InvalidArgumentException('An input of type Eloqua\DataStructures\CustomObjectData is expected.');
-    }
-
-    $obj = $this->post("data/customObject/$this->_id", $customObject);
-    return $this->parse($obj);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function parse($responseObject, $type = null) {
-    if (empty($type)) {
-      $type = '\Eloqua\DataStructures\CustomObjectData';
-    }
-
-    return parent::parse($responseObject, $type);
+  public function create($customObjectRecord) {
+    return $this->post("data/customObject/$this->_id", $customObjectRecord);
   }
 }

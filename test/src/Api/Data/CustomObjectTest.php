@@ -6,9 +6,6 @@
  */
 
 namespace Eloqua\Tests\Api\Data;
-
-use Eloqua\DataStructures\CustomObjectData;
-use Eloqua\Exception\InvalidArgumentException;
 use Eloqua\Tests\Api\TestCase;
 
 class CustomObjectTest extends TestCase {
@@ -16,78 +13,32 @@ class CustomObjectTest extends TestCase {
   /**
    * @test
    */
-  public function shouldGetMetaObject() {
-    $api = $this->getApiMock();
-    $this->assertInstanceOf('\Eloqua\Api\Assets\CustomObject', $api->meta());
-  }
+  public function shouldSearchCustomObjectData() {
+    $expected = 'test';
 
-  /**
-   * @test
-   *
-   * Makes sure rawurlencode() is called (' ' = '%20')
-   */
-  public function shouldSetCustomObjectId() {
     $api = $this->getApiMock();
-    $this->assertEquals($api->identify(' '), '%20');
-  }
-
-  /**
-   * @test
-   * @dataProvider returnedCustomObjectData
-   */
-  public function shouldSearchCustomObjectData($returnValue) {
-    $api = $this->getApiMock();
-
     $api->expects($this->once())
       ->method('get')
       ->with('data/customObject/1', array('search' => 'id=1'))
-      ->will($this->returnValue($returnValue));
+      ->will($this->returnValue($expected));
 
-    $api->expects($this->once())
-      ->method('parse')
-      ->with($returnValue['elements'][0])
-      ->will($this->returnValue(new CustomObjectData('test')));
+    $result = $api->identify(1)->search('id=1');
 
-    $api->identify(1);
-    $result = $api->search('id=1');
-
-    $this->assertInstanceOf('Eloqua\DataStructures\CustomObjectData', $result[0]);
-  }
-
-  public function returnedCustomObjectData() {
-    return array (
-      array (
-        array (
-          'elements' => array (
-            array('id' => 1)
-          )
-        )
-      )
-    );
+    $this->assertEquals($expected, $result);
   }
 
   /**
    * @test
    */
   public function shouldCreateCustomObjectData() {
-    $data = new CustomObjectData();
+    $data = array ('contactId' => null, 'fields' => array());
 
     $api = $this->getApiMock();
     $api->expects($this->once())
       ->method('post')
       ->with('data/customObject/1', $data);
 
-    $api->identify(1);
-    $api->create($data);
-  }
-
-  /**
-   * @test
-   * @expectedException InvalidArgumentException
-   */
-  public function shouldThrowExceptionOnInvalidInput() {
-    $api = $this->getApiMock();
-    $api->create('Invalid input');
+    $api->identify(1)->create($data);
   }
 
   protected function getApiClass() {

@@ -7,8 +7,6 @@
 
 namespace Eloqua\Tests\Api\Assets;
 
-use Eloqua\DataStructures\CustomObject;
-use Eloqua\DataStructures\CustomObjectField;
 use Eloqua\Exception\InvalidArgumentException;
 use Eloqua\Tests\Api\TestCase;
 
@@ -16,23 +14,37 @@ class CustomObjectTest extends TestCase {
 
   /**
    * @test
+   * @expectedException \Exception
+   */
+  public function shouldThrowExceptionWithDefaultVersion() {
+    $api = $this->getApiMock();
+    $api->data(1);
+  }
+
+  /**
+   * @test
+   */
+  public function shouldGetDataObject() {
+    $api = new \Eloqua\Client();
+    $api->setOption('version', '1.0');
+
+    $this->assertInstanceOf('\Eloqua\Api\Data\CustomObject', $api->api('customObject')->data(1));
+  }
+
+  /**
+   * @test
    */
   public function shouldSearchCustomObjects() {
-    $custom_object_name = 'Test';
-    $expected_response = array('response');
+    $searchParam = 'Test';
+    $expected_response = 'response';
 
     $api = $this->getApiMock();
     $api->expects($this->once())
       ->method('get')
-      ->with('assets/customObjects', array('search' => $custom_object_name, 'depth' => 'complete'))
-      ->will($this->returnValue(array('elements' => $expected_response)));
-
-    $api->expects($this->once())
-      ->method('parse')
-      ->with($expected_response[0])
+      ->with('assets/customObjects', array('search' => $searchParam, 'depth' => 'complete'))
       ->will($this->returnValue($expected_response));
 
-    $this->assertEquals(array($expected_response), $api->search($custom_object_name));
+    $this->assertEquals($expected_response, $api->search($searchParam));
   }
 
   /**
@@ -40,21 +52,16 @@ class CustomObjectTest extends TestCase {
    */
   public function shouldSearchCustomObjectsWithOptions() {
     $searchParam = 'Test';
-    $options = array ('page' => 1, 'depth' => 'complete');
+    $options = array ('page' => 1, 'depth' => 'minimal');
     $expected = 'response';
 
     $api = $this->getApiMock();
     $api->expects($this->once())
       ->method('get')
       ->with('assets/customObjects', array_merge(array('search' => $searchParam), $options))
-      ->will($this->returnValue(array('elements' => array($expected))));
-
-    $api->expects($this->once())
-      ->method('parse')
-      ->with($expected)
       ->will($this->returnValue($expected));
 
-    $this->assertEquals(array($expected), $api->search($searchParam, $options));
+    $this->assertEquals($expected, $api->search($searchParam, $options));
   }
 
   /**
@@ -62,19 +69,12 @@ class CustomObjectTest extends TestCase {
    */
   public function shouldShowCustomObjectsJustId() {
     $custom_object_id = 1337;
-    $expected_response = array('response');
+    $expected_response = 'response';
 
     $api = $this->getApiMock();
     $api->expects($this->once())
       ->method('get')
-      ->with('assets/customObject/' . $custom_object_id, array(
-        'depth' => 'complete',
-      ))
-      ->will($this->returnValue($expected_response));
-
-    $api->expects($this->once())
-      ->method('parse')
-      ->with($expected_response)
+      ->with('assets/customObject/' . $custom_object_id, array('depth' => 'complete'))
       ->will($this->returnValue($expected_response));
 
     $this->assertEquals($expected_response, $api->show($custom_object_id));
@@ -86,7 +86,7 @@ class CustomObjectTest extends TestCase {
   public function shouldShowCustomObjectsWithDepth() {
     $custom_object_id = 1337;
     $depth = 'minimal';
-    $expected_response = array('response');
+    $expected_response = 'response';
 
     $api = $this->getApiMock();
     $api->expects($this->once())
@@ -94,11 +94,6 @@ class CustomObjectTest extends TestCase {
       ->with('assets/customObject/' . $custom_object_id, array(
         'depth' => $depth,
       ))
-      ->will($this->returnValue($expected_response));
-
-    $api->expects($this->once())
-      ->method('parse')
-      ->with($expected_response)
       ->will($this->returnValue($expected_response));
 
     $this->assertEquals($expected_response, $api->show($custom_object_id, $depth));
@@ -123,17 +118,12 @@ class CustomObjectTest extends TestCase {
    * @dataProvider getValidCustomObjectCreateMeta
    */
   public function shouldCreateCustomObject($customObject_meta) {
-    $expected_response = array('response');
+    $expected_response = 'response';
 
     $api = $this->getApiMock();
     $api->expects($this->once())
       ->method('post')
       ->with('assets/customObject', $customObject_meta)
-      ->will($this->returnValue($expected_response));
-
-    $api->expects($this->once())
-      ->method('parse')
-      ->with($expected_response)
       ->will($this->returnValue($expected_response));
 
     $this->assertEquals($expected_response, $api->create($customObject_meta));
@@ -142,32 +132,18 @@ class CustomObjectTest extends TestCase {
   public function getValidCustomObjectCreateMeta() {
     return array(
       array(
-        new CustomObject('Test object with defined fields', null, null, array (
-            new CustomObjectField('Field one', 'text')
+        array (
+          'name' => 'Test object with defined fields',
+          'description' => null,
+          'fields' => array (
+            array ('name' => 'Field one', 'dataType' => 'text')
         )),
       ),
       array(
-          new CustomObject('Test object with defined fields'),
+        array (
+          'name' => 'Test object with defined fields'),
       ),
     );
-  }
-
-  /**
-   * @test
-   */
-  public function shouldUpdateExistingMeta() {
-    $api = $this->getApiMock();
-
-    $api->expects($this->once())
-      ->method('put')
-      ->with('assets/customObject/1', array())
-      ->will($this->returnValue('test'));
-
-    $api->expects($this->once())
-      ->method('parse')
-      ->with('test');
-
-    $api->update(1, array());
   }
 
   /**
@@ -191,17 +167,32 @@ class CustomObjectTest extends TestCase {
         array(
           'name' => 'Invalid fields definition ',
           'fields' => array(
-            (object) array(
+            array(
               'name' => 'Correctly defined field',
               'dataType' => 'text',
             ),
-            (object) array(
+            array(
               'name' => 'Missing dataType field',
             ),
           ),
         ),
       ),
     );
+  }
+
+  /**
+   * @test
+   */
+  public function shouldUpdateExistingMeta() {
+    $expected = 'response';
+    $api = $this->getApiMock();
+
+    $api->expects($this->once())
+      ->method('put')
+      ->with('assets/customObject/1', array())
+      ->will($this->returnValue($expected));
+
+    $this->assertEquals($expected, $api->update(1, array()));
   }
 
   protected function getApiClass() {

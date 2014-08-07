@@ -32,20 +32,21 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
    * @test
    * @dataProvider getAuthenticationData
    */
-  public function shouldAuthenticateUsingAllGivenParameters($site, $login, $password, $baseUrl = null) {
+  public function shouldAuthenticateUsingAllGivenParameters($site, $login, $password, $baseUrl = null, $version = null) {
     $httpClient = $this->getHttpClientMock();
     $httpClient->expects($this->once())
       ->method('authenticate')
       ->with($site, $login, $password);
 
     $client = new Client($httpClient);
-    $client->authenticate($site, $login, $password, $baseUrl);
+    $client->authenticate($site, $login, $password, $baseUrl, $version);
   }
 
   public function getAuthenticationData() {
     return array(
-        array('My.Company', 'My.Login', 'Battery.Horse.Staple'),
-        array('My.Company', 'My.Login', 'Battery.Horse.Staple', 'https://secure.eloqua.com/API/REST'),
+      array('My.Company', 'My.Login', 'Battery.Horse.Staple'),
+      array('My.Company', 'My.Login', 'Battery.Horse.Staple', 'https://secure.eloqua.com/API/REST'),
+      array('My.Company', 'My.Login', 'Battery.Horse.Staple', 'https://secure.eloqua.com/API/REST', '1.0'),
     );
   }
 
@@ -151,6 +152,31 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
 
   /**
    * @test
+   * @expectedException InvalidArgumentException
+   */
+  public function shouldThrowExceptionOnInvalidOption() {
+    $client = new Client();
+    $client->setOption('bad option', '1');
+  }
+
+  /**
+   * @test
+   */
+  public function shouldProliferateOptionsToHttpClient() {
+    $version = '1.0';
+
+    $httpClientMock = $this->getHttpClientMock();
+    $httpClientMock->expects($this->once())
+      ->method('setOption');
+
+    $client = new Client($httpClientMock);
+    $client->setOption('version', $version);
+
+    $this->assertEquals($version, $client->getOption('version'));
+  }
+
+  /**
+   * @test
    * @dataProvider getApiClassProvider
    */
   public function shouldGetApiInstance($apiName, $class) {
@@ -164,8 +190,12 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
       array('contacts', 'Eloqua\Api\Data\Contact'),
       array('email', 'Eloqua\Api\Assets\Email'),
       array('emails', 'Eloqua\Api\Assets\Email'),
-      array('customObject', 'Eloqua\Api\Data\CustomObject'),
-      array('customObjects', 'Eloqua\Api\Data\CustomObject'),
+      array('customObject', 'Eloqua\Api\Assets\CustomObject'),
+      array('customObjects', 'Eloqua\Api\Assets\CustomObject'),
+      array('optionList', 'Eloqua\Api\Assets\OptionList'),
+      array('optionLists', 'Eloqua\Api\Assets\OptionList'),
+      array('visitor', 'Eloqua\Api\Data\Visitor'),
+      array('visitors', 'Eloqua\Api\Data\Visitor'),
     );
   }
 
