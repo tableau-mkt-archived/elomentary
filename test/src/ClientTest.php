@@ -178,6 +178,19 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
     $client->api('not_a_thing');
   }
 
+  public function getApiClassProvider() {
+    return array(
+      array('contact', 'Eloqua\Api\Data\Contact'),
+      array('contacts', 'Eloqua\Api\Data\Contact'),
+      array('email', 'Eloqua\Api\Assets\Email'),
+      array('emails', 'Eloqua\Api\Assets\Email'),
+      array('optionList', 'Eloqua\Api\Assets\OptionList'),
+      array('optionLists', 'Eloqua\Api\Assets\OptionList'),
+      array('visitor', 'Eloqua\Api\Data\Visitor'),
+      array('visitors', 'Eloqua\Api\Data\Visitor'),
+    );
+  }
+
   public function getHttpClientMock(array $methods = array()) {
     $methods = array_merge(
       array('get', 'post', 'patch', 'put', 'delete', 'request', 'setOption', 'setHeaders', 'authenticate'),
