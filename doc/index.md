@@ -13,6 +13,7 @@ Navigation
 * [E-mails](emails.md)
   * [E-mail Groups](emails/groups.md)
 * [Option Lists](optionList.md)
+* [Custom Objects](custom-objects.md)
 
 ### System
 

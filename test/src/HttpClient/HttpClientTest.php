@@ -38,6 +38,22 @@ class HttpClientTest extends \PHPUnit_Framework_TestCase {
 
   /**
    * @test
+   *
+   * Note: GuzzleClient->setConfig() cannot be stubbed since it is declared final
+   */
+  public function shouldProliferateOptionsToGuzzle() {
+    $guzzleMock = $this->getBrowserMock(array('addSubscriber', 'setBaseUrl'));
+
+    $guzzleMock->expects($this->once())
+      ->method('setBaseUrl')
+      ->with('test/2.0');
+
+    $httpClient = new TestHttpClient(array(), $guzzleMock);
+    $httpClient->setOption('base_url', 'test');
+  }
+
+  /**
+   * @test
    * @dataProvider getAuthenticationFullData
    */
   public function shouldAuthenticateUsingAllGivenParameters($site, $login, $password) {
