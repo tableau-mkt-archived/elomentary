@@ -111,6 +111,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
       array('emails', 'Eloqua\Api\Assets\Email'),
       array('optionList', 'Eloqua\Api\Assets\OptionList'),
       array('optionLists', 'Eloqua\Api\Assets\OptionList'),
+      array('program', 'Eloqua\Api\Assets\Program'),
+      array('programs', 'Eloqua\Api\Assets\Program'),
       array('visitor', 'Eloqua\Api\Data\Visitor'),
       array('visitors', 'Eloqua\Api\Data\Visitor'),
     );
