@@ -79,6 +79,11 @@ class Client
         $api = new Api\Assets\OptionList($this);
         break;
 
+      case 'program':
+      case 'programs':
+        $api = new Api\Assets\Program($this);
+        break;
+
       case 'visitor':
       case 'visitors':
         $api = new Api\Data\Visitor($this);
