@@ -78,6 +78,10 @@ class CustomObject extends AbstractApi implements CreatableInterface, ReadableIn
    *
    */
   public function update($id, $customObject_meta) {
+    if (!isset($customObject_meta['id']) or $customObject_meta['id'] != $id) {
+      throw new InvalidArgumentException('An id parameter must be included in the custom object definition, and it must match the id passed as the first parameter.');
+    }
+
     return $this->put('assets/customObject/' . rawurldecode($id), $customObject_meta);
   }
 

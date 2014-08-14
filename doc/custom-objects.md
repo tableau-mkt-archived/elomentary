@@ -1,29 +1,31 @@
 ## Custom Objects
 [Back to the navigation](index.md)
 
+The customObject API is used for interacting with the custom object metadata.
+
 ### Usage examples
 
 #### Search for custom objects by name
 ```php
 $client = new Eloqua\Client();
-$client->api('customObject')->search('Never Gonna Let*');
+$customObjects = $client->api('customObject')->search('Never Gonna Let*');
 ```
 
 #### Return a single custom object by a given ID
 ```php
-$client->api('customObject')->show(1337);
+$customObject = $client->api('customObject')->show(1337);
 ```
 
 #### Create a custom object
 ```php
-$client->api('customObject')->create(
+$newCustomObject = $client->api('customObject')->create(
     array (
         'type' => 'CustomObject',
         'depth' => 'complete',
         'description' => 'Description for custom object',
         'name' => 'Elomentary Test Custom Object', // Required field
         'fields' => array (
-            (object) array (
+            array (
                 'type' => 'CustomObjectField',
                 'depth' => 'complete',
                 'name' => 'Test field one', // Required if defining fields
@@ -31,7 +33,7 @@ $client->api('customObject')->create(
                 'defaultValue' => '',
                 'displayType' => 'text',
             ),
-            (object) array (
+            array (
                 'type' => 'CustomObjectField',
                 'depth' => 'complete',
                 'name' => 'Test field two', // Required if defining fields
@@ -76,6 +78,17 @@ array (
         ),
 )
 ```
+#### Update an existing custom object
+```php
+$updatedCustomObject = $client->api('customObject')->update(1337, array (
+  'id' => 1337,
+  'name' => 'Elomentary Test Custom Object Backup',
+));
+```
+The object id is required in the new custom object definition.  It is also
+required to match `$id` parameter in the update function.  Unspecified fields in
+the object definition will remain unchanged and will not be treated as being
+removed.
 
 #### Remove a single custom object by a given ID
 ```php
