@@ -1,11 +1,20 @@
 <?php
 
-namespace Eloqua\BulkApi\Data;
+namespace Eloqua\Api\Data\Contact;
 
-use Eloqua\Api\AbstractApi;
+use Eloqua\Api\AbstractBulkApi;
 
 
-class Contact extends AbstractApi {
+class Bulk extends AbstractBulkApi {
+
+  public function imports() {
+    return $this->_mapUri = 'contacts/imports';
+  }
+
+  public function exports() {
+    return $this->_mapUri = 'contacts/exports';
+  }
+
   /**
    * {@inheritdoc}
    */

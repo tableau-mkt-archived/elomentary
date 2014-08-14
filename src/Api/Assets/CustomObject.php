@@ -45,6 +45,13 @@ class CustomObject extends AbstractApi implements CreatableInterface, ReadableIn
     return $data;
   }
 
+  public function bulk($customObjectId) {
+    $bulk = new \Eloqua\Api\Data\CustomObject\Bulk($this->client);
+    $bulk->identify($customObjectId);
+
+    return $bulk;
+  }
+
   /**
    * {@inheritdoc}
    *

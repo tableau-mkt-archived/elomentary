@@ -4,7 +4,6 @@ namespace Eloqua\BulkApi\Data;
 
 use Eloqua\Api\AbstractApi;
 
-
 class CustomObject extends AbstractApi {
   /**
    * {@inheritdoc}
