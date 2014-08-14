@@ -185,14 +185,15 @@ class CustomObjectTest extends TestCase {
    */
   public function shouldUpdateExistingMeta() {
     $expected = 'response';
+    $inputObj = array ('id' => 1);
     $api = $this->getApiMock();
 
     $api->expects($this->once())
       ->method('put')
-      ->with('assets/customObject/1', array())
+      ->with('assets/customObject/1', $inputObj)
       ->will($this->returnValue($expected));
 
-    $this->assertEquals($expected, $api->update(1, array()));
+    $this->assertEquals($expected, $api->update(1, $inputObj));
   }
 
   protected function getApiClass() {
