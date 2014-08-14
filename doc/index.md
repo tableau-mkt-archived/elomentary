@@ -8,6 +8,7 @@ Navigation
   * [Contacts by Contact Filter](contacts/filters.md)
   * [Contact View Data](contacts/views.md)
 * [Visitors](visitors.md)
+* [Custom Objects](customObjects/data.md)
 
 ### Assets
 * [E-mails](emails.md)
