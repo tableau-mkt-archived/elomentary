@@ -4,13 +4,16 @@
   "keywords": ["eloqua", "rest", "api"],
   "homepage": "https://github.com/tableau-mkt/elomentary",
   "type": "library",
-  "license": "GPL-2.0+",
+  "license": "MIT",
   "authors": [{
     "name": "Eric Peterson",
     "email": "epeterson@tableausoftware.com"
   }, {
     "name": "Gary Gao",
     "email": "ggao@tableausoftware.com"
+  }, {
+    "name": "Other Contributors",
+    "homepage": "https://github.com/tableau-mkt/elomentary/graphs/contributors"
   }],
   "require": {
     "php": ">=5.3.3",
