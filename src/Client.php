@@ -69,6 +69,11 @@ class Client
         $api = new Api\Assets\Email($this);
         break;
 
+      case 'customObject':
+      case 'customObjects':
+        $api = new Api\Assets\CustomObject($this);
+        break;
+
       case 'optionList':
       case 'optionLists':
         $api = new Api\Assets\OptionList($this);
@@ -106,18 +111,68 @@ class Client
    * @param string $baseUrl
    *   Endpoint associated with the aforementioned Eloqua user.
    *
+   * @param string $version
+   *   API version to use.
+   *
    * @throws InvalidArgumentException if any arguments are not specified.
    */
-  public function authenticate($site, $login, $password, $baseUrl = null) {
+  public function authenticate($site, $login, $password, $baseUrl = null, $version = null) {
     if (empty($site) || empty($login) || empty($password)) {
       throw new InvalidArgumentException('You must specify authentication details.');
     }
 
     if (isset($baseUrl)) {
-        $this->setOption('base_url', $baseUrl);
+      $this->setOption('base_url', $baseUrl);
+    }
+
+    if (isset($version)) {
+      $this->setOption('version', $version);
     }
 
     $this->getHttpClient()->authenticate($site, $login, $password);
+  }
+
+  /**
+   * Gets REST endpoints associated with authentication parameters
+   *
+   * @param string $site
+   *   Eloqua site name for the instance against which requests should be made.
+   *
+   * @param string $login
+   *   Eloqua user name with which requests should be made.
+   *
+   * @param string $password
+   *   Password associated with the aforementioned Eloqua user.
+   *
+   * @param HttpClientInterface $client
+   *   Provides HttpClientInterface dependency injection.
+   *
+   * @returns array
+   *   The list of urls associated with the aforementioned Eloqua user, with the
+   *   '/{version}/' part removed.
+   *
+   * @see http://topliners.eloqua.com/community/code_it/blog/2012/11/30/using-the-eloqua-api--determining-endpoint-urls-logineloquacom
+   */
+  public function getRestEndpoints($site, $login, $password, HttpClientInterface $client = null) {
+    $client = $client ?: new HttpClient(array (
+      'base_url' => 'https://login.eloqua.com/id',
+      'version'  => '',
+    ));
+
+    $authHeader = array (
+      'Authorization' => sprintf('Basic %s', base64_encode("$site\\$login:$password")),
+    );
+
+    $response = $client->get('https://login.eloqua.com/id', array(), $authHeader);
+
+    $loginObj = $response->json();
+    $urls     = $loginObj['urls']['apis']['rest'];
+
+    $stripVersion = function($url) {
+      return str_replace('/{version}/', '/', $url);
+    };
+
+    return array_map($stripVersion, $urls);
   }
 
   /**
@@ -189,6 +244,6 @@ class Client
     }
 
     $this->options[$name] = $value;
+    $this->getHttpClient()->setOption($name, $value);
   }
-
 }

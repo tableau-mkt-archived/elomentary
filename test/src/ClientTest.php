@@ -32,20 +32,21 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
    * @test
    * @dataProvider getAuthenticationData
    */
-  public function shouldAuthenticateUsingAllGivenParameters($site, $login, $password, $baseUrl = null) {
+  public function shouldAuthenticateUsingAllGivenParameters($site, $login, $password, $baseUrl = null, $version = null) {
     $httpClient = $this->getHttpClientMock();
     $httpClient->expects($this->once())
       ->method('authenticate')
       ->with($site, $login, $password);
 
     $client = new Client($httpClient);
-    $client->authenticate($site, $login, $password, $baseUrl);
+    $client->authenticate($site, $login, $password, $baseUrl, $version);
   }
 
   public function getAuthenticationData() {
     return array(
-        array('My.Company', 'My.Login', 'Battery.Horse.Staple'),
-        array('My.Company', 'My.Login', 'Battery.Horse.Staple', 'https://secure.eloqua.com/API/REST'),
+      array('My.Company', 'My.Login', 'Battery.Horse.Staple'),
+      array('My.Company', 'My.Login', 'Battery.Horse.Staple', 'https://secure.eloqua.com/API/REST'),
+      array('My.Company', 'My.Login', 'Battery.Horse.Staple', 'https://secure.eloqua.com/API/REST', '1.0'),
     );
   }
 
@@ -59,6 +60,70 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
 
     $client = new Client($httpClient);
     $client->authenticate('', '', '');
+  }
+
+  /**
+   * @test
+   * @dataProvider getEndpointResponses
+   */
+  public function shouldReturnEndpoints($response, $expected) {
+    $guzzleResponse = $this->getMock('Guzzle\Http\Message\Response', array('json'), array(''));
+    $guzzleResponse
+      ->expects($this->once())
+      ->method('json')
+      ->will($this->returnValue($response));
+
+    $httpClient = $this->getHttpClientMock();
+    $httpClient->expects($this->once())
+      ->method('get')
+      ->will($this->returnValue($guzzleResponse));
+
+    $client = new Client($httpClient);
+    $urls = $client->getRestEndpoints('My.Company', 'My.Login', 'Battery.Horse.Staple', $httpClient);
+
+    $this->assertSame($urls, $expected);
+  }
+
+  public function getEndpointResponses() {
+    return array(
+      array (
+        array (
+          'urls' => array (
+            'apis' => array (
+              'rest' => array (
+                'standard' => 'https://secure.p03.eloqua.com/API/REST/{version}/',
+                'data'     => 'https://secure.p03.eloqua.com/API/Data/{version}/',
+                'bulk'     => 'https://secure.p03.eloqua.com/API/Bulk/{version}/',
+        )))),
+        array (
+          'standard' => 'https://secure.p03.eloqua.com/API/REST/',
+          'data'     => 'https://secure.p03.eloqua.com/API/Data/',
+          'bulk'     => 'https://secure.p03.eloqua.com/API/Bulk/',
+
+        )
+      ),
+
+    );
+  }
+
+  /**
+   * @test
+   * @expectedException Exception
+   */
+  public function shouldThrowExceptionIfEndpointsNotReturned() {
+    $guzzleResponse = $this->getMock('Guzzle\Http\Message\Response', array('json'), array(''));
+    $guzzleResponse
+      ->expects($this->once())
+      ->method('json')
+      ->will($this->returnValue(''));
+
+    $httpClient = $this->getHttpClientMock();
+    $httpClient->expects($this->once())
+      ->method('get')
+      ->will($this->returnValue($guzzleResponse));
+
+    $client = new Client($httpClient);
+    $urls = $client->getRestEndpoints('My.Company', 'My.Login', 'Battery.Horse.Staple', $httpClient);
   }
 
   /**
@@ -87,11 +152,53 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
 
   /**
    * @test
+   * @expectedException InvalidArgumentException
+   */
+  public function shouldThrowExceptionOnInvalidOption() {
+    $client = new Client();
+    $client->setOption('bad option', '1');
+  }
+
+  /**
+   * @test
+   */
+  public function shouldProliferateOptionsToHttpClient() {
+    $version = '1.0';
+
+    $httpClientMock = $this->getHttpClientMock();
+    $httpClientMock->expects($this->once())
+      ->method('setOption');
+
+    $client = new Client($httpClientMock);
+    $client->setOption('version', $version);
+
+    $this->assertEquals($version, $client->getOption('version'));
+  }
+
+  /**
+   * @test
    * @dataProvider getApiClassProvider
    */
   public function shouldGetApiInstance($apiName, $class) {
     $client = new Client();
     $this->assertInstanceOf($class, $client->api($apiName));
+  }
+
+  public function getApiClassProvider() {
+    return array(
+      array('contact', 'Eloqua\Api\Data\Contact'),
+      array('contacts', 'Eloqua\Api\Data\Contact'),
+      array('email', 'Eloqua\Api\Assets\Email'),
+      array('emails', 'Eloqua\Api\Assets\Email'),
+      array('customObject', 'Eloqua\Api\Assets\CustomObject'),
+      array('customObjects', 'Eloqua\Api\Assets\CustomObject'),
+      array('optionList', 'Eloqua\Api\Assets\OptionList'),
+      array('optionLists', 'Eloqua\Api\Assets\OptionList'),
+      array('program', 'Eloqua\Api\Assets\Program'),
+      array('programs', 'Eloqua\Api\Assets\Program'),
+      array('visitor', 'Eloqua\Api\Data\Visitor'),
+      array('visitors', 'Eloqua\Api\Data\Visitor'),
+    );
   }
 
   /**
@@ -101,21 +208,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
   public function shouldNotGetApiInstance() {
     $client = new Client();
     $client->api('not_a_thing');
-  }
-
-  public function getApiClassProvider() {
-    return array(
-      array('contact', 'Eloqua\Api\Data\Contact'),
-      array('contacts', 'Eloqua\Api\Data\Contact'),
-      array('email', 'Eloqua\Api\Assets\Email'),
-      array('emails', 'Eloqua\Api\Assets\Email'),
-      array('optionList', 'Eloqua\Api\Assets\OptionList'),
-      array('optionLists', 'Eloqua\Api\Assets\OptionList'),
-      array('program', 'Eloqua\Api\Assets\Program'),
-      array('programs', 'Eloqua\Api\Assets\Program'),
-      array('visitor', 'Eloqua\Api\Data\Visitor'),
-      array('visitors', 'Eloqua\Api\Data\Visitor'),
-    );
   }
 
   public function getHttpClientMock(array $methods = array()) {

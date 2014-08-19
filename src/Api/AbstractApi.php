@@ -79,13 +79,15 @@ abstract class AbstractApi implements ApiInterface {
    * @param string $path
    *   The request path.
    *
-   * @param array $parameters
+   * @param object|array $parameters
    *   POST parameters to be JSON encoded.
    *
    * @param array $requestHeaders
    *   The request headers.
+   *
+   * @returns \Eloqua\HttpClient\Message\ResponseMediator
    */
-  protected function post($path, array $parameters = array(), $requestHeaders = array()) {
+  protected function post($path, $parameters = array(), $requestHeaders = array()) {
     return $this->postRaw(
       $path,
       $this->createJsonBody($parameters),
@@ -146,13 +148,16 @@ abstract class AbstractApi implements ApiInterface {
    * @param string $path
    *   The request path.
    *
-   * @param array $parameters
+   * @param array|object $parameters
    *   The POST parameters to be JSON encoded.
    *
    * @param array $requestHeaders
    *   The request headers.
+   *
+   * @returns ResponseMediator
+   *   API response body, the object or array created by Eloqua
    */
-  protected function put($path, array $parameters = array(), $requestHeaders = array()) {
+  protected function put($path, $parameters = array(), $requestHeaders = array()) {
     $response = $this->client->getHttpClient()->put(
       $path,
       $this->createJsonBody($parameters),
@@ -188,12 +193,12 @@ abstract class AbstractApi implements ApiInterface {
   /**
    * Creates a JSON encoded version of an array of parameters.
    *
-   * @param array $parameters
+   * @param array|object $parameters
    *   The request parameters
    *
    * @return null|string
    */
-  protected function createJsonBody(array $parameters) {
+  protected function createJsonBody($parameters) {
     return (count($parameters) === 0) ? null : json_encode($parameters, empty($parameters) ? JSON_FORCE_OBJECT : 0);
   }
 
@@ -210,5 +215,4 @@ abstract class AbstractApi implements ApiInterface {
       throw new InvalidArgumentException("You must specify a non-empty value for $key.");
     }
   }
-
 }
