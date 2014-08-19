@@ -92,15 +92,12 @@ class CustomObject extends AbstractApi implements CreatableInterface, ReadableIn
    * @see http://topliners.eloqua.com/docs/DOC-3097
    */
   public function create($customObject_meta) {
-    if (!isset($customObject_meta['name'])) {
-      throw new InvalidArgumentException('At a minimum, you must provide an object name.');
-    }
+    $this->validateExists($customObject_meta, 'name');
 
     if (isset($customObject_meta['fields'])) {
       foreach ($customObject_meta['fields'] as $field) {
-        if (!isset($field['dataType'], $field['name'])) {
-          throw new InvalidArgumentException('If defining fields, each must contain a dataType and name definition.');
-        }
+        $this->validateExists($field, 'dataType');
+        $this->validateExists($field, 'name');
       }
     }
 
