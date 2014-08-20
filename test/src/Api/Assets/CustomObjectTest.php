@@ -177,6 +177,20 @@ class CustomObjectTest extends TestCase {
           ),
         ),
       ),
+      array(
+        array(
+          'name' => 'Invalid fields definition ',
+          'fields' => array(
+            array(
+              'name' => 'Correctly defined field',
+              'dataType' => 'text',
+            ),
+            array(
+              'dataType' => 'Missing name field',
+            ),
+          ),
+        ),
+      ),
     );
   }
 
