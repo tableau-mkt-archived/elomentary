@@ -57,6 +57,4 @@ class Deployment extends AbstractApi implements CreatableInterface, ReadableInte
 
     return $this->post('assets/email/deployment', $data);
   }
-
-
 }

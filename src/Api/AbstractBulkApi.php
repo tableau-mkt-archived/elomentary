@@ -49,9 +49,15 @@ abstract class AbstractBulkApi extends AbstractApi {
 
     do {
       $status = $this->get($uri);
-    } while ($wait and $status['status'] === 'active' and sleep(1) === 0);
+    } while ($wait and $this->isWaitingStatus($status) and sleep(1) === 0);
 
     return $this->_statusResponse = $status;
+  }
+
+  public function isWaitingStatus($status) {
+    $waitingStatus = array ('active', 'pending');
+
+    return in_array($status['status'], $waitingStatus);
   }
 
   public function download($statusResponse = null) {
