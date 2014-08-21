@@ -165,7 +165,7 @@ abstract class AbstractBulkApi extends AbstractApi {
    * @return array
    *   Bulk API log from last transfer.
    */
-  public function log($statusResponse) {
+  public function log($statusResponse = null) {
     if (empty($statusResponse)) {
       $statusResponse = $this->_statusResponse;
     }
