@@ -1,6 +1,7 @@
 <?php
 
 namespace Eloqua\Api;
+use Eloqua\Exception\InvalidArgumentException;
 
 
 /**
@@ -11,11 +12,59 @@ namespace Eloqua\Api;
  *
  */
 abstract class AbstractBulkApi extends AbstractApi {
+  /**
+   * @var string
+   * The bulk API URI
+   */
   protected $_mapUri;
-  protected $_mapResponse;
-  protected $_loadResponse;
-  protected $_syncResponse;
-  protected $_statusResponse;
+
+  /**
+   * @var array
+   * Stores the API responses for the different bulk API calls.
+   */
+  private $_responses = array ();
+
+  /**
+   * Set accessor for _responses array
+   *
+   * @param string $key
+   *   _responses array key
+   *
+   * @param \Eloqua\HttpClient\Message\ResponseMediator $value
+   *   response array from Eloqua
+   *
+   * @return array
+   *   Returns value of $value
+   */
+  public function setResponse($key, $value) {
+    return $this->_responses[$key] = $value;
+  }
+
+  /**
+   * Get accessor for _responses array
+   *
+   * @param string $key
+   *   _responses key
+   *
+   * @param \Eloqua\HttpClient\Message\ResponseMediator $expectedResponse
+   *   Set if you want to force $expectedResponse to be returned
+   *
+   * @return array
+   *   Value of requested Eloqua bulk API response
+   *
+   * @throws \Eloqua\Exception\InvalidArgumentException
+   */
+  public function getResponse($key, $expectedResponse = null) {
+    if (isset($expectedResponse)) {
+      return $expectedResponse;
+    }
+
+    if (!isset($this->_responses[$key])) {
+      throw new InvalidArgumentException("Response value for $key is not available");
+    }
+
+    return $this->_responses[$key];
+  }
 
   /**
    * Sets client up for bulk importing data into Eloqua
@@ -43,7 +92,7 @@ abstract class AbstractBulkApi extends AbstractApi {
    *   Eloqua response, includes URIs for next steps.
    */
   public function map($dataDefinition) {
-    return $this->_mapResponse = $this->post($this->_mapUri, $dataDefinition);
+    return $this->setResponse('map', $this->post($this->_mapUri, $dataDefinition));
   }
 
   /**
@@ -60,12 +109,10 @@ abstract class AbstractBulkApi extends AbstractApi {
    *   Eloqua response, required for sync() step.
    */
   public function upload($contactObject, $mapResponse = null) {
-    if (empty($mapResponse)) {
-      $mapResponse = $this->_mapResponse;
-    }
+    $mapResponse = $this->getResponse('map', $mapResponse);
+    $uri         = trim($mapResponse['uri'], '/');
 
-    $uri = trim($mapResponse['uri'], '/');
-    return $this->_loadResponse = $this->post("$uri/data", $contactObject);
+    return $this->setResponse('load', $this->post("$uri/data", $contactObject));
   }
 
   /**
@@ -80,13 +127,11 @@ abstract class AbstractBulkApi extends AbstractApi {
    *   Eloqua response, including URI for status() step.
    */
   public function sync($mapResponse = null) {
-    if (empty($mapResponse)) {
-      $mapResponse = $this->_mapResponse;
-    }
+    $mapResponse = $this->getResponse('map', $mapResponse);
 
-    return $this->_syncResponse = $this->post('syncs', array (
+    return $this->setResponse('sync', $this->post('syncs', array (
       'syncedInstanceUri' => $mapResponse['uri']
-    ));
+    )));
   }
 
   /**
@@ -107,17 +152,14 @@ abstract class AbstractBulkApi extends AbstractApi {
    *   Eloqua response, including URI for next steps.
    */
   public function status($wait = true, $syncResponse = null) {
-    if (empty($syncResponse)) {
-      $syncResponse = $this->_syncResponse;
-    }
-
-    $uri = trim($syncResponse['uri'], '/');
+    $syncResponse = $this->getResponse('sync', $syncResponse);
+    $uri          = trim($syncResponse['uri'], '/');
 
     do {
       $status = $this->get($uri);
     } while ($wait and $this->isWaitingStatus($status) and sleep(1) === 0);
 
-    return $this->_statusResponse = $status;
+    return $this->setResponse('status', $status);
   }
 
   /**
@@ -146,13 +188,10 @@ abstract class AbstractBulkApi extends AbstractApi {
    *   Download response, including records matched from mapping() call.
    */
   public function download($statusResponse = null) {
-    if (empty($statusResponse)) {
-      $statusResponse = $this->_statusResponse;
-    }
+    $statusResponse = $this->getResponse('status', $statusResponse);
+    $uri            = trim($statusResponse['syncedInstanceUri'], '/');
 
-    $uri = trim($statusResponse['syncedInstanceUri'], '/');
-
-    return $this->get($uri . '/data');
+    return $this->get("$uri/data");
   }
 
   /**
@@ -166,12 +205,9 @@ abstract class AbstractBulkApi extends AbstractApi {
    *   Bulk API log from last transfer.
    */
   public function log($statusResponse = null) {
-    if (empty($statusResponse)) {
-      $statusResponse = $this->_statusResponse;
-    }
+    $statusResponse = $this->getResponse('status', $statusResponse);
+    $uri            = trim($statusResponse['uri'], '/');
 
-    $uri = trim($statusResponse['uri'], '/');
-
-    return $this->get($uri . '/logs');
+    return $this->get("$uri/logs");
   }
 }
