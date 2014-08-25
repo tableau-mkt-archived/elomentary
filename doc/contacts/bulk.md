@@ -43,7 +43,7 @@ $client->authenticate('CompanyIdentifier', 'MyUserName', 'MyPassPhrase', 'https:
 
 // Setup mapping object, see section 2.2 of linked documentation at the end of this doc
 $mapping = array(
-  'name'                    => 'Elomentary export from Eloqua',
+  'name'                    => 'Elomentary import into Eloqua',
   'identifierFieldName'     => 'C_EmailAddress',
   'isSyncTriggeredOnImport' => 'false',
   'fields'                  => array (
