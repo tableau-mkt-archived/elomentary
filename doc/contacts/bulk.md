@@ -1,5 +1,5 @@
 ## Contacts Bulk API
-[Back to the navigation](index.md)
+[Back to the navigation](../index.md)
 
 ### Usage examples
 
@@ -56,7 +56,7 @@ $mapping = array(
 );
 
 // Some sample contacts
-$contacts = array ( // todo will be input parameter
+$contacts = array (
   array (
     'C_FirstName'    => 'Parris',
     'C_LastName'     => 'Varney',
