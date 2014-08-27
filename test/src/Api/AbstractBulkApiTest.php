@@ -8,9 +8,9 @@ class AbstractBulkApiTest extends \PHPUnit_Framework_TestCase {
    * @test
    */
   public function shouldGetAndSetResponse() {
-    $key   = '1';
+    $key = '1';
     $value = '2';
-    $mock  = $this->getMockForAbstractClass('Eloqua\Api\AbstractBulkApi', array(), '', false);
+    $mock = $this->getMockForAbstractClass('Eloqua\Api\AbstractBulkApi', array(), '', false);
 
     $mock->setResponse($key, $value);
     $this->assertEquals($value, $mock->getResponse($key));
@@ -20,10 +20,10 @@ class AbstractBulkApiTest extends \PHPUnit_Framework_TestCase {
    * @test
    */
   public function shouldGetExpectedResponse() {
-    $key      = '1';
-    $value    = '2';
+    $key = '1';
+    $value = '2';
     $expected = '3';
-    $mock     = $this->getMockForAbstractClass('Eloqua\Api\AbstractBulkApi', array(), '', false);
+    $mock = $this->getMockForAbstractClass('Eloqua\Api\AbstractBulkApi', array(), '', false);
 
     $mock->setResponse($key, $value);
     $this->assertEquals($expected, $mock->getResponse($key, $expected));
@@ -34,7 +34,7 @@ class AbstractBulkApiTest extends \PHPUnit_Framework_TestCase {
    * @expectedException InvalidArgumentException
    */
   public function shouldThrowExceptionOnUnavailableResponse() {
-    $key  = '1';
+    $key = '1';
     $mock = $this->getMockForAbstractClass('Eloqua\Api\AbstractBulkApi', array(), '', false);
 
     $mock->getResponse($key);
@@ -44,7 +44,7 @@ class AbstractBulkApiTest extends \PHPUnit_Framework_TestCase {
    * @test
    */
   public function shouldMap() {
-    $input  = '1';
+    $input = '1';
     $return = '2';
 
     $mock = $this->getBulkMock(null, null, 'map', $return);
@@ -60,11 +60,11 @@ class AbstractBulkApiTest extends \PHPUnit_Framework_TestCase {
    * @test
    */
   public function shouldUpload() {
-    $input       = '1';
+    $input = '1';
     $mapResponse = array ('uri' => '/test/');
-    $return      = '2';
+    $return = '2';
 
-    $uriInput    = trim($mapResponse['uri'], '/');
+    $uriInput = trim($mapResponse['uri'], '/');
 
     $mock = $this->getBulkMock('map', $mapResponse, 'load', $return);
     $mock->expects($this->once())
@@ -79,8 +79,8 @@ class AbstractBulkApiTest extends \PHPUnit_Framework_TestCase {
    * @test
    */
   public function shouldSync() {
-    $return            = '1';
-    $mapResponse       = array ('uri' => '/test/');
+    $return = '1';
+    $mapResponse = array ('uri' => '/test/');
     $syncedInstanceUri = array ('syncedInstanceUri' => $mapResponse['uri']);
 
     $mock = $this->getBulkMock('map', $mapResponse, 'sync', $return);
@@ -97,7 +97,7 @@ class AbstractBulkApiTest extends \PHPUnit_Framework_TestCase {
    */
   public function shouldCheckWaitingStatus() {
     $syncResponse = array ('uri' => '/test/');
-    $return       = '1';
+    $return = '1';
 
     $mock = $this->getBulkMock('sync', $syncResponse, 'status', $return);
     $mock->expects($this->once())
@@ -131,9 +131,9 @@ class AbstractBulkApiTest extends \PHPUnit_Framework_TestCase {
    * @test
    */
   public function shouldDownload() {
-    $return         = '1';
+    $return = '1';
     $statusResponse = array ('syncedInstanceUri' => '/test/');
-    $uri            = trim($statusResponse['syncedInstanceUri'], '/');
+    $uri = trim($statusResponse['syncedInstanceUri'], '/');
 
     $mock = $this->getBulkMock('status', $statusResponse);
     $mock->expects($this->once())
@@ -149,8 +149,8 @@ class AbstractBulkApiTest extends \PHPUnit_Framework_TestCase {
    */
   public function shouldRequestLog() {
     $statusResponse = array ('uri' => '/test/');
-    $uri            = trim($statusResponse['uri'], '/');
-    $return         = '1';
+    $uri = trim($statusResponse['uri'], '/');
+    $return = '1';
 
     $mock = $this->getBulkMock('status', $statusResponse);
     $mock->expects($this->once())
@@ -208,4 +208,3 @@ class AbstractBulkApiTest extends \PHPUnit_Framework_TestCase {
     return $bulkMock;
   }
 }
- 

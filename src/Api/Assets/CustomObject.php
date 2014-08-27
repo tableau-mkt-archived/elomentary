@@ -13,6 +13,7 @@ use Eloqua\Api\ReadableInterface;
 use Eloqua\Api\UpdateableInterface;
 use Eloqua\Api\DestroyableInterface;
 use Eloqua\Api\SearchableInterface;
+use Eloqua\Api\Data\CustomObject\Bulk;
 use Eloqua\Exception\InvalidArgumentException;
 
 /**
@@ -21,36 +22,6 @@ use Eloqua\Exception\InvalidArgumentException;
  * the Eloqua\Api\Data\CustomObject object
  */
 class CustomObject extends AbstractApi implements CreatableInterface, ReadableInterface, UpdateableInterface, DestroyableInterface, SearchableInterface {
-
-  /**
-   * Gets custom object data api
-   *
-   * @param number $customObjectId
-   *   The custom object ID from which you're trying to interface with
-   *
-   * @throws \Exception
-   *   Accessing custom object data is currently only possible with the 1.0 API.
-   *   See http://topliners.eloqua.com/thread/13397 for more information.
-   *
-   * @return \Eloqua\Api\Data\CustomObject
-   */
-  public function data($customObjectId) {
-    if ($this->client->getOption('version') != '1.0') {
-      throw new \Exception("Accessing customObject data is currently only supported with the Rest API v1.0");
-    }
-
-    $data = new \Eloqua\Api\Data\CustomObject($this->client);
-    $data->identify($customObjectId);
-
-    return $data;
-  }
-
-  public function bulk($customObjectId) {
-    $bulk = new \Eloqua\Api\Data\CustomObject\Bulk($this->client);
-    $bulk->identify($customObjectId);
-
-    return $bulk;
-  }
 
   /**
    * {@inheritdoc}
@@ -116,5 +87,43 @@ class CustomObject extends AbstractApi implements CreatableInterface, ReadableIn
    */
   public function remove($id) {
     return $this->delete('assets/customObject/' . rawurlencode($id));
+  }
+
+  /**
+   * Gets custom object data API
+   *
+   * @param number $customObjectId
+   *   The custom object ID from which you're trying to interface with
+   *
+   * @throws \Exception
+   *   Accessing custom object data is currently only possible with the 1.0 API.
+   *   See http://topliners.eloqua.com/thread/13397 for more information.
+   *
+   * @return \Eloqua\Api\Data\CustomObject
+   */
+  public function data($customObjectId) {
+    if ($this->client->getOption('version') != '1.0') {
+      throw new \Exception("Accessing customObject data is currently only supported with the Rest API v1.0");
+    }
+
+    $data = new \Eloqua\Api\Data\CustomObject($this->client);
+    $data->identify($customObjectId);
+
+    return $data;
+  }
+
+  /**
+   * Gets custom object bulk API
+   *
+   * @param $customObjectId
+   *   The custom object ID from which you're trying to interface with
+   *
+   * @return \Eloqua\Api\Data\CustomObject\Bulk
+   */
+  public function bulk($customObjectId) {
+    $bulk = new Bulk($this->client);
+    $bulk->identify($customObjectId);
+
+    return $bulk;
   }
 }

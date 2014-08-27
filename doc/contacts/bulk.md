@@ -1,5 +1,5 @@
 ## Contacts Bulk API
-[Back to the navigation](../index.md)
+[Back to the navigation](../index.md) | [Back to Contacts](../contacts.md)
 
 ### Usage examples
 

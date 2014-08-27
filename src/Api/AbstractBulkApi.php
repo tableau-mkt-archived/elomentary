@@ -110,7 +110,7 @@ abstract class AbstractBulkApi extends AbstractApi {
    */
   public function upload($contactObject, $mapResponse = null) {
     $mapResponse = $this->getResponse('map', $mapResponse);
-    $uri         = trim($mapResponse['uri'], '/');
+    $uri = trim($mapResponse['uri'], '/');
 
     return $this->setResponse('load', $this->post("$uri/data", $contactObject));
   }
@@ -138,7 +138,7 @@ abstract class AbstractBulkApi extends AbstractApi {
    * Checks the status of the last sync.
    *
    * @param bool $wait
-   *   If true (default), the function will block until the sync either
+   *   If true, the function will block until the sync either
    *   completes or fails.  It will wait one second between the last response
    *   and the next check.
    *
@@ -151,9 +151,9 @@ abstract class AbstractBulkApi extends AbstractApi {
    * @return array
    *   Eloqua response, including URI for next steps.
    */
-  public function status($wait = true, $syncResponse = null) {
+  public function status($wait = false, $syncResponse = null) {
     $syncResponse = $this->getResponse('sync', $syncResponse);
-    $uri          = trim($syncResponse['uri'], '/');
+    $uri = trim($syncResponse['uri'], '/');
 
     do {
       $status = $this->get($uri);
@@ -189,7 +189,7 @@ abstract class AbstractBulkApi extends AbstractApi {
    */
   public function download($statusResponse = null) {
     $statusResponse = $this->getResponse('status', $statusResponse);
-    $uri            = trim($statusResponse['syncedInstanceUri'], '/');
+    $uri = trim($statusResponse['syncedInstanceUri'], '/');
 
     return $this->get("$uri/data");
   }
@@ -206,7 +206,7 @@ abstract class AbstractBulkApi extends AbstractApi {
    */
   public function log($statusResponse = null) {
     $statusResponse = $this->getResponse('status', $statusResponse);
-    $uri            = trim($statusResponse['uri'], '/');
+    $uri = trim($statusResponse['uri'], '/');
 
     return $this->get("$uri/logs");
   }
