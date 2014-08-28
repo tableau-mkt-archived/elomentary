@@ -103,13 +103,10 @@ class CustomObject extends AbstractApi implements CreatableInterface, ReadableIn
    */
   public function data($customObjectId) {
     if ($this->client->getOption('version') != '1.0') {
-      throw new \Exception("Accessing customObject data is currently only supported with the Rest API v1.0");
+        throw new \Exception("Accessing customObject data is currently only supported with the Rest API v1.0");
     }
 
-    $data = new \Eloqua\Api\Data\CustomObject($this->client);
-    $data->identify($customObjectId);
-
-    return $data;
+    return new \Eloqua\Api\Data\CustomObject($this->client, $customObjectId);
   }
 
   /**
@@ -121,9 +118,6 @@ class CustomObject extends AbstractApi implements CreatableInterface, ReadableIn
    * @return \Eloqua\Api\Data\CustomObject\Bulk
    */
   public function bulk($customObjectId) {
-    $bulk = new Bulk($this->client);
-    $bulk->identify($customObjectId);
-
-    return $bulk;
+    return new Bulk($this->client, $customObjectId);
   }
 }

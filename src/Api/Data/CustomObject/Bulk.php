@@ -8,19 +8,18 @@
 namespace Eloqua\Api\Data\CustomObject;
 
 use Eloqua\Api\AbstractBulkApi;
+use Eloqua\Client;
 
 class Bulk extends AbstractBulkApi {
   private $_id;
 
-  /**
-   * Sets custom object id
-   *
-   * @param number $id
-   *   Custom Object ID
-   */
-  public function identify($id) {
-    $this->_id = $id;
-  }
+    /**
+     * {@inheritdoc}
+     */
+    public function __construct(Client $client, $customObjectId) {
+        $this->_id = $customObjectId;
+        parent::__construct($client);
+    }
 
   /**
    * {@inheritdoc}

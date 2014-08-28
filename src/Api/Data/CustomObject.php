@@ -8,6 +8,7 @@
 namespace Eloqua\Api\Data;
 
 use Eloqua\Api\AbstractApi;
+use Eloqua\Client;
 use Eloqua\Api\CreatableInterface;
 use Eloqua\Api\ReadableInterface;
 use Eloqua\Api\SearchableInterface;
@@ -28,15 +29,11 @@ class CustomObject extends AbstractApi implements CreatableInterface, ReadableIn
   private $_id;
 
   /**
-   * Eloqua accounts can have multiple defined custom objects, this identifies
-   * which one to interface with
-   *
-   * @param number $id
-   * @returns $this
+   * {@inheritdoc}
    */
-  public function identify($id) {
-    $this->_id = rawurlencode($id);
-    return $this;
+  public function __construct(Client $client, $customObjectId) {
+    $this->_id = $customObjectId;
+    parent::__construct($client);
   }
 
   /**
