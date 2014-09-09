@@ -29,6 +29,12 @@ abstract class AbstractApi implements ApiInterface {
    * @param Client $client
    */
   public function __construct(Client $client) {
+    if ($this instanceof AbstractBulkApi) {
+      $client->setOption('base_url', str_ireplace('/rest', '/bulk', $client->getOption('base_url')));
+    } else {
+      $client->setOption('base_url', str_ireplace('/bulk', '/rest', $client->getOption('base_url')));
+    }
+
     $this->client = $client;
   }
 

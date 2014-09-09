@@ -111,6 +111,27 @@ class AbstractApiTest extends \PHPUnit_Framework_TestCase {
     $this->assertEquals($expectedArray, $api->delete('/path', array('param1' => 'param1value'), array('option1' => 'option1value')));
   }
 
+  /**
+   * @test
+   * @dataProvider baseUrlTestProvider
+   */
+  public function shouldSetBaseUrl($childClass, $requestedUrl) {
+    $client = $this->getMock('Eloqua\Client', array('setOption'), array($this->getHttpMock()));
+
+    $client->expects($this->once())
+      ->method('setOption')
+      ->with('base_url', $requestedUrl);
+
+    $this->getMockForAbstractClass($childClass, array($client));
+  }
+
+  public function baseUrlTestProvider() {
+    return array (
+      array ('Eloqua\Api\AbstractApi', 'https://secure.eloqua.com/API/REST'),
+      array ('Eloqua\Api\AbstractBulkApi', 'https://secure.eloqua.com/API/bulk'),
+    );
+  }
+
   protected function getAbstractApiObject($client) {
     return new AbstractApiTestInstance($client);
   }
