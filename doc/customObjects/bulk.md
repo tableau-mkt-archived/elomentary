@@ -1,5 +1,5 @@
 ## Custom Objects Bulk API
-[Back to the navigation](../index.md) | [Back to custom objects](../custom-objects.md)
+[Back to custom objects](../custom-objects.md) | [Back to the navigation](../index.md)
 
 ### Usage examples
 

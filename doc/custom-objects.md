@@ -1,5 +1,5 @@
 ## Custom Objects
-[Back to the navigation](index.md) | [Custom objects bulk API](customObjects/bulk.md)
+[Back to the navigation](index.md)
 
 The customObject API is used for interacting with the custom object metadata.
 
@@ -94,6 +94,13 @@ removed.
 ```php
 $client->api('customObject')->remove(1337);
 ```
+
+#### Bulk operations on custom objects
+```php
+$bulk_client = $client->api('customObject')->bulk(1337);
+```
+For more details on interacting with Eloqua custom objects in bulk, see
+documentation on [bulk custom objects](customObjects/bulk.md).
 
 ### Links
 * [API details on Topliners](http://topliners.eloqua.com/docs/DOC-3097)

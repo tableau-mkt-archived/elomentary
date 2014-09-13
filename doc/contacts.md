@@ -1,5 +1,5 @@
 ## Contacts
-[Back to the navigation](index.md) | [Contacts bulk API](contacts/bulk.md)
+[Back to the navigation](index.md)
 
 ### Usage examples
 
@@ -80,7 +80,14 @@ For more details, see documentation on [contact views](contacts/views.md).
 ```php
 $fields = $client->api('contact')->fields();
 ```
-For more details, see documentation [contact fields](contacts/fields.md).
+For more details, see documentation on [contact fields](contacts/fields.md).
+
+#### Bulk operations on Contacts
+```php
+$bulk_client = $client->api('contact')->bulk();
+```
+For more details on interacting with Eloqua contacts in bulk, see documentation
+on [bulk contacts](contacts/bulk.md).
 
 ### Links
 
