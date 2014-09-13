@@ -15,14 +15,15 @@ class CustomObjectTest extends TestCase {
    */
   public function shouldSearchCustomObjectData() {
     $expected = 'test';
+    $customObjectId = 1;
 
-    $api = $this->getApiMock();
+    $api = $this->getApiMock(array ($customObjectId));
     $api->expects($this->once())
       ->method('get')
-      ->with('data/customObject/1', array('search' => 'id=1'))
+      ->with("data/customObject/$customObjectId", array('search' => 'id=1'))
       ->will($this->returnValue($expected));
 
-    $result = $api->identify(1)->search('id=1');
+    $result = $api->search('id=1');
 
     $this->assertEquals($expected, $result);
   }
@@ -32,13 +33,14 @@ class CustomObjectTest extends TestCase {
    */
   public function shouldCreateCustomObjectData() {
     $data = array ('contactId' => null, 'fields' => array());
+    $customObjectId = 1;
 
-    $api = $this->getApiMock();
+    $api = $this->getApiMock(array ($customObjectId));
     $api->expects($this->once())
       ->method('post')
-      ->with('data/customObject/1', $data);
+      ->with("data/customObject/$customObjectId", $data);
 
-    $api->identify(1)->create($data);
+    $api->create($data);
   }
 
   protected function getApiClass() {

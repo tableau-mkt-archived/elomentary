@@ -1,5 +1,5 @@
 ## Custom Objects
-[Back to the navigation](index.md)
+[Back to the navigation](index.md) | [Custom objects bulk API](customObjects/bulk.md)
 
 The customObject API is used for interacting with the custom object metadata.
 

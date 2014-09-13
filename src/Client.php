@@ -246,4 +246,5 @@ class Client
     $this->options[$name] = $value;
     $this->getHttpClient()->setOption($name, $value);
   }
+
 }

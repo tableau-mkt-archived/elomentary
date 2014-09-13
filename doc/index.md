@@ -3,6 +3,7 @@ Navigation
 
 ### Data
 * [Contacts](contacts.md)
+  * [Bulk API](contacts/bulk.md)
   * [Contact Fields](contacts/fields.md)
   * [Contact E-mail Subscriptions](contacts/subscriptions.md)
   * [Contacts by Contact List](contacts/list.md)
@@ -10,6 +11,7 @@ Navigation
   * [Contact View Data](contacts/views.md)
 * [Visitors](visitors.md)
 * [Custom Objects](customObjects/data.md)
+  * [Bulk API](customObjects/bulk.md)
 
 ### Assets
 * [E-mails](emails.md)

@@ -14,6 +14,7 @@ use Eloqua\Api\Data\Contact\ContactList;
 use Eloqua\Api\Data\Contact\Filter;
 use Eloqua\Api\Data\Contact\Subscription;
 use Eloqua\Api\Data\Contact\View;
+use Eloqua\Api\Data\Contact\Bulk;
 use Eloqua\Api\DestroyableInterface;
 use Eloqua\Api\ReadableInterface;
 use Eloqua\Api\SearchableInterface;
@@ -133,4 +134,13 @@ class Contact extends AbstractApi implements CreatableInterface, ReadableInterfa
     return new Field($this->client);
   }
 
+  /**
+   * Returns a bulk contact client.
+   *
+   * @return \Eloqua\Api\Data\Contact\Bulk
+   *   A bulk contact client.
+   */
+  public function bulk() {
+    return new Bulk($this->client);
+  }
 }
