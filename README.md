@@ -1,4 +1,4 @@
-# Elomentary [![Build Status](https://travis-ci.org/tableau-mkt/elomentary.svg?branch=master)](https://travis-ci.org/tableau-mkt/elomentary) [![Code Climate](https://codeclimate.com/github/tableau-mkt/elomentary.png)](https://codeclimate.com/github/tableau-mkt/elomentary)
+# Elomentary [![Build Status](https://travis-ci.org/tableau-mkt/elomentary.svg?branch=master)](https://travis-ci.org/tableau-mkt/elomentary) [![Code Climate](https://codeclimate.com/github/tableau-mkt/elomentary/badges/gpa.svg)](https://codeclimate.com/github/tableau-mkt/elomentary)
 
 The simple, objected oriented wrapper for the Eloqua REST API.
 
