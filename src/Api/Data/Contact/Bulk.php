@@ -24,4 +24,11 @@ class Bulk extends AbstractBulkApi {
   public function exports() {
     return $this->_mapUri = 'contacts/exports';
   }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function get($path, array $parameters = array(), $requestHeaders = array()) {
+	return parent::get($path, $parameters, $requestHeaders);
+  }
 }
