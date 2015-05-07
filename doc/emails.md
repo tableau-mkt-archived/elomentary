@@ -9,19 +9,26 @@ $client = new Eloqua\Client();
 $client->api('emails')->search('Never Gonna Give*');
 ```
 
-#### View / manage e-mail groups
-```php
-$groups = $client->api('email')->groups();
-```
-For more details, see documentation on
-[e-mail groups](emails/groups.md).
-
 #### View / manage e-mail deployments
 ```php
 $deployments = $client->api('email')->deployments();
 ```
 For more details, see documentation on
 [e-mail deployments](emails/deployments.md).
+
+#### View / manage e-mail folders
+```php
+$folders = $client->api('email')->folders();
+```
+For more details, see documentation on
+[e-mail folders](emails/folders.md).
+
+#### View / manage e-mail groups
+```php
+$groups = $client->api('email')->groups();
+```
+For more details, see documentation on
+[e-mail groups](emails/groups.md).
 
 #### Return a single e-mail by a given ID
 ```php
