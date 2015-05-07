@@ -55,6 +55,14 @@ class EmailTest extends TestCase {
   /**
    * @test
    */
+  public function shouldGetFolders() {
+    $api = $this->getApiMock();
+    $this->assertInstanceOf('Eloqua\Api\Assets\Email\Folder', $api->folders());
+  }
+
+  /**
+   * @test
+   */
   public function shouldGetDeployments() {
     $api = $this->getApiMock();
     $this->assertInstanceOf('Eloqua\Api\Assets\Email\Deployment', $api->deployments());
