@@ -87,6 +87,14 @@ class EmailTest extends TestCase {
   /**
    * @test
    */
+  public function shouldGetSignatureRules() {
+    $api = $this->getApiMock();
+    $this->assertInstanceOf('Eloqua\Api\Assets\Email\Signature\Rule', $api->signatureRules());
+  }
+
+  /**
+   * @test
+   */
   public function shouldShowEmailJustId() {
     $id = 1337;
     $expected_response = array('response');
