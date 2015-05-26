@@ -22,6 +22,8 @@ Navigation
   * [E-mail Groups](emails/groups.md)
   * [E-mail Headers](emails/headers.md)
     * [Header Folders](emails/headers/folders.md)
+  * E-mail Signatures
+    * [Signature Rules](emails/signatures/rules.md)
 * [Option Lists](optionList.md)
 * [Programs](program.md)
 * [Custom Objects](custom-objects.md)

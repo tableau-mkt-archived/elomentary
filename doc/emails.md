@@ -44,6 +44,13 @@ $groups = $client->api('email')->groups();
 For more details, see documentation on
 [e-mail groups](emails/groups.md).
 
+#### View / manage e-mail signature rules
+```php
+$rules = $client->api('email')->signatureRules();
+```
+For more details, see documentation on
+[e-mail signature rules](emails/signatures/rules.md)
+
 #### Return a single e-mail by a given ID
 ```php
 $client->api('email')->show($email_id);
