@@ -15,6 +15,9 @@ Navigation
 
 ### Assets
 * [E-mails](emails.md)
+  * [E-mail Deployments](emails/deployments.md)
+  * [E-mail Folders](emails/folders.md)
+  * [E-mail Footers](emails/footers.md)
   * [E-mail Groups](emails/groups.md)
 * [Option Lists](optionList.md)
 * [Programs](program.md)

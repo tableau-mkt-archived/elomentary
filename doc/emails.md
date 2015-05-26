@@ -23,6 +23,13 @@ $folders = $client->api('email')->folders();
 For more details, see documentation on
 [e-mail folders](emails/folders.md).
 
+#### View / manage e-mail footers
+```php
+$footers = $client->api('email')->footers();
+```
+For more details, see documentation on
+[e-mail footers](emails/footers.md).
+
 #### View / manage e-mail groups
 ```php
 $groups = $client->api('email')->groups();
