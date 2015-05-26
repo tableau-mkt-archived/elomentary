@@ -224,6 +224,34 @@ class EmailTest extends TestCase {
     $api->remove('x404');
   }
 
+  /**
+   * @test
+   */
+  public function shouldShowConfig() {
+    $expected_response = array('response');
+
+    $api = $this->getApiMock();
+    $api->expects($this->once())
+      ->method('get')
+      ->with('assets/email/config')
+      ->will($this->returnValue($expected_response));
+    $this->assertEquals($expected_response, $api->showConfig());
+  }
+
+  /**
+   * @test
+   */
+  public function shouldUpdateConfig() {
+    $expected_response = array('response');
+
+    $api = $this->getApiMock();
+    $api->expects($this->once())
+      ->method('put')
+      ->with('assets/email/config')
+      ->will($this->returnValue($expected_response));
+    $this->assertEquals($expected_response, $api->updateConfig($expected_response));
+  }
+
   protected function getApiClass() {
     return 'Eloqua\Api\Assets\Email';
   }
