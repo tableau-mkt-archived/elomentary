@@ -30,6 +30,13 @@ $footers = $client->api('email')->footers();
 For more details, see documentation on
 [e-mail footers](emails/footers.md).
 
+#### View / manage e-mail headers
+```php
+$headers = $client->api('email')->headers();
+```
+For more details, see documentation on
+[e-mail headers](emails/headers.md).
+
 #### View / manage e-mail groups
 ```php
 $groups = $client->api('email')->groups();
