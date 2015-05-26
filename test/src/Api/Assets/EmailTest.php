@@ -79,6 +79,14 @@ class EmailTest extends TestCase {
   /**
    * @test
    */
+  public function shouldGetHeaders() {
+    $api = $this->getApiMock();
+    $this->assertInstanceOf('Eloqua\Api\Assets\Email\Header', $api->headers());
+  }
+
+  /**
+   * @test
+   */
   public function shouldShowEmailJustId() {
     $id = 1337;
     $expected_response = array('response');
