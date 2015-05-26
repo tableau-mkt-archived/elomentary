@@ -44,6 +44,13 @@ $groups = $client->api('email')->groups();
 For more details, see documentation on
 [e-mail groups](emails/groups.md).
 
+#### View / manage e-mail signature layouts
+```php
+$rules = $client->api('email')->signatureLayouts();
+```
+For more details, see documentation on
+[e-mail signature layouts](emails/signatures/layouts.md)
+
 #### View / manage e-mail signature rules
 ```php
 $rules = $client->api('email')->signatureRules();
