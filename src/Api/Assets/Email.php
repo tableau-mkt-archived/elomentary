@@ -145,4 +145,28 @@ class Email extends AbstractApi implements SearchableInterface, CreatableInterfa
     }
     return $this->delete('assets/email/' . rawurlencode($id));
   }
+
+  /**
+   * Returns e-mail configurations for this Eloqua instance.
+   *
+   * @return array
+   *   An associative array representing e-mail configuration.
+   */
+  public function showConfig() {
+    return $this->get('assets/email/config');
+  }
+
+  /**
+   * Updates e-mail configurations for this Eloqua instance.
+   *
+   * @param array $config_data
+   *   Updated e-mail configuration data.
+   *
+   * @return array
+   *   An associative array representing the updated e-mail configurations.
+   */
+  public function updateConfig($config_data) {
+    return $this->put('assets/email/config', $config_data);
+  }
+
 }
