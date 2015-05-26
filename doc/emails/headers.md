@@ -9,6 +9,13 @@ $client = new Eloqua\Client();
 $client->api('email')->headers()->search('*');
 ```
 
+#### View / manage e-mail header folders
+```php
+$client->api('email')->headers()->folders();
+```
+For more details, see documentation on
+[e-mail header folders](emails/headers/folders.md).
+
 #### Search e-mail headers by name
 ```php
 $client = new Eloqua\Client();

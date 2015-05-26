@@ -217,6 +217,14 @@ class HeaderTest extends TestCase {
     $this->assertEquals($expected_response, $api->updateGrants($header_id, $updated_grants));
   }
 
+  /**
+   * @test
+   */
+  public function shouldGetFolders() {
+    $api = $this->getApiMock();
+    $this->assertInstanceOf('Eloqua\Api\Assets\Email\Header\Folder', $api->folders());
+  }
+
   protected function getApiClass() {
     return 'Eloqua\Api\Assets\Email\Header';
   }

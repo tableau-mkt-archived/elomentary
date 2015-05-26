@@ -8,6 +8,7 @@
 namespace Eloqua\Api\Assets\Email;
 
 use Eloqua\Api\AbstractApi;
+use Eloqua\Api\Assets\Email\Header\Folder as HeaderFolder;
 use Eloqua\Api\CreatableInterface;
 use Eloqua\Api\DestroyableInterface;
 use Eloqua\Api\ReadableInterface;
@@ -115,6 +116,15 @@ class Header extends AbstractApi implements CreatableInterface, ReadableInterfac
    */
   public function updateGrants($id, $grant_data) {
     return $this->patch('assets/email/header/' . rawurlencode($id) . '/security/grants', $grant_data);
+  }
+
+  /**
+   * Returns an e-mail header folder client.
+   *
+   * @return \Eloqua\Api\Assets\Email\Header\Folder
+   */
+  public function folders() {
+    return new HeaderFolder($this->client);
   }
 
 }
