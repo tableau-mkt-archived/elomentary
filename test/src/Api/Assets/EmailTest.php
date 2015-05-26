@@ -87,6 +87,14 @@ class EmailTest extends TestCase {
   /**
    * @test
    */
+  public function shouldGetSignatureLayouts() {
+    $api = $this->getApiMock();
+    $this->assertInstanceOf('Eloqua\Api\Assets\Email\Signature\Layout', $api->signatureLayouts());
+  }
+
+  /**
+   * @test
+   */
   public function shouldGetSignatureRules() {
     $api = $this->getApiMock();
     $this->assertInstanceOf('Eloqua\Api\Assets\Email\Signature\Rule', $api->signatureRules());
