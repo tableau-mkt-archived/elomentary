@@ -23,6 +23,7 @@ Navigation
   * [E-mail Headers](emails/headers.md)
     * [Header Folders](emails/headers/folders.md)
   * E-mail Signatures
+    * [Signature Layouts](emails/signatures/layouts.md)
     * [Signature Rules](emails/signatures/rules.md)
 * [Option Lists](optionList.md)
 * [Programs](program.md)
