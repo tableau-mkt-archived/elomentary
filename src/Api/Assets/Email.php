@@ -13,6 +13,7 @@ use Eloqua\Api\Assets\Email\Footer;
 use Eloqua\Api\Assets\Email\Group;
 use Eloqua\Api\Assets\Email\Deployment;
 use Eloqua\Api\Assets\Email\Header;
+use Eloqua\Api\Assets\Email\Signature\Rule;
 use Eloqua\Api\CreatableInterface;
 use Eloqua\Api\DestroyableInterface;
 use Eloqua\Api\ReadableInterface;
@@ -79,6 +80,13 @@ class Email extends AbstractApi implements SearchableInterface, CreatableInterfa
    */
   public function headers() {
     return new Header($this->client);
+  }
+
+  /**
+   * Returns an e-mail signature rule client.
+   */
+  public function signatureRules() {
+    return new Rule($this->client);
   }
 
   /**
