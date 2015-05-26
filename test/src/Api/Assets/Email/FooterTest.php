@@ -217,6 +217,14 @@ class FooterTest extends TestCase {
     $this->assertEquals($expected_response, $api->updateGrants($footer_id, $updated_grants));
   }
 
+  /**
+   * @test
+   */
+  public function shouldGetFolders() {
+    $api = $this->getApiMock();
+    $this->assertInstanceOf('Eloqua\Api\Assets\Email\Footer\Folder', $api->folders());
+  }
+
   protected function getApiClass() {
     return 'Eloqua\Api\Assets\Email\Footer';
   }
