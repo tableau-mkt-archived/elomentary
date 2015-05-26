@@ -9,6 +9,13 @@ $client = new Eloqua\Client();
 $client->api('email')->footers()->search('*');
 ```
 
+#### View / manage e-mail footer folders
+```php
+$client->api('email')->footers()->folders();
+```
+For more details, see documentation on
+[e-mail footer folders](emails/footers/folders.md).
+
 #### Search e-mail footers by name
 ```php
 $client = new Eloqua\Client();
