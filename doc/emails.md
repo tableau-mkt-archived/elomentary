@@ -77,5 +77,24 @@ $client->api('email')->update(123, array(
 $client->api('email')->remove($email_id);
 ```
 
+#### View e-mail configurations
+```php
+$client->api('email')->showConfig();
+```
+
+#### Update e-mail configurations
+```php
+$client->api('email')->updateConfig(array(
+  'type' => 'EmailConfig',
+  'bouncebackAddresses' => array(
+    'foo.bar@example.com',
+  ),
+  'fromAddress' => 'noreply@example.com',
+  'includeListUnsubscribeHeader' => 'True',
+  'replyToAddress' => 'replyto@example.com',
+  'replyToName' => 'Reply To',
+));
+```
+
 ### Links
 * [API details on Topliners](http://topliners.eloqua.com/docs/DOC-3083)
