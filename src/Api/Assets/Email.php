@@ -12,6 +12,7 @@ use Eloqua\Api\Assets\Email\Folder;
 use Eloqua\Api\Assets\Email\Footer;
 use Eloqua\Api\Assets\Email\Group;
 use Eloqua\Api\Assets\Email\Deployment;
+use Eloqua\Api\Assets\Email\Header;
 use Eloqua\Api\CreatableInterface;
 use Eloqua\Api\DestroyableInterface;
 use Eloqua\Api\ReadableInterface;
@@ -69,6 +70,15 @@ class Email extends AbstractApi implements SearchableInterface, CreatableInterfa
    */
   public function footers() {
     return new Footer($this->client);
+  }
+
+  /**
+   * Returns an e-mail header client.
+   *
+   * @return \Eloqua\Api\Assets\Email\Header
+   */
+  public function headers() {
+    return new Header($this->client);
   }
 
   /**
