@@ -9,6 +9,7 @@ namespace Eloqua\Api\Assets;
 
 use Eloqua\Api\AbstractApi;
 use Eloqua\Api\Assets\Email\Folder;
+use Eloqua\Api\Assets\Email\Footer;
 use Eloqua\Api\Assets\Email\Group;
 use Eloqua\Api\Assets\Email\Deployment;
 use Eloqua\Api\CreatableInterface;
@@ -59,6 +60,15 @@ class Email extends AbstractApi implements SearchableInterface, CreatableInterfa
    */
   public function folders() {
     return new Folder($this->client);
+  }
+
+  /**
+   * Returns an e-mail footer client.
+   *
+   * @return \Eloqua\Api\Assets\Email\Footer
+   */
+  public function footers() {
+    return new Footer($this->client);
   }
 
   /**
