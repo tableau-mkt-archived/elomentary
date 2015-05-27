@@ -38,6 +38,23 @@ class HttpClientTest extends \PHPUnit_Framework_TestCase {
 
   /**
    * @test
+   */
+  public function shouldSetHeaders() {
+    $existingHeaders = array('foo' => 'bar', 'baz' => 'fizz');
+    $headersToBeSet = array('fizz' => 'buzz', 'foo' => 'foo');
+    $expectedHeaders = array_merge($existingHeaders, $headersToBeSet);
+
+    $httpClient = new TestHttpClient();
+    $property = $this->getPrivateProperty('Eloqua\HttpClient\HttpClient', 'headers');
+    $property->setValue($httpClient, $existingHeaders);
+
+    $httpClient->setHeaders($headersToBeSet);
+    $actual = \PHPUnit_Framework_Assert::readAttribute($httpClient, 'headers');
+    $this->assertSame($expectedHeaders, $actual);
+  }
+
+  /**
+   * @test
    *
    * Note: GuzzleClient->setConfig() cannot be stubbed since it is declared final
    */
@@ -233,6 +250,32 @@ class HttpClientTest extends \PHPUnit_Framework_TestCase {
     $this->assertInstanceOf('Guzzle\Http\Message\MessageInterface', $response);
   }
 
+  /**
+   * @test
+   */
+  public function shouldGetLastRequest() {
+    $expectedProperty = 'last request';
+
+    $httpClient = new TestHttpClient();
+    $property = $this->getPrivateProperty('Eloqua\HttpClient\HttpClient', 'lastRequest');
+    $property->setValue($httpClient, $expectedProperty);
+
+    $this->assertEquals($expectedProperty, $httpClient->getLastRequest());
+  }
+
+  /**
+   * @test
+   */
+  public function shouldGetLastResponse() {
+    $expectedProperty = 'last response';
+
+    $httpClient = new TestHttpClient();
+    $property = $this->getPrivateProperty('Eloqua\HttpClient\HttpClient', 'lastResponse');
+    $property->setValue($httpClient, $expectedProperty);
+
+    $this->assertEquals($expectedProperty, $httpClient->getLastResponse());
+  }
+
   protected function getBrowserMock(array $methods = array()) {
     $mock = $this->getMock(
       'Guzzle\Http\Client',
@@ -248,6 +291,22 @@ class HttpClientTest extends \PHPUnit_Framework_TestCase {
 
     return $mock;
   }
+
+  /**
+   * Returns a private property.
+   *
+   * @param string $className
+   * @param string $propertyName
+   * @return \ReflectionProperty
+   */
+  protected function getPrivateProperty($className, $propertyName) {
+    $reflector = new \ReflectionClass( $className );
+    $property = $reflector->getProperty( $propertyName );
+    $property->setAccessible( true );
+
+    return $property;
+  }
+
 }
 
 class TestHttpClient extends HttpClient {
