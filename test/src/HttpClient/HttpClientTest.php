@@ -276,6 +276,54 @@ class HttpClientTest extends \PHPUnit_Framework_TestCase {
     $this->assertEquals($expectedProperty, $httpClient->getLastResponse());
   }
 
+  /**
+   * @test
+   */
+  public function shouldAddSubscriber() {
+    $mockSubscriber = $this->getMock('Symfony\Component\EventDispatcher\EventSubscriberInterface');
+    $listenerClient = $this->getBrowserMock(array('addSubscriber'));
+    $listenerClient->expects($this->once())
+      ->method('addSubscriber')
+      ->with($mockSubscriber);
+
+    $httpClient = new TestHttpClient(array(), $listenerClient);
+    $httpClient->addSubscriber($mockSubscriber);
+  }
+
+  /**
+   * @test
+   * @expectedException \Eloqua\Exception\ErrorException
+   */
+  public function shouldThrowErrorExceptionOnLogicException() {
+    $listenerClient = $this->getBrowserMock();
+    $listenerClient->expects($this->once())
+      ->method('send')
+      ->will($this->throwException(new \LogicException()));
+
+    $httpClient = $this->getMock('Eloqua\HttpClient\HttpClient', array('send', 'createRequest'), array(
+      array(),
+      $listenerClient,
+    ));
+    $httpClient->request('/path', '');
+  }
+
+  /**
+   * @test
+   * @expectedException \Eloqua\Exception\RuntimeException
+   */
+  public function shouldThrowRuntimeExceptionOnRuntimeException() {
+    $listenerClient = $this->getBrowserMock();
+    $listenerClient->expects($this->once())
+      ->method('send')
+      ->will($this->throwException(new \RuntimeException()));
+
+    $httpClient = $this->getMock('Eloqua\HttpClient\HttpClient', array('send', 'createRequest'), array(
+      array(),
+      $listenerClient,
+    ));
+    $httpClient->request('/path', '');
+  }
+
   protected function getBrowserMock(array $methods = array()) {
     $mock = $this->getMock(
       'Guzzle\Http\Client',
