@@ -2,5 +2,6 @@ phpunit.xml
 composer.lock
 composer.phar
 vendor/*
+build
 .DS_Store
 .idea
