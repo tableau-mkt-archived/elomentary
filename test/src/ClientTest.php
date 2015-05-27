@@ -154,9 +154,18 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
    * @test
    * @expectedException InvalidArgumentException
    */
-  public function shouldThrowExceptionOnInvalidOption() {
+  public function shouldThrowExceptionOnInvalidOptionSet() {
     $client = new Client();
     $client->setOption('bad option', '1');
+  }
+
+  /**
+   * @test
+   * @expectedException InvalidArgumentException
+   */
+  public function shouldThrowExceptionOnInvalidOptionGet() {
+    $client = new Client();
+    $client->getOption('bad option');
   }
 
   /**
