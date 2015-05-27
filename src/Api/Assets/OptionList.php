@@ -62,8 +62,8 @@ class OptionList extends AbstractApi implements SearchableInterface, CreatableIn
         if (!isset($o['displayName'], $o['value'])) {
           throw new InvalidArgumentException('Option fields are required to have a displayName and value parameter');
         }
-      }
-    }
+      } // @codeCoverageIgnoreStart
+    } // @codeCoverageIgnoreEnd
 
     return $this->post('assets/optionList', $optionsList);
   }
