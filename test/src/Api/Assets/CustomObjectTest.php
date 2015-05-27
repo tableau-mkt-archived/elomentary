@@ -210,6 +210,49 @@ class CustomObjectTest extends TestCase {
     $this->assertEquals($expected, $api->update(1, $inputObj));
   }
 
+  /**
+   * @test
+   * @expectedException InvalidArgumentException
+   */
+  public function shouldThrowExceptionOnUpdateWithMismatchedIds() {
+    $expected_id = 1;
+    $object_data = array(
+      'id' => $expected_id + 1,
+    );
+
+    $api = $this->getApiMock();
+    $api->expects($this->any())
+      ->method('update');
+
+    $api->update($expected_id, $object_data);
+  }
+
+  /**
+   * @test
+   * @expectedException InvalidArgumentException
+   */
+  public function shouldThrowExceptionOnUpdateWithoutId() {
+    $expected_id = 1;
+    $object_data = array(
+      'notId' => $expected_id,
+    );
+
+    $api = $this->getApiMock();
+    $api->expects($this->any())
+      ->method('update');
+
+    $api->update($expected_id, $object_data);
+  }
+
+  /**
+   * @test
+   */
+  public function shouldReturnBulkClient() {
+    $id = 123;
+    $api = $this->getApiMock();
+    $this->assertInstanceOf('Eloqua\Api\Data\CustomObject\Bulk', $api->bulk($id));
+  }
+
   protected function getApiClass() {
     return 'Eloqua\Api\Assets\CustomObject';
   }

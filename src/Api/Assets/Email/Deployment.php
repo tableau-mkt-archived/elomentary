@@ -50,7 +50,7 @@ class Deployment extends AbstractApi implements CreatableInterface, ReadableInte
 
     if ($data['type'] == 'EmailTestDeployment') {
       $this->validateExists($data, 'contactId');
-    }
+    } // @codeCoverageIgnore
     elseif ($data['type'] == 'EmailInlineDeployment') {
       $this->validateExists($data, 'contacts');
     }

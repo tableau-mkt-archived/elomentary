@@ -200,6 +200,14 @@ class ContactTest extends TestCase {
     $this->assertInstanceOf('Eloqua\Api\Assets\Contact\Field', $api->fields());
   }
 
+  /**
+   * @test
+   */
+  public function shouldGetBulkClient() {
+    $api = $this->getApiMock();
+    $this->assertInstanceOf('Eloqua\Api\Data\Contact\Bulk', $api->bulk());
+  }
+
   protected function getApiClass() {
     return 'Eloqua\Api\Data\Contact';
   }

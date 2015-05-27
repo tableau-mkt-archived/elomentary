@@ -155,8 +155,8 @@ class Client
    */
   public function getRestEndpoints($site, $login, $password, HttpClientInterface $client = null) {
     $client = $client ?: new HttpClient(array (
-      'base_url' => 'https://login.eloqua.com/id',
-      'version'  => '',
+      'base_url' => 'https://login.eloqua.com/id', // @codeCoverageIgnore
+      'version'  => '', // @codeCoverageIgnore
     ));
 
     $authHeader = array (
