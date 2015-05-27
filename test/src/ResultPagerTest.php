@@ -175,6 +175,31 @@ class ResultPagerTest extends \PHPUnit_Framework_TestCase {
 
   /**
    * @test
+   */
+  public function fetchPrevious() {
+    $url = 'http://example.com';
+    $resultContent = array(
+      'page' => 3,
+      'pageSize' => 10,
+      'total' => 30,
+    );
+    $responseMock = $this->getResponseMock($url, $resultContent);
+    $httpClient = $this->getHttpClientMock($responseMock);
+    $httpClient
+      ->expects($this->once())
+      ->method('get')
+      ->with($url, $this->arrayHasKey('page'))
+      ->will($this->returnValue($responseMock));
+    $client = $this->getClientMock($httpClient);
+
+    $paginator = new Eloqua\ResultPager($client);
+    $paginator->postFetch();
+
+    $this->assertSame($resultContent, $paginator->fetchPrevious());
+  }
+
+  /**
+   * @test
    *
    * description hasPrevious
    */
@@ -192,6 +217,56 @@ class ResultPagerTest extends \PHPUnit_Framework_TestCase {
 
     $this->assertEquals($paginator->hasPrevious(), true);
     $this->assertEquals($paginator->hasNext(), false);
+  }
+
+  /**
+   * @test
+   */
+  public function fetchFirst() {
+    $url = 'http://example.com';
+    $resultContent = array(
+      'page' => 3,
+      'pageSize' => 10,
+      'total' => 30,
+    );
+    $responseMock = $this->getResponseMock($url, $resultContent);
+    $httpClient = $this->getHttpClientMock($responseMock);
+    $httpClient
+      ->expects($this->once())
+      ->method('get')
+      ->with($url, $this->arrayHasKey('page'))
+      ->will($this->returnValue($responseMock));
+    $client = $this->getClientMock($httpClient);
+
+    $paginator = new Eloqua\ResultPager($client);
+    $paginator->postFetch();
+
+    $this->assertSame($resultContent, $paginator->fetchFirst());
+  }
+
+  /**
+   * @test
+   */
+  public function fetchLast() {
+    $url = 'http://example.com';
+    $resultContent = array(
+      'page' => 1,
+      'pageSize' => 10,
+      'total' => 30,
+    );
+    $responseMock = $this->getResponseMock($url, $resultContent);
+    $httpClient = $this->getHttpClientMock($responseMock);
+    $httpClient
+      ->expects($this->once())
+      ->method('get')
+      ->with($url, $this->arrayHasKey('page'))
+      ->will($this->returnValue($responseMock));
+    $client = $this->getClientMock($httpClient);
+
+    $paginator = new Eloqua\ResultPager($client);
+    $paginator->postFetch();
+
+    $this->assertSame($resultContent, $paginator->fetchLast());
   }
 
   protected function getResponseMock($url, $response) {

@@ -146,5 +146,5 @@ class ResultPager implements ResultPagerInterface {
 
       return ResponseMediator::getContent($result);
     }
-  }
+  } // @codeCoverageIgnore
 }
