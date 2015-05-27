@@ -38,7 +38,7 @@ abstract class AbstractApi implements ApiInterface {
     $this->client = $client;
   }
 
-  public function configure() {}
+  public function configure() {} // @codeCoverageIgnore
 
   /**
    * @return null|int
