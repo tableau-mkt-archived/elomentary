@@ -166,7 +166,10 @@ class HttpClient implements HttpClientInterface {
       $path,
       array_merge($this->headers, $headers),
       $body,
-      $options
+      array_merge(array(
+        'connect_timeout' => $this->options['timeout'],
+        'timeout' => $this->options['timeout'],
+      ), $options)
     );
   }
 }
