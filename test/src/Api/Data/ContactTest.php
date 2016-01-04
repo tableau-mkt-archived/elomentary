@@ -177,6 +177,15 @@ class ContactTest extends TestCase {
   /**
    * @test
    */
+  public function shouldGetSegments() {
+    $contact_segment_id = 1337;
+    $api = $this->getApimock();
+    $this->assertInstanceOf('Eloqua\Api\Data\Contact\Segment', $api->segments($contact_segment_id));
+  }
+
+  /**
+   * @test
+   */
   public function shouldGetFilters() {
     $contact_filter_id = 1337;
     $api = $this->getApiMock();
