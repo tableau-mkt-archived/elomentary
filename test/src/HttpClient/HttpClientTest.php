@@ -18,22 +18,24 @@ class HttpClientTest extends \PHPUnit_Framework_TestCase {
    * @test
    */
   public function shouldBeAbleToPassOptionsToConstructor() {
-    $httpClient = new TestHttpClient(array(
+    $httpClient = new HttpClient(array(
       'timeout' => 33
     ), $this->getBrowserMock());
 
-    $this->assertEquals(33, $httpClient->getOption('timeout'));
-    $this->assertEquals('https://secure.eloqua.com/API/REST', $httpClient->getOption('base_url'));
+    $options = $this->getPrivateProperty('Eloqua\HttpClient\HttpClient', 'options')->getValue($httpClient);
+    $this->assertEquals(33, $options['timeout']);
+    $this->assertEquals('https://secure.eloqua.com/API/REST', $options['base_url']);
   }
 
   /**
    * @test
    */
   public function shouldBeAbleToSetOption() {
-    $httpClient = new TestHttpClient(array(), $this->getBrowserMock());
+    $httpClient = new HttpClient(array(), $this->getBrowserMock());
     $httpClient->setOption('timeout', 1337);
 
-    $this->assertEquals(1337, $httpClient->getOption('timeout'));
+    $options = $this->getPrivateProperty('Eloqua\HttpClient\HttpClient', 'options')->getValue($httpClient);
+    $this->assertEquals(1337, $options['timeout']);
   }
 
   /**
@@ -44,7 +46,7 @@ class HttpClientTest extends \PHPUnit_Framework_TestCase {
     $headersToBeSet = array('fizz' => 'buzz', 'foo' => 'foo');
     $expectedHeaders = array_merge($existingHeaders, $headersToBeSet);
 
-    $httpClient = new TestHttpClient();
+    $httpClient = new HttpClient();
     $property = $this->getPrivateProperty('Eloqua\HttpClient\HttpClient', 'headers');
     $property->setValue($httpClient, $existingHeaders);
 
@@ -65,7 +67,7 @@ class HttpClientTest extends \PHPUnit_Framework_TestCase {
       ->method('setBaseUrl')
       ->with('test/2.0');
 
-    $httpClient = new TestHttpClient(array(), $guzzleMock);
+    $httpClient = new HttpClient(array(), $guzzleMock);
     $httpClient->setOption('base_url', 'test');
   }
 
@@ -78,7 +80,7 @@ class HttpClientTest extends \PHPUnit_Framework_TestCase {
     $listeners = $client->getEventDispatcher()->getListeners('request.before_send');
     $this->assertCount(1, $listeners);
 
-    $httpClient = new TestHttpClient(array(), $client);
+    $httpClient = new HttpClient(array(), $client);
     $httpClient->authenticate($site, $login, $password);
 
     $listeners = $client->getEventDispatcher()->getListeners('request.before_send');
@@ -243,7 +245,7 @@ class HttpClientTest extends \PHPUnit_Framework_TestCase {
       ->method('send')
       ->will($this->returnValue($message));
 
-    $httpClient = new TestHttpClient(array(), $client);
+    $httpClient = new HttpClient(array(), $client);
     $response = $httpClient->get($path, $parameters, $headers);
 
     $this->assertEquals("Just raw context", $response->getBody());
@@ -256,7 +258,7 @@ class HttpClientTest extends \PHPUnit_Framework_TestCase {
   public function shouldGetLastRequest() {
     $expectedProperty = 'last request';
 
-    $httpClient = new TestHttpClient();
+    $httpClient = new HttpClient();
     $property = $this->getPrivateProperty('Eloqua\HttpClient\HttpClient', 'lastRequest');
     $property->setValue($httpClient, $expectedProperty);
 
@@ -269,7 +271,7 @@ class HttpClientTest extends \PHPUnit_Framework_TestCase {
   public function shouldGetLastResponse() {
     $expectedProperty = 'last response';
 
-    $httpClient = new TestHttpClient();
+    $httpClient = new HttpClient();
     $property = $this->getPrivateProperty('Eloqua\HttpClient\HttpClient', 'lastResponse');
     $property->setValue($httpClient, $expectedProperty);
 
@@ -286,7 +288,7 @@ class HttpClientTest extends \PHPUnit_Framework_TestCase {
       ->method('addSubscriber')
       ->with($mockSubscriber);
 
-    $httpClient = new TestHttpClient(array(), $listenerClient);
+    $httpClient = new HttpClient(array(), $listenerClient);
     $httpClient->addSubscriber($mockSubscriber);
   }
 
@@ -335,6 +337,16 @@ class HttpClientTest extends \PHPUnit_Framework_TestCase {
 
     $mock->expects($this->any())
       ->method('createRequest')
+      ->with(
+        $this->anything(),
+        $this->anything(),
+        $this->anything(),
+        $this->anything(),
+        // Ensure that all requests have a default 10 second timeout applied.
+        $this->callback(function($options) {
+          return $options['connect_timeout'] === 10 && $options['timeout'] === 10;
+        })
+      )
       ->will($this->returnValue($this->getMock('Guzzle\Http\Message\Request', array(), array('GET', 'some'))));
 
     return $mock;
@@ -353,22 +365,6 @@ class HttpClientTest extends \PHPUnit_Framework_TestCase {
     $property->setAccessible( true );
 
     return $property;
-  }
-
-}
-
-class TestHttpClient extends HttpClient {
-
-  public function getOption($name, $default = null)
-  {
-    return isset($this->options[$name]) ? $this->options[$name] : $default;
-  }
-
-  public function request($path, $body, $httpMethod = 'GET', array $headers = array(), array $options = array())
-  {
-    $request = $this->client->createRequest($httpMethod, $path);
-
-    return $this->client->send($request);
   }
 
 }
