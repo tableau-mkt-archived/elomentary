@@ -12,6 +12,7 @@ use Eloqua\Api\Assets\Contact\Field;
 use Eloqua\Api\CreatableInterface;
 use Eloqua\Api\Data\Contact\ContactList;
 use Eloqua\Api\Data\Contact\Filter;
+use Eloqua\Api\Data\Contact\Segment;
 use Eloqua\Api\Data\Contact\Subscription;
 use Eloqua\Api\Data\Contact\View;
 use Eloqua\Api\Data\Contact\Bulk;
@@ -98,6 +99,20 @@ class Contact extends AbstractApi implements CreatableInterface, ReadableInterfa
    */
   public function lists($id) {
     return new ContactList($this->client, $id);
+  }
+
+  /**
+   * Returns a Contact Segment client given a Segment ID. Useful for searching
+   * contacts associated with a given segment.
+   *
+   * @param int $id
+   *   The ID associated with the given segment.
+   *
+   * @return \Eloqua\Api\Data\Contact\Segment
+   *   A contact segment client for the given segment.
+   */
+  public function segments($id) {
+    return new Segment($this->client, $id);
   }
 
   /**
