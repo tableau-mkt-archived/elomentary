@@ -7,6 +7,7 @@ Navigation
   * [Contact Fields](contacts/fields.md)
   * [Contact E-mail Subscriptions](contacts/subscriptions.md)
   * [Contacts by Contact List](contacts/list.md)
+  * [Contacts by Segment](contacts/segment.md)
   * [Contacts by Contact Filter](contacts/filters.md)
   * [Contact View Data](contacts/views.md)
 * [Visitors](visitors.md)

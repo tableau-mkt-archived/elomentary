@@ -64,6 +64,12 @@ $list = $client->api('contact')->lists($list_id);
 ```
 For more details, see documentation on [contact lists](contacts/list.md).
 
+#### Search / export contacts in a given segment
+```php
+$segment = $client->api('contact')->segments($segment_id);
+```
+For more details, see documentation on [contact segments](contacts/segment.md)
+
 #### Search / export contacts that match a given contact filter
 ```php
 $filter = $client->api('contact')->filters($filter_id);
