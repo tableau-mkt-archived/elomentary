@@ -195,6 +195,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
 
   public function getApiClassProvider() {
     return array(
+      array('campaign', 'Eloqua\Api\Assets\Campaign'),
+      array('campaigns', 'Eloqua\Api\Assets\Campaign'),
       array('contact', 'Eloqua\Api\Data\Contact'),
       array('contacts', 'Eloqua\Api\Data\Contact'),
       array('email', 'Eloqua\Api\Assets\Email'),

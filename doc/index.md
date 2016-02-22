@@ -15,6 +15,7 @@ Navigation
   * [Bulk API](customObjects/bulk.md)
 
 ### Assets
+* [Campaigns](campaigns.md)
 * [E-mails](emails.md)
   * [E-mail Deployments](emails/deployments.md)
   * [E-mail Folders](emails/folders.md)

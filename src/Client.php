@@ -59,6 +59,11 @@ class Client
    */
   public function api($name) {
     switch ($name) {
+      case 'campaign':
+      case 'campaigns':
+        $api = new Api\Assets\Campaign($this);
+        break;
+
       case 'contact':
       case 'contacts':
         $api = new Api\Data\Contact($this);
