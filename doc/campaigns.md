@@ -31,7 +31,7 @@ $client->api('campaign')->create(array(
 
 #### Update a campaign with a given ID and array of campaign data
 ```php
-$client->api('email')->update(123, array(
+$client->api('campaign')->update(123, array(
   'folderId' => 123,
   'runAsUserId' => 456,
   'name' => 'Elomentary Test Campaign',

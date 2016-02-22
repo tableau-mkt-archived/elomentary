@@ -15,7 +15,7 @@ use Eloqua\Api\SearchableInterface;
 use Eloqua\Api\UpdateableInterface;
 
 /**
- * Eloqua Email.
+ * Eloqua Campaign.
  */
 class Campaign extends AbstractApi implements SearchableInterface, CreatableInterface, ReadableInterface, DestroyableInterface, UpdateableInterface {
 
