@@ -125,15 +125,15 @@ class CampaignTest extends TestCase {
    * @test
    */
   public function shouldRemoveCampaign() {
-    $email_id = 1337;
+    $campaign_id = 1337;
     $expected_response = array('response');
 
     $api = $this->getApiMock();
     $api->expects($this->once())
       ->method('delete')
-      ->with('assets/campaign/' . $email_id)
+      ->with('assets/campaign/' . $campaign_id)
       ->will($this->returnValue($expected_response));
-    $this->assertEquals($expected_response, $api->remove($email_id));
+    $this->assertEquals($expected_response, $api->remove($campaign_id));
   }
 
   protected function getApiClass() {
