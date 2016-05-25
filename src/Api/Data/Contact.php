@@ -9,6 +9,7 @@ namespace Eloqua\Api\Data;
 
 use Eloqua\Api\AbstractApi;
 use Eloqua\Api\Assets\Contact\Field;
+use Eloqua\Api\Assets\Contact\SharedList;
 use Eloqua\Api\CreatableInterface;
 use Eloqua\Api\Data\Contact\ContactList;
 use Eloqua\Api\Data\Contact\Filter;
@@ -147,6 +148,16 @@ class Contact extends AbstractApi implements CreatableInterface, ReadableInterfa
    */
   public function fields() {
     return new Field($this->client);
+  }
+
+  /**
+   * Returns a shared list client.
+   *
+   * @return \Eloqua\Api\Assets\Contact\SharedList
+   *   A shared list client.
+   */
+  public function sharedLists() {
+    return new SharedList($this->client);
   }
 
   /**
