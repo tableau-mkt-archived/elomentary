@@ -88,6 +88,12 @@ $fields = $client->api('contact')->fields();
 ```
 For more details, see documentation on [contact fields](contacts/fields.md).
 
+#### Search / manage shared lists
+```php
+$lists = $client->api('contact')->sharedLists();
+```
+For more details, see documentation on [shared lists](contacts/shared-lists.md).
+
 #### Bulk operations on Contacts
 ```php
 $bulk_client = $client->api('contact')->bulk();
