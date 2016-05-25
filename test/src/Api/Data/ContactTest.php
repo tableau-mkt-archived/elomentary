@@ -212,6 +212,14 @@ class ContactTest extends TestCase {
   /**
    * @test
    */
+  public function shouldGetSharedLists() {
+    $api = $this->getApiMock();
+    $this->assertInstanceOf('Eloqua\Api\Assets\Contact\SharedList', $api->sharedLists());
+  }
+
+  /**
+   * @test
+   */
   public function shouldGetBulkClient() {
     $api = $this->getApiMock();
     $this->assertInstanceOf('Eloqua\Api\Data\Contact\Bulk', $api->bulk());
