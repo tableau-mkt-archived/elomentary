@@ -22,7 +22,7 @@ class Client
    * @var array
    */
   private $options = array(
-    'base_url' => 'https://secure.eloqua.com/API/REST',
+    'base_url' => 'https://secure.p01.eloqua.com/API/REST',
     'version' => '2.0',
     'user_agent' => 'Elomentary (http://github.com/tableau-mkt/elomentary)',
     'timeout' => 10,

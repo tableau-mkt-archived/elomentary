@@ -45,8 +45,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
   public function getAuthenticationData() {
     return array(
       array('My.Company', 'My.Login', 'Battery.Horse.Staple'),
-      array('My.Company', 'My.Login', 'Battery.Horse.Staple', 'https://secure.eloqua.com/API/REST'),
-      array('My.Company', 'My.Login', 'Battery.Horse.Staple', 'https://secure.eloqua.com/API/REST', '1.0'),
+      array('My.Company', 'My.Login', 'Battery.Horse.Staple', 'https://secure.p01.eloqua.com/API/REST'),
+      array('My.Company', 'My.Login', 'Battery.Horse.Staple', 'https://secure.p01.eloqua.com/API/REST', '1.0'),
     );
   }
 
