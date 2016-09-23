@@ -24,7 +24,7 @@ class HttpClientTest extends \PHPUnit_Framework_TestCase {
 
     $options = $this->getPrivateProperty('Eloqua\HttpClient\HttpClient', 'options')->getValue($httpClient);
     $this->assertEquals(33, $options['timeout']);
-    $this->assertEquals('https://secure.eloqua.com/API/REST', $options['base_url']);
+    $this->assertEquals('https://secure.p01.eloqua.com/API/REST', $options['base_url']);
   }
 
   /**

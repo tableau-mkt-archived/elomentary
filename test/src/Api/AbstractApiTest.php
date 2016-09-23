@@ -195,8 +195,8 @@ class AbstractApiTest extends \PHPUnit_Framework_TestCase {
 
   public function baseUrlTestProvider() {
     return array (
-      array ('Eloqua\Api\AbstractApi', 'https://secure.eloqua.com/API/REST'),
-      array ('Eloqua\Api\AbstractBulkApi', 'https://secure.eloqua.com/API/bulk'),
+      array ('Eloqua\Api\AbstractApi', 'https://secure.p01.eloqua.com/API/REST'),
+      array ('Eloqua\Api\AbstractBulkApi', 'https://secure.p01.eloqua.com/API/bulk'),
     );
   }
 
