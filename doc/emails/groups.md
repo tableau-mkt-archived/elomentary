@@ -56,4 +56,4 @@ $client->api('email')->groups()->create($data);
 $client->api('email')->groups()->dependencies($group_id);
 ```
 
-[all Minimal EmailGroup keys]: http://secure.eloqua.com/api/docs/Static/Rest/2.0/doc.htm#EmailGroup
+[all Minimal EmailGroup keys]: http://secure.p01.eloqua.com/api/docs/Static/Rest/2.0/doc.htm#EmailGroup

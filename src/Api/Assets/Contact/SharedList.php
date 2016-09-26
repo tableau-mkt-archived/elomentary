@@ -55,7 +55,7 @@ class SharedList extends AbstractApi implements CreatableInterface, ReadableInte
   /**
    * {@inheritdoc}
    *
-   * @see http://secure.eloqua.com/api/docs/Static/Rest/2.0/doc.htm#ContactList
+   * @see http://secure.p01.eloqua.com/api/docs/Static/Rest/2.0/doc.htm#ContactList
    */
   public function create($shared_list_data) {
     return $this->post('assets/contact/list', $shared_list_data);
