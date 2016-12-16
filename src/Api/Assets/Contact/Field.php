@@ -55,7 +55,7 @@ class Field extends AbstractApi implements CreatableInterface, ReadableInterface
   /**
    * {@inheritdoc}
    *
-   * @see http://secure.eloqua.com/api/docs/Static/Rest/2.0/doc.htm#ContactField
+   * @see http://secure.p01.eloqua.com/api/docs/Static/Rest/2.0/doc.htm#ContactField
    */
   public function create($field_data) {
     return $this->post('assets/contact/field', $field_data);

@@ -39,4 +39,4 @@ $client->api('email')->deployments()->show($deployment_id, 'partial');
 $client->api('email')->deployments()->create($data);
 ```
 
-[all Minimal EmailDeployment keys]: http://secure.eloqua.com/api/docs/Static/Rest/2.0/doc.htm#EmailDeployment
+[all Minimal EmailDeployment keys]: http://secure.p01.eloqua.com/api/docs/Static/Rest/2.0/doc.htm#EmailDeployment

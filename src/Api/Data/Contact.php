@@ -65,7 +65,7 @@ class Contact extends AbstractApi implements CreatableInterface, ReadableInterfa
    * {@inheritdoc}
    *
    * @throws InvalidArgumentException
-   * @see http://secure.eloqua.com/api/docs/Static/Rest/2.0/doc.htm#Contact
+   * @see http://secure.p01.eloqua.com/api/docs/Static/Rest/2.0/doc.htm#Contact
    */
   public function create($contact_data) {
     if (!isset($contact_data['emailAddress'])) {

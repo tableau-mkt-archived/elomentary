@@ -55,7 +55,7 @@ class Group extends AbstractApi implements CreatableInterface, ReadableInterface
   /**
    * {@inheritdoc}
    *
-   * @see http://secure.eloqua.com/api/docs/Static/Rest/2.0/doc.htm#EmailGroup
+   * @see http://secure.p01.eloqua.com/api/docs/Static/Rest/2.0/doc.htm#EmailGroup
    */
   public function create($group_data) {
     return $this->post('assets/email/group', $group_data);

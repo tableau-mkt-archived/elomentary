@@ -36,4 +36,4 @@ $client->api('contact')->subscriptions($contact_id)->update($group_id, $data);
 Note that `$data` must include [all Minimal ContactEmailSubscription keys];
 partial data will not suffice.
 
-[all Minimal ContactEmailSubscription keys]: http://secure.eloqua.com/api/docs/Static/Rest/2.0/doc.htm#ContactEmailSubscription
+[all Minimal ContactEmailSubscription keys]: http://secure.p01.eloqua.com/api/docs/Static/Rest/2.0/doc.htm#ContactEmailSubscription

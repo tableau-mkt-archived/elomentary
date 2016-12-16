@@ -54,4 +54,4 @@ $client->api('contact')->fields()->create($data);
 $client->api('contact')->fields()->dependencies($field_id);
 ```
 
-[all Minimal ContactField keys]: http://secure.eloqua.com/api/docs/Static/Rest/2.0/doc.htm#ContactField
+[all Minimal ContactField keys]: http://secure.p01.eloqua.com/api/docs/Static/Rest/2.0/doc.htm#ContactField
