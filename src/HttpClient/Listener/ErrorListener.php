@@ -38,7 +38,10 @@ class ErrorListener {
     if ($response->isClientError() || $response->isServerError()) {
       $content = ResponseMediator::getContent($response);
 
-      if (is_array($content)) {
+      if (empty($content)) {
+        throw new RuntimeException($response->getReasonPhrase(), $response->getStatusCode());
+      }
+      elseif (is_array($content)) {
         $error = $content[0];
         if (400 == $response->getStatusCode()) {
           if (isset($error['property']) && isset($error['requirement'])) {
