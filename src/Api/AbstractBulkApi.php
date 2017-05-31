@@ -204,7 +204,7 @@ abstract class AbstractBulkApi extends AbstractApi {
 
     if (isset($limit) && isset($offset) && $limit > 0 && $offset >= 0){
       return $this->get("$uri/data?limit=$limit?offset=$offset");
-    } elseif (isset($limit) && !isset($offset) && $limit > 0)) {
+    } elseif (isset($limit) && !isset($offset) && $limit > 0) {
       return $this->get("$uri/data?limit=$limit");
     } else {
       return $this->get("$uri/data");
