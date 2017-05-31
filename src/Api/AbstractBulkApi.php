@@ -178,20 +178,39 @@ abstract class AbstractBulkApi extends AbstractApi {
   }
 
   /**
-   * Downloads a file from the staging area.
+   * Retrieves data from the staging area.
    *
    * @param array $statusResponse
    *   Response from $this->status call.  Defaults to last $this->status()
    *   response.
    *
+   * @param integer $limit
+   *   A URL parameter that specifies the maximum number of records to return. 
+   *   This can be any positive integer between 1 and 50000 inclusive.
+   *   If not specified, eloqua will automatically default to 1000.
+   *
+   * @param integer $offset
+   *   Specifies an offset that allows you to retrieve the next batch of records.
+   *   For example, if your limit is 1000, specifying an offset of 1000 will return
+   *   records 1000 through 2000. If not specified, eloqua will automatically default to 0.
+   *   (Any positive integer).
+   * 
    * @return array
    *   Download response, including records matched from mapping() call.
    */
-  public function download($statusResponse = null) {
+  public function download($statusResponse = null, $limit = null, $offset = null) {
     $statusResponse = $this->getResponse('status', $statusResponse);
     $uri = trim($statusResponse['syncedInstanceUri'], '/');
 
-    return $this->get("$uri/data");
+    if (isset($limit) && isset($offset) && $limit > 0 && $offset >= 0){
+      return $this->get("$uri/data?limit=$limit?offset=$offset");
+    } elseif (isset($limit) && !isset($offset) && $limit > 0) {
+      return $this->get("$uri/data?limit=$limit");
+    } elseif (!isset($limit) && isset($offset) && $offset >= 0) {
+      return $this->get("$uri/data?offset=$offset");      
+    } else {
+      return $this->get("$uri/data");
+    }  
   }
 
   /**
