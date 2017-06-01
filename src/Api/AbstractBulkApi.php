@@ -203,7 +203,7 @@ abstract class AbstractBulkApi extends AbstractApi {
     $uri = trim($statusResponse['syncedInstanceUri'], '/');
 
     if (isset($limit) && isset($offset) && $limit > 0 && $offset >= 0){
-      return $this->get("$uri/data?limit=$limit?offset=$offset");
+      return $this->get("$uri/data?limit=$limit&offset=$offset");
     } elseif (isset($limit) && !isset($offset) && $limit > 0) {
       return $this->get("$uri/data?limit=$limit");
     } elseif (!isset($limit) && isset($offset) && $offset >= 0) {
