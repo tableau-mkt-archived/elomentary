@@ -205,7 +205,14 @@ abstract class AbstractApi implements ApiInterface {
    * @return null|string
    */
   protected function createJsonBody($parameters) {
-    return (count($parameters) === 0) ? null : json_encode($parameters, empty($parameters) ? JSON_FORCE_OBJECT : 0);
+    $json_options = empty($parameters) ? JSON_FORCE_OBJECT : 0;
+
+    // Available as of PHP 5.4.0
+    if (defined('JSON_UNESCAPED_UNICODE')) {
+      $json_options = $json_options | JSON_UNESCAPED_UNICODE;
+    }
+
+    return (count($parameters) === 0) ? null : json_encode($parameters, $json_options);
   }
 
   /**
